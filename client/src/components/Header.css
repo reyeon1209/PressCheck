@@ -1,0 +1,57 @@
+body{
+    margin: 0;
+}
+
+.sns {
+    height: 2rem;
+    border-bottom: thin solid #B6B6B6;
+}
+
+.logo {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 3.5rem;
+    background-color: white;
+    width: 100vw;
+    line-height: 3.5rem;
+    color: black;
+    font-size: 4rem;
+    font-weight: bold;
+    font-style: italic;
+    justify-content: center;
+    text-align: center;
+}
+
+.menu {
+    background-color: #212529;
+    height: 3.5rem;
+    text-decoration: none;
+    padding-left: 1.2rem;
+    border-top: 0.8rem solid #4DB2EC;
+}
+
+.menu-item {
+    display: inline-block;
+    color: white;
+    font-size: 1.3rem;
+    line-height: 3.5rem;
+    width: 10%;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    text-decoration: none;
+}
+
+.menu-item:visited {
+    text-decoration: none;
+}
+
+.menu-item:hover {
+    background-color: #FFFFFF;
+    color: #000000;
+    font-weight: bold;
+}
+
+.menu-item:active {
+    background-color: #FFFFFF;
+}
