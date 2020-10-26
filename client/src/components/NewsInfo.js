@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {ReactComponent as Empty} from '../assets/images/email.svg';
+import {ReactComponent as Empty} from '../assets/images/analyze.svg';
 import './News.css';
 
 class NewsInfo extends Component {
