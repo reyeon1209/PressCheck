@@ -9,7 +9,7 @@ class NewsInfoList extends Component {
     render() {
         const { data } = this.props;
         const list = data.map(
-            info => (<NewsInfo key={info.id} info={info} />)
+            info => (<NewsInfo info={info} />)
         );
 
         return (

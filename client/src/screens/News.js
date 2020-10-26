@@ -3,7 +3,6 @@ import NewsInfoList from '../components/NewsInfoList';
 
 
 class News extends Component {
-    id = 0;
     state = {
         information: [
             {
@@ -13,7 +12,7 @@ class News extends Component {
                 title: '제목1',
                 content: '뉴스 내용1',
                 updated: '뉴스업로드시간1',
-                keyword: [],
+                keyword: ['#키워드1'],
                 summary: []
             },
             {
@@ -23,7 +22,7 @@ class News extends Component {
                 title: '제목2',
                 content: '뉴스 내용2',
                 updated: '뉴스업로드시간2',
-                keyword: [],
+                keyword: ['#키워드2'],
                 summary: []
             }
         ]
@@ -31,12 +30,13 @@ class News extends Component {
     handleCreate = (data) => {
         const { information } = this.state;
         this.setState({
-            information: information.concat({ id: this.id++, ...data })
+            information: information.concat({ ...data })
         })
     }
     render() {
         return (
             <div>
+                <div className='aggregate'>※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
                 <NewsInfoList data={this.state.information} />
             </div>
         );

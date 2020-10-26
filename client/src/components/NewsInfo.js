@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {ReactComponent as Empty} from '../assets/images/email.svg';
 import './News.css';
 
 class NewsInfo extends Component {
@@ -16,12 +17,18 @@ class NewsInfo extends Component {
     }
 
     render() {
-        const {id, category, press, title, content} = this.props.info;
+        // eslint-disable-next-line
+        const {press, title, content, keyword} = this.props.info;
 
         return (
             <div className='newsinfo'>
-                <div><b>[{id}] {press}: {category} - {title}</b></div>
-                <div>{content}</div>
+                <div className='thumbnail'><Empty /></div>
+                <div className='content'>
+                    <div>{press}</div>
+                    <div><b>{title}</b></div>
+                    <div>{content}</div>
+                    <div className='keyword'>{keyword}</div>
+                </div>        
             </div>
         );
     }
