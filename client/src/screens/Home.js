@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Temp from '../components/Temp';
 
-const Home = () => {
-    return (
-        <div>
-            <Temp>홈</Temp>
-        </div>
-    );
-};
-
+class Home extends Component {
+    render() {
+        return (
+            <div>
+                <Temp>Todays</Temp>
+            </div>
+        );
+    }
+} 
 export default Home;

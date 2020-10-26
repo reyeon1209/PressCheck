@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Temp from '../components/Temp';
 
-const Todays = () => {
-    return (
-        <div>
-            <Temp>Todays</Temp>
-        </div>
-    );
-};
 
+class Todays extends Component {
+    render() {
+        return (
+            <div>
+                <Temp>Todays</Temp>
+            </div>
+        );
+    }
+} 
 export default Todays;
