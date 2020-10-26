@@ -1,14 +1,24 @@
 import React, { Component } from 'react';
 import NewsInfoList from '../components/NewsInfoList';
-import Checkbox from '../components/Checkbox';
+import Checkbox from '../components/PressCheckbox';
 import '../components/Checkbox.css'
+
+import Josun from '../assets/images/press_josun.png';
+import Jungang from '../assets/images/press_jungang.png';
+import Donga from '../assets/images/press_donga.png';
+import KBS from '../assets/images/press_kbs.png';
+import SBS from '../assets/images/press_sbs.png';
+import Kukmin from '../assets/images/press_kukmin.png';
+import Yeonhap from '../assets/images/press_yeonhap.png';
+
 
 class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            checked: false,
             press: [
-                { id: 1, value: "josun", isChecked: true },
+                { id: 1, value: "josun", isChecked: false },
                 { id: 2, value: "jungang", isChecked: false },
                 { id: 3, value: "donga", isChecked: false },
                 { id: 4, value: "kbs", isChecked: false },
@@ -40,16 +50,29 @@ class News extends Component {
             ]
         };
     }
-    
+
     handleCheckChieldElem = (event) => {
         let press = this.state.press;
         press.forEach(press => {
+
             if (press.value === event.target.value)
                 press.isChecked = event.target.checked
         })
-        this.setState({press: press})
+        this.setState({ press: press })
     }
 
+    handleCheckChange = (event) => {
+        let press = this.state.press;
+        press.forEach(press => {
+            if (press.value === event.target.value)
+                press.isChecked = true
+            else
+                press.isChecked = false
+        })
+        this.setState({ press: press })
+    }
+
+    // handling: create news list, dynamic
     handleCreate = (data) => {
         const { information } = this.state.information;
         this.setState({
@@ -60,11 +83,11 @@ class News extends Component {
     render() {
         return (
             <div>
-                <div>
+                <div className='allcheck'>
                     <ul>
                         {
                             this.state.press.map((press) => {
-                                return (<Checkbox handleCheckChieldElement={this.handleCheckChieldElement} { ...press } />)
+                                return (<Checkbox handleCheckChieldElement={this.handleCheckChieldElement} {...press} />)
                             })
                         }
                     </ul>
