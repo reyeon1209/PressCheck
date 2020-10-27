@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import NewsInfoList from '../components/NewsInfoList';
-import Checkbox from '../components/PressCheckbox';
-import '../components/Checkbox.css'
+import NewsInfoList from '../components/News/NewsInfoList';
+import '../components/News.css'
 
 import Josun from '../assets/images/press_josun.png';
 import Jungang from '../assets/images/press_jungang.png';
@@ -11,21 +10,11 @@ import SBS from '../assets/images/press_sbs.png';
 import Kukmin from '../assets/images/press_kukmin.png';
 import Yeonhap from '../assets/images/press_yeonhap.png';
 
-
 class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            checked: false,
-            press: [
-                { id: 1, value: "josun", isChecked: false },
-                { id: 2, value: "jungang", isChecked: false },
-                { id: 3, value: "donga", isChecked: false },
-                { id: 4, value: "kbs", isChecked: false },
-                { id: 5, value: "sbs", isChecked: false },
-                { id: 6, value: "kukmin", isChecked: false },
-                { id: 7, value: "yeonhap", isChecked: false },
-            ],
+            current: 'josun',
             information: [
                 {
                     id: 0,
@@ -49,49 +38,38 @@ class News extends Component {
                 }
             ]
         };
+        this.pressClickHandler = this.pressClickHandler.bind(this);
     }
 
-    handleCheckChieldElem = (event) => {
-        let press = this.state.press;
-        press.forEach(press => {
-
-            if (press.value === event.target.value)
-                press.isChecked = event.target.checked
-        })
-        this.setState({ press: press })
-    }
-
-    handleCheckChange = (event) => {
-        let press = this.state.press;
-        press.forEach(press => {
-            if (press.value === event.target.value)
-                press.isChecked = true
-            else
-                press.isChecked = false
-        })
-        this.setState({ press: press })
-    }
-
-    // handling: create news list, dynamic
-    handleCreate = (data) => {
-        const { information } = this.state.information;
-        this.setState({
-            information: information.concat({ ...data })
-        })
+    pressClickHandler(data) {
+        console.log(data);
+        this.setState({ current: data });
     }
 
     render() {
         return (
             <div>
-                <div className='allcheck'>
-                    <ul>
-                        {
-                            this.state.press.map((press) => {
-                                return (<Checkbox handleCheckChieldElement={this.handleCheckChieldElement} {...press} />)
-                            })
-                        }
-                    </ul>
-                </div>
+                <table>
+                    <caption className="table-title"><a href = '../todays'>DATA ></a></caption>
+                    <tr>
+                        <th className="table-content-title">카테고리</th>
+                        <th className="table-content-content">카테고리뚜따따/아래뉴스리스트이미지는아무거나넣은거</th>
+                    </tr>
+                    <tr>
+                        <th className="table-content-title">언론사</th>
+                        <th className="table-content-content">
+                            <div className='button-press'>
+                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun" alt="josun" /></button>
+                                <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang" alt="jungang" /></button>
+                                <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga" alt="donga" /></button>
+                                <button><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" alt="kbs" /></button>
+                                <button><img src={SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" alt="sbs" /></button>
+                                <button><img src={Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" alt="kukmin" /></button>
+                                <button><img src={Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" alt="yeonhap" /></button>
+                            </div>
+                        </th>
+                    </tr>
+                </table>
                 <div className='aggregate'>※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
                 <NewsInfoList data={this.state.information} />
             </div>
