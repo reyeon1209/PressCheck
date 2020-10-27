@@ -23,11 +23,11 @@ class NewsInfo extends Component {
         return (
             <div className='newsinfo'>
                 <div className='thumbnail'><Empty /></div>
-                <div className='content'>
+                <div className='news-content'>
                     <div>{press}</div>
                     <div><b>{title}</b></div>
                     <div>{content}</div>
-                    <div className='keyword'>{keyword}</div>
+                    <div className='news-keyword'>{keyword}</div>
                 </div>        
             </div>
         );

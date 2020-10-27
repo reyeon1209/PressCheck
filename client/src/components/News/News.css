@@ -1,3 +1,4 @@
+/* news list */
 .aggregate {
     margin-left: 5%;
     margin-right: 5%;
@@ -6,11 +7,9 @@
 }
 
 .newsinfo {
-    padding: 8px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    padding: 1%;
+    margin: 0.5%;
     margin-left: 5%;
-    margin-right: 5%;
     width: 90vw;
     height: 9vh;
 }
@@ -23,10 +22,76 @@
     max-width: 20%;
 }
 
-.content {
-    font-size: 1.2em;
+.news-content {
+    font-size: 1rem;
 }
 
-.keyword {
+.news-keyword {
     color: #4db2ec;
+}
+
+
+/* category, press */
+
+table {
+    margin-top: 1rem;
+    margin-left: 15%;
+    margin-right: 12%;
+    border-collapse:collapse;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+tr {
+    background-color: #ebebeb;
+}
+
+a { 
+    text-decoration: none; 
+    color: white; 
+}
+a:visited { 
+    text-decoration: none; 
+}
+a:hover { 
+    text-decoration: none; 
+}
+a:focus { 
+    text-decoration: none; 
+}
+a:hover, a:active { 
+    text-decoration: none; 
+}
+
+.table-title {
+    background-color: #00598D;
+    max-height: 100;
+    color: white;
+    font-size: 1.2rem;
+    text-align: right;
+    padding-right: 3%;
+}
+
+.table-content-title {
+    width: 15%;
+}
+
+.table-content-content {
+}
+
+.button-press{
+    float: left;
+}
+
+img {
+    max-width: 100%;
+}
+
+button {
+    max-width: 10%;
+    border: 0;
+    outline: 0;
+    background-color: transparent !important;
+    cursor: pointer;
+    margin-right: 2%;
 }

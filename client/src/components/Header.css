@@ -3,19 +3,19 @@ body{
 }
 
 .sns {
-    height: 2rem;
+    height: 1.2rem;
     border-bottom: thin solid #B6B6B6;
 }
 
 .logo {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.2rem;
+    margin-bottom: 1.2rem;
     height: 3.5rem;
     background-color: white;
     width: 100vw;
     line-height: 3.5rem;
     color: black;
-    font-size: 4rem;
+    font-size: 3rem;
     font-weight: bold;
     font-style: italic;
     justify-content: center;
@@ -24,19 +24,19 @@ body{
 
 .menu {
     background-color: #212529;
-    height: 3.5rem;
+    height: 3rem;
     margin-left: 5%;
-    margin-right: 5%;
+    margin-right: 8%;
     padding-left: 1.2rem;
-    border-top: 0.8rem solid #4DB2EC;
+    border-top: 0.5rem solid #4DB2EC;
     width: 90%;
 }
 
 .menu-item {
     display: inline-block;
     color: white;
-    font-size: 1.3rem;
-    line-height: 3.5rem;
+    font-size: 1.2rem;
+    line-height: 2.8rem;
     width: 10%;
     text-align: center;
     cursor: pointer;

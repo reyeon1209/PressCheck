@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import NewsInfoList from '../components/News/NewsInfoList';
-import '../components/News.css'
+import '../components/News/News.css'
 
 import Josun from '../assets/images/press_josun.png';
 import Jungang from '../assets/images/press_jungang.png';
@@ -9,6 +9,7 @@ import KBS from '../assets/images/press_kbs.png';
 import SBS from '../assets/images/press_sbs.png';
 import Kukmin from '../assets/images/press_kukmin.png';
 import Yeonhap from '../assets/images/press_yeonhap.png';
+
 
 class News extends Component {
     constructor(props) {
@@ -35,6 +36,16 @@ class News extends Component {
                     updated: '뉴스업로드시간2',
                     keyword: ['#키워드2'],
                     summary: []
+                },
+                {
+                    id: 0,
+                    category: '아악',
+                    press: '뉴스3',
+                    title: '제목3',
+                    content: '뉴스 내용3',
+                    updated: '뉴스업로드시간3',
+                    keyword: ['#키워드3 ', '#키워드4'],
+                    summary: []
                 }
             ]
         };
@@ -59,13 +70,13 @@ class News extends Component {
                         <th className="table-content-title">언론사</th>
                         <th className="table-content-content">
                             <div className='button-press'>
-                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun" alt="josun" /></button>
-                                <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang" alt="jungang" /></button>
-                                <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga" alt="donga" /></button>
-                                <button><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" alt="kbs" /></button>
-                                <button><img src={SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" alt="sbs" /></button>
-                                <button><img src={Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" alt="kukmin" /></button>
-                                <button><img src={Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" alt="yeonhap" /></button>
+                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun"/></button>
+                                <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
+                                <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
+                                <button><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
+                                <button><img src={SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
+                                <button><img src={Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
+                                <button><img src={Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
                             </div>
                         </th>
                     </tr>
