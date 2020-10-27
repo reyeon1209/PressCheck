@@ -1,6 +1,40 @@
-.today-background {
+.todays-background {
     background-color: #f9f9f9;
     margin-left: 5%;
     margin-right: 5%;
     height: 100%;
+}
+
+.tabs {
+    float: left;
+    margin-left: 0.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
+
+.tab-clear {
+    list-style: none;
+}
+
+.keyword-box {
+    float: left;
+    width: 25%;
+}
+
+.keyword-fix {
+    border-top-left-radius: 20%;
+    border-top-right-radius: 20%;
+    background-color: #5ca2e5;
+    color: white;
+}
+
+.keyword-fix-title {
+    float: left;
+}
+
+.keyword-change {
+    background-color: white;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
 }
