@@ -28,6 +28,9 @@
 .style-float-left {
     float: left;
 }
+.style-time-keyword {
+    width: 100%;
+}
 
 .keywords {
     display: block;
@@ -39,8 +42,8 @@
 
 .keyword-box {
     float: left;
-    min-width: 18%;
-    max-width: 18%;
+    min-width: 20%;
+    max-width: 20%;
     margin-left: 3%;
     margin-right: 3%
 }
@@ -85,8 +88,9 @@
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     background-color: #5ca2e5;
-    min-width: 25%;
-    max-width: 25%;
+    min-width: 20%;
+    max-width: 20%;
+    padding-left: 3%;
     color: white;
 }
 
@@ -107,4 +111,20 @@
     height: 3.3vw;
     text-align: center;
     vertical-align: middle;
+}
+
+.today-title {
+    font-weight: bold;
+}
+
+.time-keyword-left {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.time-keyword-right {
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
 }

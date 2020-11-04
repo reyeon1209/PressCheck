@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import { Line } from 'react-chartjs-2';
 import './Todays.css';
 
-const options = {
-    legend: {display: false},
-    maintainAspectRatio: false
-}
-
 class KeywordChart extends Component {
     render() {
         const data = {
@@ -14,7 +9,7 @@ class KeywordChart extends Component {
             datasets: [
                 {
                     label: false,
-                    fill: false,
+                    fill: true,
                     lineTension: 0.1,
                     backgroundColor: 'rgba(75,192,192,0.4)',
                     borderColor: 'rgba(75,192,192,1)',
@@ -36,13 +31,21 @@ class KeywordChart extends Component {
             ]
         }
 
+        const options = {
+            legend: { display: false },
+            maintainAspectRatio: false,
+            responsive:false 
+        }
+
         return (
+            <div style={{width: '500px', position: "relative"}}>
             <Line
                 data={data}
-                width={200}
-                height={30}
+                width={500}
+                height={300}
                 options={options}
             />
+            </div>
         );
     }
 }

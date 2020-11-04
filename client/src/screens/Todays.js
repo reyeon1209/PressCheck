@@ -86,17 +86,16 @@ class Todays extends Component {
                 <div className="style-clear"></div>
                 <div className="todays-background">
                     <div className="style-clear"></div>
-                    <div>오늘의 키워드</div>
+                    <div className="today-title">오늘의 키워드</div>
                     <div className="keywords"><KeywordInfoList data={this.state.todayKeywords} /></div>
                     <div className="style-clear"></div>
-                    <div>시간별 주요 키워드 추이</div>
-                    <div className="style-float-left">
-                        <div className="style-clear"></div>
-                        <KeywordChart className="style-float-left" keywordsData={this.state.todayKeywordGraph} />
-                        <TimeKeywordList data={this.state.timeKeywords} />
+                    <div className="today-title">시간별 주요 키워드 추이</div>
+                    <div >
+                        <KeywordChart keywordsData={this.state.todayKeywordGraph} />
+                        <TimeKeywordList style={{float: "right"}} data={this.state.timeKeywords} />
                     </div>
                     <div className="style-clear"></div>
-                    <div>오늘의 주요 기사 요약</div>
+                    <div className="today-title">오늘의 주요 기사 요약</div>
                     <SummaryList data={this.state.todayArticles} />
                     <div className="style-clear"></div>
                 </div>
@@ -104,4 +103,5 @@ class Todays extends Component {
         );
     }
 }
+
 export default Todays;
