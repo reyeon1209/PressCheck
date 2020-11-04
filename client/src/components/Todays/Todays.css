@@ -25,6 +25,10 @@
     clear: both;
 }
 
+.style-float-left {
+    float: left;
+}
+
 .keywords {
     display: block;
 }
@@ -90,4 +94,17 @@
     float: left;
     background-color: white;
     min-height: 50px;
+}
+
+.timeKeyword-title {
+    color: white;
+    background-color: #5ca2e5;
+}
+
+.timeKeyword-content {
+    background-color: white;
+    font-size: 1.3rem;
+    height: 3.3vw;
+    text-align: center;
+    vertical-align: middle;
 }

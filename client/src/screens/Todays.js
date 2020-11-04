@@ -1,34 +1,10 @@
 import React, { Component } from 'react';
 import KeywordInfoList from '../components/Todays/KeywordInfoList';
 import SummaryList from '../components/Todays/SummaryList';
-import { Line } from 'react-chartjs-2';
+import TimeKeywordList from '../components/Todays/TimeKeywordList';
+import KeywordChart from '../components/Todays/KeywordChart';
+import '../components/Todays/Todays.css';
 
-const data = {
-    labels: ['0시', '6시', '12시', '18시', '24시'],
-    datasets: [
-        {
-            label: false,
-            fill: true,
-            lineTension: 0.1,
-            backgroundColor: 'rgba(75,192,192,0.4)',
-            borderColor: 'rgba(75,192,192,1)',
-            borderCapStyle: 'butt',
-            borderDash: [],
-            borderDashOffset: 0.0,
-            borderJoinStyle: 'miter',
-            pointBorderColor: 'rgba(75,192,192,1)',
-            pointBackgroundColor: '#fff',
-            pointBorderWidth: 1,
-            pointHoverRadius: 5,
-            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
-            pointHoverBorderColor: 'rgba(220,220,220,1)',
-            pointHoverBorderWidth: 2,
-            pointRadius: 1,
-            pointHitRadius: 10,
-            data: [0, 59, 80, 81, 0]
-        }
-    ]
-};
 
 
 class Todays extends Component {
@@ -58,17 +34,22 @@ class Todays extends Component {
                     keyword: '#키워드3',
                 }
             ],
-            todayChart: [
+            todayKeywordGraph: [0, 10, 30, 20, 0],
+            timeKeywords: [
                 {
+                    title: '0시 ~ 6시',
                     keyword: ['#언텍트1', '#메이플스토리m1', '#추석1', '#단풍1', '#미술관1']
                 },
                 {
+                    title: '6시 ~ 12시',
                     keyword: ['#언텍트2', '#메이플스토리m2', '#추석2', '#단풍2', '#미술관2']
                 },
                 {
+                    title: '12시 ~ 18시',
                     keyword: ['#언텍트3', '#메이플스토리m3', '#추석3', '#단풍3', '#미술관3']
                 },
                 {
+                    title: '18시 ~ 24시',
                     keyword: ['#언텍트4', '#메이플스토리m4', '#추석4', '#단풍4', '#미술관4']
                 }
             ],
@@ -108,8 +89,12 @@ class Todays extends Component {
                     <div>오늘의 키워드</div>
                     <div className="keywords"><KeywordInfoList data={this.state.todayKeywords} /></div>
                     <div className="style-clear"></div>
-                    <div>시간별 주요 키워드</div>
-                    <Line data={data} />
+                    <div>시간별 주요 키워드 추이</div>
+                    <div className="style-float-left">
+                        <div className="style-clear"></div>
+                        <KeywordChart className="style-float-left" keywordsData={this.state.todayKeywordGraph} />
+                        <TimeKeywordList data={this.state.timeKeywords} />
+                    </div>
                     <div className="style-clear"></div>
                     <div>오늘의 주요 기사 요약</div>
                     <SummaryList data={this.state.todayArticles} />

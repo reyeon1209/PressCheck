@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import Keyword from './KeywordInfo';
-import './Todays.css';
+import TimeKeyword from './TimeKeyword';
 
-class KeywordInfoList extends Component {
+class TimeKeywordList extends Component {
     static defaultProps = {
         data: []
     }
@@ -10,7 +9,7 @@ class KeywordInfoList extends Component {
     render() {
         const { data } = this.props;
         const list = data.map(
-            info => (<Keyword info={info} />)
+            info => (<TimeKeyword info={info} />)
         );
 
         return (
@@ -21,4 +20,4 @@ class KeywordInfoList extends Component {
     }
 }
 
-export default KeywordInfoList;
+export default TimeKeywordList;
