@@ -2,7 +2,6 @@
     background-color: #f9f9f9;
     margin-left: 5%;
     margin-right: 5%;
-    height: 100%;
 }
 
 .tabs {
@@ -14,27 +13,81 @@
     cursor: pointer;
 }
 
+.tab-margin {
+    margin-left: 2%;
+}
+
 .tab-clear {
     list-style: none;
 }
 
+.style-clear {
+    clear: both;
+}
+
+.keywords {
+    display: block;
+}
+
+.keyword-align {
+    margin-left: 23%;
+}
+
 .keyword-box {
     float: left;
-    width: 25%;
+    min-width: 18%;
+    max-width: 18%;
+    margin-left: 3%;
+    margin-right: 3%
 }
 
 .keyword-fix {
-    border-top-left-radius: 20%;
-    border-top-right-radius: 20%;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
     background-color: #5ca2e5;
     color: white;
 }
 
 .keyword-fix-title {
     float: left;
+    padding-left: 3%;
+    padding-top: 3%;
+}
+
+.keyword-fix-date {
+    padding-left: 3%;
+    padding-top: 3%;
+    text-align: right;
+    padding-right: 0.2vw;
+    font-size: 0.7rem;
 }
 
 .keyword-change {
     background-color: white;
+    font-size: 1.3rem;
+    height: 3.3vw;
+    text-align: center;
+    vertical-align: middle;
     box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.summary-box {
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+    margin: 0 auto;
+}
+
+.summary-left {
+    float: left;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    background-color: #5ca2e5;
+    min-width: 25%;
+    max-width: 25%;
+    color: white;
+}
+
+.summary-right {
+    float: left;
+    background-color: white;
+    min-height: 50px;
 }

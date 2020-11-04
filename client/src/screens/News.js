@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NewsInfoList from '../components/News/NewsInfoList';
-import '../components/News/News.css'
+
+import '../components/News/News.css';
 
 import Josun from '../assets/images/press_josun.png';
 import Jungang from '../assets/images/press_jungang.png';
@@ -15,7 +16,14 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            current: 'josun',
+            isAll: true,
+            isPolitics: true,
+            isSociety: true,
+            isEconomy: true,
+            isInternation: true,
+            isSports: true,
+            isCulture: true,
+            press: 'josun',
             information: [
                 {
                     id: 0,
@@ -50,29 +58,119 @@ class News extends Component {
             ]
         };
         this.pressClickHandler = this.pressClickHandler.bind(this);
+        this.categoryAllClickHandler = this.categoryAllClickHandler.bind(this);
+        this.categoryPoliticsClickHandler = this.categoryPoliticsClickHandler.bind(this);
+        this.categorySocietyClickHandler = this.categorySocietyClickHandler.bind(this);
+        this.categoryEconomyClickHandler = this.categoryEconomyClickHandler.bind(this);
+        this.categoryInternationClickHandler = this.categoryInternationClickHandler.bind(this);
+        this.categorySportsClickHandler = this.categorySportsClickHandler.bind(this);
+        this.categoryCultureClickHandler = this.categoryCultureClickHandler.bind(this);
     }
 
-    pressClickHandler(data) {
-        console.log(data);
-        this.setState({ current: data });
+    pressClickHandler(e) {
+        console.log(e);
+        this.setState({ press: e });
+    }
+
+    categoryAllClickHandler() {
+        this.setState(initialState => ({
+            isAll: true,
+            isPolitics: true,
+            isSociety: true,
+            isEconomy: true,
+            isInternation: true,
+            isSports: true,
+            isCulture: true
+        }));
+    }
+
+    categoryPoliticsClickHandler() {
+        this.setState(initialState => ({
+            isAll: false,
+            isPolitics: !initialState.isPolitics
+        }));
+    }
+
+    categorySocietyClickHandler() {
+        this.setState(initialState => ({
+            isAll: false,
+            isSociety: !initialState.isSociety
+        }));
+    }
+
+    categoryEconomyClickHandler() {
+        this.setState(initialState => ({
+            isAll: false,
+            isEconomy: !initialState.isEconomy
+        }));
+    }
+
+    categoryInternationClickHandler() {
+        this.setState(initialState => ({
+            isAll: false,
+            isInternation: !initialState.isInternation
+        }));
+    }
+
+    categorySportsClickHandler() {
+        this.setState(initialState => ({
+            isAll: false,
+            isSports: !initialState.isSports
+        }));
+    }
+
+    categoryCultureClickHandler() {
+        this.setState(initialState => ({
+            isAll: false,
+            isCulture: !initialState.isCulture
+        }));
     }
 
     render() {
         return (
             <div>
                 <table>
-                    <caption className="table-title"><a href = '../todays'>DATA ></a></caption>
+                    <caption className="table-title"><a href='../todays'>DATA &gt;</a></caption>
                     <tr>
                         <th className="table-content-title">카테고리</th>
-                        <th className="table-content-content">카테고리뚜따따/아래뉴스리스트이미지는아무거나넣은거</th>
+                        <th className="table-content-content">
+                            <input type="checkbox"
+                                checked={this.state.isAll}
+                                onChange={this.categoryAllClickHandler}
+                            /> 전체
+                            <input type="checkbox"
+                                checked={this.state.isPolitics}
+                                onChange={this.categoryPoliticsClickHandler}
+                            /> 정치
+                            <input type="checkbox"
+                                checked={this.state.isSociety}
+                                onChange={this.categorySocietyClickHandler}
+                            /> 사회
+                            <input type="checkbox"
+                                checked={this.state.isEconomy}
+                                onChange={this.categoryEconomyClickHandler}
+                            /> 경제
+                            <input type="checkbox"
+                                checked={this.state.isInternation}
+                                onChange={this.categoryInternationClickHandler}
+                            /> 국제
+                            <input type="checkbox"
+                                checked={this.state.isSports}
+                                onChange={this.categorySportsClickHandler}
+                            /> 스포츠
+                            <input type="checkbox"
+                                checked={this.state.isCulture}
+                                onChange={this.categoryCultureClickHandler}
+                            /> 문화
+                        </th>
                     </tr>
                     <tr>
                         <th className="table-content-title">언론사</th>
                         <th className="table-content-content">
                             <div className='button-press'>
-                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun"/></button>
-                                <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
-                                <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
+                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun" /></button>
+                                <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang" /></button>
+                                <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga" /></button>
                                 <button><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
                                 <button><img src={SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
                                 <button><img src={Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>

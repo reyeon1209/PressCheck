@@ -83,6 +83,10 @@ a:hover, a:active {
     float: left;
 }
 
+.button-press{
+    float: left;
+}
+
 img {
     max-width: 100%;
 }

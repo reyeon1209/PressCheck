@@ -1,49 +1,122 @@
 import React, { Component } from 'react';
-import DataCategories from '../components/CommonData/DataCategories';
-import Tabs from '../components/Todays/Tabs';
 import KeywordInfoList from '../components/Todays/KeywordInfoList';
+import SummaryList from '../components/Todays/SummaryList';
+import { Line } from 'react-chartjs-2';
+
+const data = {
+    labels: ['0시', '6시', '12시', '18시', '24시'],
+    datasets: [
+        {
+            label: false,
+            fill: true,
+            lineTension: 0.1,
+            backgroundColor: 'rgba(75,192,192,0.4)',
+            borderColor: 'rgba(75,192,192,1)',
+            borderCapStyle: 'butt',
+            borderDash: [],
+            borderDashOffset: 0.0,
+            borderJoinStyle: 'miter',
+            pointBorderColor: 'rgba(75,192,192,1)',
+            pointBackgroundColor: '#fff',
+            pointBorderWidth: 1,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+            pointHoverBorderColor: 'rgba(220,220,220,1)',
+            pointHoverBorderWidth: 2,
+            pointRadius: 1,
+            pointHitRadius: 10,
+            data: [0, 59, 80, 81, 0]
+        }
+    ]
+};
+
 
 class Todays extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            activeTab: 0,
             timeKeyword: [],
             currentCategory: '전체',
-            todayKeyword: [
+            todayKeywords: [
                 {
                     id: 0,
                     title: ['1st 오늘의 키워드', 'Today\'s Keyword'],
                     date: '2020-01-01',
-                    keyword: '키워드1',
+                    keyword: '#키워드1',
                 },
                 {
-                    id: 0,
+                    id: 1,
                     title: ['2nd 오늘의 키워드', 'Today\'s Keyword'],
                     date: '2020-01-02',
-                    keyword: '키워드2',
+                    keyword: '#키워드2',
                 },
                 {
-                    id: 0,
+                    id: 2,
                     title: ['3rd 오늘의 키워드', 'Today\'s Keyword'],
                     date: '2020-01-03',
-                    keyword: '키워드3',
+                    keyword: '#키워드3',
+                }
+            ],
+            todayChart: [
+                {
+                    keyword: ['#언텍트1', '#메이플스토리m1', '#추석1', '#단풍1', '#미술관1']
+                },
+                {
+                    keyword: ['#언텍트2', '#메이플스토리m2', '#추석2', '#단풍2', '#미술관2']
+                },
+                {
+                    keyword: ['#언텍트3', '#메이플스토리m3', '#추석3', '#단풍3', '#미술관3']
+                },
+                {
+                    keyword: ['#언텍트4', '#메이플스토리m4', '#추석4', '#단풍4', '#미술관4']
+                }
+            ],
+            todayArticles: [
+                {
+                    id: 0,
+                    title: ["머나먼 당신에게 닿기를, '언텍트 미팅'", '사랑스러운 핑크빈과 함께 메이플스토리m의 세계로 떠나보세요!', '다른나라의 추석을 살펴보자'],
+                    date: '2020-11-03',
                 }
             ]
         };
-        this.category = {DataCategories};
+        this.clickTabHandle = this.clickTabHandle.bind(this);
+    }
+
+    clickTabHandle = (id) => {
+        console.log(id);
+        this.setState({ activeTab: id })
     }
 
     render() {
         return (
-            <div className="todays-background">
-                <Tabs />
-                {/*
-                <Tabs />
-                <Graph />
-                <Summary /> */}
-                <div><KeywordInfoList data={this.state.todayKeyword} /></div>
+            <div>
+                <div className='tab-margin'>
+                    <ul className='tab-clear'>
+                        <li className='tabs' onClick={() => this.handleClickTab(0)}>전체</li>
+                        <li className='tabs' onClick={() => this.handleClickTab(1)}>정치</li>
+                        <li className='tabs' onClick={() => this.handleClickTab(2)}>사회</li>
+                        <li className='tabs' onClick={() => this.handleClickTab(3)}>경제</li>
+                        <li className='tabs' onClick={() => this.handleClickTab(4)}>국제</li>
+                        <li className='tabs' onClick={() => this.handleClickTab(5)}>스포츠</li>
+                        <li className='tabs' onClick={() => this.handleClickTab(6)}>문화</li>
+                    </ul>
+                </div>
+                <div className="style-clear"></div>
+                <div className="todays-background">
+                    <div className="style-clear"></div>
+                    <div>오늘의 키워드</div>
+                    <div className="keywords"><KeywordInfoList data={this.state.todayKeywords} /></div>
+                    <div className="style-clear"></div>
+                    <div>시간별 주요 키워드</div>
+                    <Line data={data} />
+                    <div className="style-clear"></div>
+                    <div>오늘의 주요 기사 요약</div>
+                    <SummaryList data={this.state.todayArticles} />
+                    <div className="style-clear"></div>
+                </div>
             </div>
         );
     }
-} 
+}
 export default Todays;
