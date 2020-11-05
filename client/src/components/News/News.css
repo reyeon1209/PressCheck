@@ -91,6 +91,11 @@ img {
     max-width: 100%;
 }
 
+input{
+    margin-left: 5%;
+    margin-bottom: 0%;
+}
+
 button {
     max-width: 10%;
     border: 0;
