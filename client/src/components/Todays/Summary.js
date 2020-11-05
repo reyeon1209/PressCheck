@@ -20,7 +20,7 @@ class Summary extends Component {
                 <div className='summary-left'>
                     <div>오늘의 기사 요약</div>
                     <div>Today's Summary</div>
-                    <div>
+                    <div className="summary-left-content">
                         {date}
                         <img src={SummaryIcon} alt='summary' width="18%" />
                     </div>

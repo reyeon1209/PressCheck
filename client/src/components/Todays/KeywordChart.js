@@ -38,11 +38,11 @@ class KeywordChart extends Component {
         }
 
         return (
-            <div style={{width: '500px', position: "relative"}}>
+            <div style={{width: '800px'}} className="chart-left">
             <Line
                 data={data}
-                width={500}
-                height={300}
+                width={800}
+                height={400}
                 options={options}
             />
             </div>

@@ -1,7 +1,16 @@
+.box {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
 .todays-background {
     background-color: #f9f9f9;
     margin-left: 5%;
     margin-right: 5%;
+    padding-bottom: 3%;
 }
 
 .tabs {
@@ -14,7 +23,7 @@
 }
 
 .tab-margin {
-    margin-left: 2%;
+    margin-left: 2.4%;
 }
 
 .tab-clear {
@@ -72,7 +81,7 @@
 .keyword-change {
     background-color: white;
     font-size: 1.3rem;
-    height: 3.3vw;
+    height: 2vw;
     text-align: center;
     vertical-align: middle;
     box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
@@ -80,41 +89,55 @@
 
 .summary-box {
     box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-    margin: 0 auto;
+    margin-top: 1%;
 }
 
 .summary-left {
     float: left;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     background-color: #5ca2e5;
-    min-width: 20%;
-    max-width: 20%;
-    padding-left: 3%;
+    min-width: 2vw;
+    padding-left: 1%;
     color: white;
+}
+
+.summary-left-content {
+    float: right;
+    font-size: 0.7rem;
 }
 
 .summary-right {
     float: left;
     background-color: white;
-    min-height: 50px;
+    padding-left: 1%;
+    height: 76px;
+}
+
+.timeKeyword-table {
+    width: 13vw;
+    margin-left: 30%;
+    border: 1px solid black;
+    margin-bottom: 5%;
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.25);
 }
 
 .timeKeyword-title {
     color: white;
     background-color: #5ca2e5;
+    padding-left: 1vw;
 }
 
 .timeKeyword-content {
     background-color: white;
-    font-size: 1.3rem;
-    height: 3.3vw;
+    font-size: 1rem;
     text-align: center;
     vertical-align: middle;
 }
 
 .today-title {
     font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .time-keyword-left {
@@ -127,4 +150,29 @@
     float: right;
     width: 50%;
     box-sizing: border-box;
+}
+
+.chart-left {
+    float: left;
+    margin-left: 10%;
+    margin-top: 3%;
+}
+
+.chart-right {
+    display: inline-block;
+    margin-left: 8%;
+}
+
+.keyword-div {
+    float :left;
+}
+
+.today-margin{
+    margin-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 20px;
+}
+
+.mid-margin{
+    margin-top: 5%;
 }

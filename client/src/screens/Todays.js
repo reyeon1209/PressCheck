@@ -71,7 +71,7 @@ class Todays extends Component {
 
     render() {
         return (
-            <div>
+            <div className='box'>
                 <div className='tab-margin'>
                     <ul className='tab-clear'>
                         <li className='tabs' onClick={() => this.handleClickTab(0)}>전체</li>
@@ -85,18 +85,24 @@ class Todays extends Component {
                 </div>
                 <div className="style-clear"></div>
                 <div className="todays-background">
-                    <div className="style-clear"></div>
-                    <div className="today-title">오늘의 키워드</div>
-                    <div className="keywords"><KeywordInfoList data={this.state.todayKeywords} /></div>
-                    <div className="style-clear"></div>
-                    <div className="today-title">시간별 주요 키워드 추이</div>
-                    <div >
-                        <KeywordChart keywordsData={this.state.todayKeywordGraph} />
-                        <TimeKeywordList style={{float: "right"}} data={this.state.timeKeywords} />
+                    <div className="today-margin">
+                        <div className="today-title">오늘의 키워드</div>
+                        <div className="keywords"><KeywordInfoList data={this.state.todayKeywords} /></div>
                     </div>
                     <div className="style-clear"></div>
-                    <div className="today-title">오늘의 주요 기사 요약</div>
-                    <SummaryList data={this.state.todayArticles} />
+                    <div className="today-margin">
+                        <div className="today-title mid-margin">시간별 주요 키워드 추이</div>
+                        <div>
+                            <KeywordChart keywordsData={this.state.todayKeywordGraph} />
+                            <div className="chart-right">
+                                <TimeKeywordList data={this.state.timeKeywords} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="today-margin">
+                        <div className="today-title">오늘의 주요 기사 요약</div>
+                        <SummaryList data={this.state.todayArticles} />
+                    </div>
                     <div className="style-clear"></div>
                 </div>
             </div>

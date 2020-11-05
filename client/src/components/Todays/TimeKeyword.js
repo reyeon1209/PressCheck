@@ -14,11 +14,11 @@ class TimeKeyword extends Component {
         const { title, keyword } = this.props.info;
 
         return (
-            <div>
+            <div className='timeKeyword-table'>
                 <div className='timeKeyword-title'>{title}</div>
-                {/*<div className='timeKeyword-content'>
-                {keyword[0]}<br></br>{keyword[1]}<br></br>{keyword[2]}<br></br>{keyword[3]}<br></br>{keyword[4]}
-        </div>*/}
+                <div className='timeKeyword-content'>
+                    {keyword[0]}<br></br>{keyword[1]}<br></br>{keyword[2]}<br></br>{keyword[3]}<br></br>{keyword[4]}
+                </div>
             </div>
         );
     }
