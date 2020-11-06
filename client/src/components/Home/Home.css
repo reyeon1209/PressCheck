@@ -1,0 +1,164 @@
+/* news list */
+.right-news-list {
+    display: inline-block;
+    width: 3vw;
+    min-width: 50%;
+    max-width: 90%;
+    margin-top: 3%;
+    margin-left: 2%;
+}
+
+.right-news-list-title{
+    display: block;
+}
+
+.right-news-title{
+    display: inline;
+    color: black;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.right-aggregate {
+    display: inline;
+    font-size: 0.75rem;
+    text-align: left;
+    margin-left: 2%;
+}
+
+.topnews-info {
+    display: block;
+}
+
+.topnews-content {
+    float: left;
+    width: 28vw;
+    height: 15vh;
+    /*max-width: 50%;*/
+    margin-top: 7%;
+    margin-bottom: 2%;
+    margin-left: 2%;
+    margin-right: 1%;
+}
+
+.topnews-content_id {
+    display: inline-block;
+    height: 9vh;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    max-width: 5%;
+    margin-right: 3%;
+}
+
+.topnews-content_title {
+    display: inline-block;
+    width: 25vw;
+    height: 7vh;
+    font-size: 1rem;
+    margin-left: 2%;
+    padding-top: 2%;
+}
+
+.topnews-thumbnail {
+    float: left;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 1%;
+    margin-right: 2%;
+}
+
+.topnews-thumbnail > img {
+    max-width: 20%;
+}
+
+
+/* category, press */
+.left-table {
+    margin: 0;
+    width: 33vw;
+    margin-top: 3%;
+    margin-left: 10%;
+    margin-right: 3%;
+    float: left;
+    max-width: 30%;
+    border-collapse:collapse;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+    text-align: center;
+}
+
+tr {
+    background-color: #ebebeb;
+}
+
+a { 
+    text-decoration: none; 
+    color: white; 
+}
+a:visited { 
+    text-decoration: none; 
+}
+a:hover { 
+    text-decoration: none; 
+}
+a:focus { 
+    text-decoration: none; 
+}
+a:hover, a:active { 
+    text-decoration: none; 
+}
+
+.left-table-title {
+    background-color: #00598D;
+    color: white;
+    font-size: 1.2rem;
+    text-align: right;
+    padding-right: 3%;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+}
+
+.left-table-content {
+}
+
+.left-button-category{
+    display: block;
+    max-width: 100%;
+    font-weight: normal;
+    margin-top: 3%;
+    margin-bottom: 2%;
+    margin-right: 7%;
+}
+
+.left-button-press{
+    display: block;
+    max-width: 100%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+input{
+    margin-left: 10%;
+    margin-bottom: 3%;
+}
+
+hr {
+    border-top: 1px dashed black;
+    border-bottom: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+.left-button {
+    width: 7vw;
+    max-width: 40%;
+    border: 0;
+    outline: 0;
+    background-color: transparent !important;
+    cursor: pointer;
+    margin-right: 2%;
+    margin-bottom: 1%;
+}

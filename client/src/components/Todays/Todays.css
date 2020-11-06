@@ -1,0 +1,178 @@
+.box {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+.box::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+
+.todays-background {
+    background-color: #f9f9f9;
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-bottom: 3%;
+}
+
+.tabs {
+    float: left;
+    margin-left: 0.5%;
+    padding-left: 1%;
+    padding-right: 1%;
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
+
+.tab-margin {
+    margin-left: 2.4%;
+}
+
+.tab-clear {
+    list-style: none;
+}
+
+.style-clear {
+    clear: both;
+}
+
+.style-float-left {
+    float: left;
+}
+.style-time-keyword {
+    width: 100%;
+}
+
+.keywords {
+    display: block;
+}
+
+.keyword-align {
+    margin-left: 23%;
+}
+
+.keyword-box {
+    float: left;
+    min-width: 20%;
+    max-width: 20%;
+    margin-left: 3%;
+    margin-right: 3%
+}
+
+.keyword-fix {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background-color: #5ca2e5;
+    color: white;
+}
+
+.keyword-fix-title {
+    float: left;
+    padding-left: 3%;
+    padding-top: 3%;
+}
+
+.keyword-fix-date {
+    padding-left: 3%;
+    padding-top: 3%;
+    text-align: right;
+    padding-right: 0.2vw;
+    font-size: 0.7rem;
+}
+
+.keyword-change {
+    background-color: white;
+    font-size: 1.3rem;
+    height: 2vw;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.summary-box {
+    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
+    margin-top: 1%;
+}
+
+.summary-left {
+    float: left;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #5ca2e5;
+    min-width: 2vw;
+    padding-left: 1%;
+    color: white;
+}
+
+.summary-left-content {
+    float: right;
+    font-size: 0.7rem;
+}
+
+.summary-right {
+    float: left;
+    background-color: white;
+    padding-left: 1%;
+    height: 76px;
+}
+
+.timeKeyword-table {
+    width: 13vw;
+    margin-left: 30%;
+    border: 1px solid black;
+    margin-bottom: 5%;
+    box-shadow: 0px 3px rgba(0, 0, 0, 0.25);
+}
+
+.timeKeyword-title {
+    color: white;
+    background-color: #5ca2e5;
+    padding-left: 1vw;
+}
+
+.timeKeyword-content {
+    background-color: white;
+    font-size: 1rem;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.today-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.time-keyword-left {
+    float: left;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.time-keyword-right {
+    float: right;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.chart-left {
+    float: left;
+    margin-left: 10%;
+    margin-top: 3%;
+}
+
+.chart-right {
+    display: inline-block;
+    margin-left: 8%;
+}
+
+.keyword-div {
+    float :left;
+}
+
+.today-margin{
+    margin-left: 3%;
+    padding-top: 1%;
+    padding-bottom: 20px;
+}
+
+.mid-margin{
+    margin-top: 5%;
+}
