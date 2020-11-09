@@ -17,12 +17,12 @@ class News extends Component {
         super(props);
         this.state = {
             isAll: true,
-            isPolitics: true,
-            isSociety: true,
-            isEconomy: true,
-            isInternation: true,
-            isSports: true,
-            isCulture: true,
+            isPolitics: false,
+            isSociety: false,
+            isEconomy: false,
+            isInternation: false,
+            isSports: false,
+            isCulture: false,
             press: 'josun',
             information: [
                 {
@@ -75,12 +75,12 @@ class News extends Component {
     categoryAllClickHandler() {
         this.setState(initialState => ({
             isAll: true,
-            isPolitics: true,
-            isSociety: true,
-            isEconomy: true,
-            isInternation: true,
-            isSports: true,
-            isCulture: true
+            isPolitics: false,
+            isSociety: false,
+            isEconomy: false,
+            isInternation: false,
+            isSports: false,
+            isCulture: false
         }));
     }
 
