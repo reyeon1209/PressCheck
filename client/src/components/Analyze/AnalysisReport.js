@@ -61,7 +61,6 @@ class AnalysisReport extends Component {
         const { keyword } = this.state;
         const keywordList = keyword.map((kw) => {return (<div>#{kw} </div>)})
 
-        // TODO summary button event
         return (
             <div className='analysis-report'>
                 <div className='email-send'>

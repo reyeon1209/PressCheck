@@ -3,7 +3,7 @@ import '../components/Analyze/Analyze.css';
 import OriginalNewsText from '../components/Analyze/OriginalNewsText';
 import AnalysisReport from '../components/Analyze/AnalysisReport';
 
-// TODO (Analyze화면 기사랑 연결)
+// TODO (News/NewsList화면 기사랑 연결)
 class Analyze extends Component {
     constructor(props) {
         super(props);
