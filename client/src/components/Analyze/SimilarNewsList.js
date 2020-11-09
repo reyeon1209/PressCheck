@@ -18,8 +18,6 @@ class SimilarNewsList extends Component {
 
         return (
             <div className='similar-news-list'>
-                {list}
-
                 <table className="right-botton-table">
                     <tr>
                         <th>순위</th>
