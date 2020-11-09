@@ -18,18 +18,28 @@ class OriginalNewsText extends Component {
         // eslint-disable-next-line
         const {title, uploaded, updated, editor, thumnail, content} = this.props.info;
 
-        // TODO : 이미지 없을 때 처리
-        return (
-            <div className='original-news-text'>
-                <div><b>{title}</b></div>
-                <div>{uploaded}</div>
-                <div>{updated}</div>
-                <div>{editor} 기자</div>
-                <img src={thumnail} alt="thumnail" value="thumnail"/>
-                <div className='thumbnail'></div>
-                <div>{content}</div> 
-            </div>
-        );
+        if (thumnail == '') {
+            return (
+                <div className='original-news-text'>
+                    <div><b>{title}</b></div>
+                    <div>{uploaded}</div>
+                    <div>{updated}</div>
+                    <div>{editor} 기자</div>
+                    <div>{content}</div> 
+                </div>
+            );
+        } else {
+            return (
+                <div className='original-news-text'>
+                    <div><b>{title}</b></div>
+                    <div>{uploaded}</div>
+                    <div>{updated}</div>
+                    <div>{editor} 기자</div>
+                    <img src={thumnail} alt="thumnail" value="thumnail"/>
+                    <div>{content}</div> 
+                </div>
+            );
+        }        
     }
 }
 

@@ -1,23 +1,15 @@
 import React, { Component } from 'react';
 import SimilarNewsList from './SimilarNewsList';
+import Summary from './Summary';
 import './Analyze.css';
 
 import Email from '../../assets/images/email.png';
-import Short from '../../assets/images/short.png';
-import Middle from '../../assets/images/middle.png';
-import Long from '../../assets/images/long.png';
 
 class AnalysisReport extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            summary: 'short',
-            info: {
-                keyword: ['신형', '투싼', '현대', 'SUV', '사전계약'],
-                sum_short: '현대자동차 준중형 SUV "신형 투산"이 출시됐다.',
-                sum_mid: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다.',
-                sum_long: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다. 한줄 더 있다.'
-            },
+            keyword: ['신형', '투싼', '현대', 'SUV', '사전계약'],
             information: [
                 {
                     id: 0,
@@ -56,12 +48,6 @@ class AnalysisReport extends Component {
                 }
             ]
         };
-        this.summaryClickHandler = this.summaryClickHandler.bind(this);
-    }
-
-    summaryClickHandler(e) {
-        console.log(e);
-        this.setState({ summary: e });
     }
 
     emailClickHandler() {
@@ -72,9 +58,8 @@ class AnalysisReport extends Component {
 
     render() {
         // eslint-disable-next-line
-        const { keyword } = this.state.info;
-        const keywordList = keyword.map((kw) => {return (<div>#{kw} </div>)});
-        const {sum_short, sum_mid, sum_long} = this.state.info;
+        const { keyword } = this.state;
+        const keywordList = keyword.map((kw) => {return (<div>#{kw} </div>)})
 
         // TODO summary button event
         return (
@@ -85,12 +70,7 @@ class AnalysisReport extends Component {
                 </div>
                 <div className='keyword-summary'>
                     <div>{keywordList}</div>
-                    <button><img src={Short} alt="한줄요약" onClick={() => this.summaryClickHandler("short")} value="short" /></button>
-                    <button><img src={Middle} alt="두줄요약" onClick={() => this.pressClickHandler("middle")} value="middle" /></button>
-                    <button><img src={Long} alt="세줄요약" onClick={() => this.pressClickHandler("short")} value="long" /></button>
-                    <div>{sum_short}</div>
-                    <div>{sum_mid}</div>
-                    <div>{sum_long}</div>
+                    <Summary />
                 </div>
 
                 <SimilarNewsList data={this.state.information} />
