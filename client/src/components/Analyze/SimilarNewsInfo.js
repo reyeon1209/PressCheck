@@ -14,17 +14,15 @@ class SimilarNewsInfo extends Component {
 
     render() {
         // eslint-disable-next-line
-        const {ranking, press, title, similarity} = this.props.info;
+        const {ranking, press, title, similarity} = this.props;
 
         return (
-            <div className='similar-news-info'>
-                <tr>
-                    <td>{ranking}</td>
-                    <td>{press}</td>
-                    <td><b>{title}</b></td>
-                    <td>{similarity}</td>
-                </tr>
-            </div>
+            <tr className='similar-news-info'>
+                <td>{ranking}</td>
+                <td>{press}</td>
+                <td><b>{title}</b></td>
+                <td>{similarity}</td>
+            </tr>
         );
     }
 }

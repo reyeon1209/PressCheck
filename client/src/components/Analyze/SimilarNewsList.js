@@ -25,9 +25,7 @@ class SimilarNewsList extends Component {
                         <th>뉴스 기사</th>
                         <th>유사도(%)</th>
                     </tr>
-                    <tr>
-                        {list}
-                    </tr>
+                    {list}
                 </table>
             </div>
         );
