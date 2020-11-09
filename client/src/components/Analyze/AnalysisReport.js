@@ -67,11 +67,20 @@ class AnalysisReport extends Component {
                     <button className='email-button'><img src={Email} alt="Email" onClick={() => this.emailClickHandler()} value="Email" /></button>
                     <div className='email-text'>Email</div>
                 </div>
-                <div className='keyword-summary'>
-                    <div>{keywordList}</div>
-                    <Summary />
-                </div>
+                
+                <table className='keyword-summary'>
+                    <tr>
+                        <td>키워드</td>
+                        <td>{keywordList}</td>
+                    </tr>
+                    <tr>
+                        <td>기사 요약</td>
+                        <td><Summary /></td>
+                    </tr>
+                </table>
 
+                <div className='similar-title'>유사한 뉴스</div>
+                <div className='similar-aggregate'>※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
                 <SimilarNewsList data={this.state.information} />
             </div>
         );
