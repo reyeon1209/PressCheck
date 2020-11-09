@@ -31,7 +31,7 @@ class News extends Component {
                     press: '뉴스1',
                     title: '제목1',
                     content: '뉴스 내용1',
-                    updated: '뉴스업로드시간1',
+                    uploaded: '뉴스업로드시간1',
                     keyword: ['#키워드1'],
                     summary: []
                 },
@@ -41,7 +41,7 @@ class News extends Component {
                     press: '뉴스2',
                     title: '제목2',
                     content: '뉴스 내용2',
-                    updated: '뉴스업로드시간2',
+                    uploaded: '뉴스업로드시간2',
                     keyword: ['#키워드2'],
                     summary: []
                 },
@@ -51,7 +51,7 @@ class News extends Component {
                     press: '뉴스3',
                     title: '제목3',
                     content: '뉴스 내용3',
-                    updated: '뉴스업로드시간3',
+                    uploaded: '뉴스업로드시간3',
                     keyword: ['#키워드3 ', '#키워드4'],
                     summary: []
                 }

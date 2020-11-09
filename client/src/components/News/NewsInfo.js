@@ -10,7 +10,7 @@ class NewsInfo extends Component {
             press: '언론사',
             title: '뉴스 제목',
             content: '뉴스 내용',
-            updated: '뉴스업로드시간',
+            uploaded: '뉴스업로드시간',
             keyword: [],
             summary: []
         }
