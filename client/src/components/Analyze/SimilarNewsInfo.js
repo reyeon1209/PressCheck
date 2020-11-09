@@ -18,10 +18,12 @@ class SimilarNewsInfo extends Component {
 
         return (
             <div className='similar-news-info'>
-                <div>{ranking}</div>
-                <div>{press}</div>
-                <div><b>{title}</b></div>
-                <div>{similarity}</div>
+                <tr>
+                    <td>{ranking}</td>
+                    <td>{press}</td>
+                    <td><b>{title}</b></td>
+                    <td>{similarity}</td>
+                </tr>
             </div>
         );
     }

@@ -13,7 +13,7 @@ class AnalysisReport extends Component {
         this.state = {
             summary: 'short',
             info: {
-                keyword: ['신형', '투싼', '현대', 'SUV', '사전계약', '자동차'],
+                keyword: ['신형', '투싼', '현대', 'SUV', '사전계약'],
                 sum_short: '현대자동차 준중형 SUV "신형 투산"이 출시됐다.',
                 sum_mid: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다.',
                 sum_log: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다. 한줄 더 있다.'
@@ -65,22 +65,26 @@ class AnalysisReport extends Component {
     }
 
     emailClickHandler() {
-        // TODO
+        // TODO 팝업
     }
+
+    // TODO 유사도 hover event
 
     render() {
         // eslint-disable-next-line
-        const {keyword, sum_short, sum_mid, sum_log} = this.state.info;
-        
-        // TODO : keyword list
+        const { keyword } = this.state.info;
+        const keywordList = keyword.map((kw) => {return (<div>#{kw} </div>)});
+        const {sum_short, sum_mid, sum_log} = this.state.info;
+
+        // TODO summary button event
         return (
             <div className='analysis-report'>
                 <div className='email-send'>
                     <button className='email-button'><img src={Email} alt="Email" onClick={() => this.emailClickHandler()} value="Email" /></button>
                     <div className='email-text'>Email</div>
                 </div>
-                <div className='keyword-summary'>    
-                    <div>#{keyword}</div>
+                <div className='keyword-summary'>
+                    <div>{keywordList}</div>
                     <button><img src={Short} alt="한줄요약" onClick={() => this.summaryClickHandler("short")} value="short" /></button>
                     <button><img src={Middle} alt="두줄요약" onClick={() => this.pressClickHandler("middle")} value="middle" /></button>
                     <button><img src={Long} alt="세줄요약" onClick={() => this.pressClickHandler("short")} value="long" /></button>
