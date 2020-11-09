@@ -16,7 +16,7 @@ class AnalysisReport extends Component {
                 keyword: ['신형', '투싼', '현대', 'SUV', '사전계약'],
                 sum_short: '현대자동차 준중형 SUV "신형 투산"이 출시됐다.',
                 sum_mid: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다.',
-                sum_log: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다. 한줄 더 있다.'
+                sum_long: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다. 한줄 더 있다.'
             },
             information: [
                 {
@@ -74,7 +74,7 @@ class AnalysisReport extends Component {
         // eslint-disable-next-line
         const { keyword } = this.state.info;
         const keywordList = keyword.map((kw) => {return (<div>#{kw} </div>)});
-        const {sum_short, sum_mid, sum_log} = this.state.info;
+        const {sum_short, sum_mid, sum_long} = this.state.info;
 
         // TODO summary button event
         return (
@@ -90,7 +90,7 @@ class AnalysisReport extends Component {
                     <button><img src={Long} alt="세줄요약" onClick={() => this.pressClickHandler("short")} value="long" /></button>
                     <div>{sum_short}</div>
                     <div>{sum_mid}</div>
-                    <div>{sum_log}</div>
+                    <div>{sum_long}</div>
                 </div>
 
                 <SimilarNewsList data={this.state.information} />
