@@ -10,7 +10,7 @@ class Header extends Component {
                 <div className="logo">PressCheck</div>{/* install Bold Italic Roboto */}
                 <div className="menu">
                     <Link to="/"><div className="menu-item">Home</div></Link>
-                    <Link to="/news"><div className="menu-item">News</div></Link>
+                    <Link to="/news/newslist"><div className="menu-item">News</div></Link>
                     <Link to="/todays"><div className="menu-item">Today's</div></Link>
                 </div>
             </div>
