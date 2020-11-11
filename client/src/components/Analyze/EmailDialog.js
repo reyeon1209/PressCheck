@@ -6,6 +6,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import './EmailDialog.css';
+
 import Email from '../../assets/images/email.png';
 import EmailTitle from '../../assets/images/email_title.png';
 
@@ -61,15 +63,16 @@ class EmailDialog extends Component {
                 <div className='email-text'>Email</div>
 
                 <Dialog open={this.state.open} onClose={this.handleClose}>
-                    <DialogTitle><img src={EmailTitle} alt="PressCheck" /></DialogTitle>
+                    <DialogTitle><img className='email-title' src={EmailTitle} alt="PressCheck" /></DialogTitle>
 
                     <DialogContent>
-                        <TextField label="Email" type="Email" name="Email" value={this.state.Email} onChange={this.handleValueChange} />
+                        <TextField variant="outlined" fullWidth margin="dense"
+                            label="Email" type="Email" name="Email" value={this.state.Email} onChange={this.handleValueChange} />
                         <br/>
                     </DialogContent>
 
                     <DialogActions>
-                        <Button variant="contained" color="primary" href="#contained-buttons" onClick={this.handleFormSubmit}>전송하기</Button>
+                        <Button className='submit-button' variant="contained" color="primary" href="#contained-buttons" onClick={this.handleFormSubmit}>전송하기</Button>
                     </DialogActions>
                 </Dialog>
             </div>
