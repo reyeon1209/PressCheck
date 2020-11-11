@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import SimilarNewsList from './SimilarNewsList';
 import Summary from './Summary';
 import './Analyze.css';
-
-import Email from '../../assets/images/email.png';
+import EmailDialog from './EmailDialog';
 
 class AnalysisReport extends Component {
     constructor(props) {
@@ -64,8 +63,7 @@ class AnalysisReport extends Component {
         return (
             <div className='analysis-report'>
                 <div className='email-send'>
-                    <button className='email-button'><img src={Email} alt="Email" onClick={() => this.emailClickHandler()} value="Email" /></button>
-                    <div className='email-text'>Email</div>
+                    <EmailDialog />
                 </div>
                 
                 <table className='keyword-summary'>
