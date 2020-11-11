@@ -4,11 +4,6 @@
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 2%;
-    background-color: white;
-}
-
-.style-clear {
-    clear: both;
 }
 
 .table-background {
@@ -22,25 +17,22 @@
 .content-news { 
     width: 50%;
     border-right: 1px solid #d1d1d1;
+    padding: 1.5%;
 }
-
 .original-news-title {
     font-size: 1.7rem;
 }
-
 .original-news-upload {
     color: #a7a7a7;
     margin-top: 1%;
     margin-bottom: 1%;
 }
-
 .original-news-reporter {
     width: 1vw;
     min-width: 1vw;
     max-width: 1vw;
     margin-top: 1%;
 }
-
 .original-news-thumbnail {
     width: 50%;
     display: block;
@@ -48,14 +40,13 @@
     margin-top: 2%;
     margin-bottom: 2%;
 }
-
 .original-news-text {
     margin-top: 5%;
 }
 
-
+/* news report part */
 .content-analyze {
-    width: 50%;
+    padding: 1.5%;
 }
 
 .analyze-keyword-inline {

@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import SimilarNewsList from './SimilarNewsList';
 import Summary from './Summary';
 import './Analyze.css';
+
 import EmailDialog from './EmailDialog';
+import Report from '../../assets/images/report.png';
 
 class AnalysisReport extends Component {
     constructor(props) {
@@ -62,6 +64,9 @@ class AnalysisReport extends Component {
 
         return (
             <div className='analysis-report'>
+                
+                <img src={Report} alt="Report" value="Report" />
+                            <div className='report-title'>분석 리포트</div>
                 <div className='email-send'>
                     <EmailDialog />
                 </div>
