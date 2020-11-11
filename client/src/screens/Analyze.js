@@ -10,23 +10,26 @@ class Analyze extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            
+
         };
     }
 
     render() {
         return (
-            <div>
-                <img src={Report} alt="Report" value="Report" />
-                <div className='report-title'>분석 리포트</div>
-                <div className='original-news-text'>
-                    <OriginalNewsText />
-                </div>
-
-                <div className='analysis-report'>
-                    <AnalysisReport />
-                </div>
-            </div>
+            <table className="wrapper">
+                <tr className="table-background">
+                    <td className="content-news">
+                        <img src={Report} alt="Report" value="Report" />
+                        <div className='report-title'>분석 리포트</div>
+                        <div><OriginalNewsText /></div>
+                    </td>
+                    <td>
+                        <div className='analysis-report'>
+                            <AnalysisReport />
+                        </div>
+                    </td>
+                </tr>
+            </table>
         );
     }
 }

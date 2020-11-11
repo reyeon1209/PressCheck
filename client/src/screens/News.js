@@ -129,9 +129,9 @@ class News extends Component {
     render() {
         return (
             <div>
-                <table>
+                <table className="entire-table">
                     <caption className="table-title"><a href='../todays'>DATA &gt;</a></caption>
-                    <tr>
+                    <tr className="news-tr">
                         <th className="table-content-title">카테고리</th>
                         <th className="table-content-content">
                             <input type="checkbox"
@@ -164,7 +164,7 @@ class News extends Component {
                             /> 문화
                         </th>
                     </tr>
-                    <tr>
+                    <tr className="news-tr">
                         <th className="table-content-title">언론사</th>
                         <th className="table-content-content">
                             <div className='button-press'>

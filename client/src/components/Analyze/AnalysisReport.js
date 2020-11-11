@@ -58,7 +58,7 @@ class AnalysisReport extends Component {
     render() {
         // eslint-disable-next-line
         const { keyword } = this.state;
-        const keywordList = keyword.map((kw) => {return (<div>#{kw} </div>)})
+        const keywordList = keyword.map((kw) => {return (<div className="analyze-keyword-inline">#{kw}&nbsp;&nbsp;</div>)})
 
         return (
             <div className='analysis-report'>

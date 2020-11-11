@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Reporter from '../../assets/images/reporter.png';
 import './Analyze.css';
 
 class OriginalNewsText extends Component {
@@ -20,23 +21,22 @@ class OriginalNewsText extends Component {
 
         if (thumnail == '') {
             return (
-                <div className='original-news-text'>
-                    <div><b>{title}</b></div>
+                <div>
+                    <div className='content-news-title'><b>{title}</b></div>
                     <div>{uploaded}</div>
                     <div>{updated}</div>
-                    <div>{editor} 기자</div>
-                    <div>{content}</div> 
+                    <div><img className='original-news-reporter' src={Reporter} alt="reporter" value="reporter"/>{editor} 기자</div>
+                    <div className='original-news-text'>{content}</div> 
                 </div>
             );
         } else {
             return (
-                <div className='original-news-text'>
-                    <div><b>{title}</b></div>
-                    <div>{uploaded}</div>
-                    <div>{updated}</div>
-                    <div>{editor} 기자</div>
-                    <img src={thumnail} alt="thumnail" value="thumnail"/>
-                    <div>{content}</div> 
+                <div>
+                    <div className='original-news-title'><b>{title}</b></div>
+                    <div className='original-news-upload'>{uploaded}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{updated}</div>
+                    <div><img className='original-news-reporter' src={Reporter} alt="reporter" value="reporter"/>{editor} 기자</div>
+                    <img className='original-news-thumbnail' src={thumnail} alt="thumnail" value="thumnail"/>
+                    <div className='original-news-text'>{content}</div> 
                 </div>
             );
         }        
