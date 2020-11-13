@@ -93,7 +93,6 @@ input{
 .news-thumbnail {
     display: inline-block;
     max-width: 13%;
-    border-radius: 20px;
     vertical-align: top;
 }
 
