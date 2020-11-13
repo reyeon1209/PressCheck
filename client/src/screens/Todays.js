@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Tabs from '../components/Todays/Tabs';
 import KeywordInfoList from '../components/Todays/KeywordInfoList';
 import SummaryList from '../components/Todays/SummaryList';
 import TimeKeywordList from '../components/Todays/TimeKeywordList';
@@ -61,27 +62,13 @@ class Todays extends Component {
                 }
             ]
         };
-        this.clickTabHandle = this.clickTabHandle.bind(this);
-    }
-
-    clickTabHandle = (id) => {
-        console.log(id);
-        this.setState({ activeTab: id })
     }
 
     render() {
         return (
             <div className='box'>
                 <div className='tab-margin'>
-                    <ul className='tab-clear'>
-                        <li className='tabs' onClick={() => this.handleClickTab(0)}>전체</li>
-                        <li className='tabs' onClick={() => this.handleClickTab(1)}>정치</li>
-                        <li className='tabs' onClick={() => this.handleClickTab(2)}>사회</li>
-                        <li className='tabs' onClick={() => this.handleClickTab(3)}>경제</li>
-                        <li className='tabs' onClick={() => this.handleClickTab(4)}>국제</li>
-                        <li className='tabs' onClick={() => this.handleClickTab(5)}>스포츠</li>
-                        <li className='tabs' onClick={() => this.handleClickTab(6)}>문화</li>
-                    </ul>
+                    <Tabs />
                 </div>
                 <div className="style-clear"></div>
                 <div className="todays-background">
