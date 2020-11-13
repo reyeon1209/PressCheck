@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Split from 'react-split';
 import '../components/Analyze/Analyze.css';
 import OriginalNewsText from '../components/Analyze/OriginalNewsText';
 import AnalysisReport from '../components/Analyze/AnalysisReport';
@@ -15,18 +16,12 @@ class Analyze extends Component {
 
     render() {
         return (
-            <table className="wrapper">
-                <tr className="table-background">
-                    <td className="content-news">
-                        <div><OriginalNewsText /></div>
-                    </td>
-                    <td>
-                        <div className='analysis-report'>
-                            <AnalysisReport />
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <div className='App'>
+                <Split className="wrap" sizes={[45, 55]}>
+                    <div className="content-news" ><OriginalNewsText /></div>
+                    <div className="analysis-report"><AnalysisReport  /></div>
+                </Split>
+            </div>
         );
     }
 }

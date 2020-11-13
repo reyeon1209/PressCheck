@@ -13,11 +13,19 @@ class AnalysisReport extends Component {
             keyword: ['신형', '투싼', '현대', 'SUV', '사전계약'],
             information: [
                 {
-                    id: 4,
-                    ranking: 5,
+                    id: 5,
+                    ranking: 6,
                     press: '중앙일보',
                     title: '현대차 50년, 위기와 도전',
                     similarity: 3,
+                    diffKeyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5']
+                },
+                {
+                    id: 4,
+                    ranking: 5,
+                    press: 'SBS',
+                    title: 'SUV의 역사',
+                    similarity: 14,
                     diffKeyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5']
                 },
                 {
@@ -59,25 +67,27 @@ class AnalysisReport extends Component {
     render() {
         // eslint-disable-next-line
         const { keyword } = this.state;
-        const keywordList = keyword.map((kw) => {return (<div className="analyze-keyword-inline">#{kw}&nbsp;&nbsp;</div>)})
+        const keywordList = keyword.map((kw) => {return (<div className="analyze-keyword">#{kw}&nbsp;&nbsp;</div>)})
 
         return (
-            <div className='analysis-report'>
-                
-                <img src={Report} alt="Report" value="Report" />
-                            <div className='report-title'>분석 리포트</div>
+            <div>
+                <div className='analysis-report-title'>
+                    <img src={Report} alt="Report" value="Report" />
+                    <div>분석 리포트</div>
+                </div>
+
                 <div className='email-send'>
                     <EmailDialog />
-                </div>
+                </div><br/><br/>
                 
                 <table className='keyword-summary'>
                     <tr>
-                        <td>키워드</td>
-                        <td>{keywordList}</td>
+                        <td className='title-td'>키워드</td>
+                        <td className='content-td'>{keywordList}</td>
                     </tr>
                     <tr>
-                        <td>기사 요약</td>
-                        <td><Summary /></td>
+                        <td className='title-td'>기사 요약</td>
+                        <td className='content-td'><Summary /></td>
                     </tr>
                 </table>
 

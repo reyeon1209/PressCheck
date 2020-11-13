@@ -53,7 +53,7 @@ class Summary extends Component {
         const { showShort, showMiddle, showLong } = this.state;
         const { sum_short, sum_mid, sum_long } = this.state.summary;
         return (
-            <div>
+            <div className='summary-td'>
                 <button onClick={() => this.summaryClickHandler("showShort")} ><img src={Short} alt="한줄요약" value="short" /></button>
                 <button onClick={() => this.summaryClickHandler("showMiddle")} ><img src={Middle} alt="두줄요약" value="middle" /></button>
                 <button onClick={() => this.summaryClickHandler("showLong")} ><img src={Long} alt="세줄요약" value="long" /></button>

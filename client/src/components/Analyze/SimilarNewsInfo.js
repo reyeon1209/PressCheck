@@ -20,9 +20,9 @@ class SimilarNewsInfo extends Component {
 
         return (
             <tr className='similar-news-info'>
-                <td>{ranking}</td>
+                <td><b>{ranking}</b></td>
                 <td>{press}</td>
-                <td><b>{title}</b></td>
+                <td className='similar-news-info-title'>{title}</td>
                 <td>{similarity}</td>
                 <td>{diffKeywordList}</td>
             </tr>

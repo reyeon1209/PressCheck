@@ -99,7 +99,7 @@
     text-align: center;
 }
 
-tr {
+.left-table > tr {
     background-color: #ebebeb;
 }
 
@@ -159,17 +159,19 @@ hr {
     border-bottom: none;
 }
 
-img {
-    max-width: 100%;
-}
-
 .left-button {
-    width: 7vw;
-    max-width: 40%;
+    width: 19%;
+    max-width: 20%;
     border: 0;
     outline: 0;
     background-color: transparent !important;
     cursor: pointer;
     margin-right: 2%;
     margin-bottom: 1%;
+}
+
+
+.left-button > img {
+    width: 100%;
+    max-width: 100%;
 }
