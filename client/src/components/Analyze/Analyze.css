@@ -133,12 +133,12 @@
 }
 
 .summary-td > button {
-    max-width: 20%;
+    max-width: 17%;
     border: 0;
     outline: 0;
     background-color: transparent !important;
     cursor: pointer;
-    margin-left: 10%;
+    margin-left: 12%;
 }
 
 .summary-td > button > img {

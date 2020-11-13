@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import Summary from './Summary';
+
 
 class SummaryList extends Component {
     static defaultProps = {

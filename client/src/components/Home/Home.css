@@ -1,92 +1,36 @@
-/* news list */
-.right-news-list {
-    display: inline-block;
-    width: 3vw;
-    min-width: 50%;
-    max-width: 90%;
-    margin-top: 3%;
-    margin-left: 2%;
+/* split style */
+.App {
+    
 }
 
-.right-news-list-title{
-    display: block;
+.gutter {
+  background: rgba(255, 255, 255, 0.05);
+  flex-shrink: 0;
 }
 
-.right-news-title{
-    display: inline;
-    color: black;
-    font-size: 1.3rem;
-    font-weight: bold;
-    text-align: left;
+.gutter-horizontal {
+  cursor: ew-resize;
 }
 
-.right-aggregate {
-    display: inline;
-    font-size: 0.75rem;
-    text-align: left;
-    margin-left: 2%;
-    color: #9D9D9D;
+.gutter-vertical {
+  cursor: ns-resize;
 }
 
-.topnews-info {
-    display: block;
+.comp {
+  background: red;
+  color: white;
+  height: 100px;
+  display: inline-block;
 }
 
-.topnews-content {
-    float: left;
-    width: 28vw;
-    height: 15vh;
-    /*max-width: 50%;*/
-    margin-top: 7%;
-    margin-bottom: 2%;
-    margin-left: 2%;
-    margin-right: 1%;
+.wrap {
+  display: flex;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 2%;
 }
 
-.topnews-content_id {
-    display: inline-block;
-    height: 9vh;
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: bold;
-    max-width: 5%;
-    margin-right: 3%;
-}
-
-.topnews-content_title {
-    display: inline-block;
-    width: 25vw;
-    height: 7vh;
-    font-size: 1rem;
-    margin-left: 2%;
-    padding-top: 2%;
-}
-
-.topnews-thumbnail {
-    float: left;
-    margin-top: 2%;
-    margin-bottom: 2%;
-    margin-left: 1%;
-    margin-right: 2%;
-}
-
-.topnews-thumbnail > img {
-    max-width: 20%;
-}
-
-.more {
-    display: block;
-    text-align: right;
-    font-weight: bold;
-    color: #B6B6B6;
-    clear: both;
-    margin-top: 10%;
-    margin-bottom: 7%;
-    padding-right: 11%;
-}
-
-
-/* category, press */
+/* Select Table */
 .left-table {
     margin: 0;
     width: 33vw;
@@ -175,4 +119,76 @@ hr {
 .left-button > img {
     width: 100%;
     max-width: 100%;
+}
+
+/* news list */
+.right-news-list {
+    display: inline-block;
+    width: 3vw;
+    min-width: 50%;
+    max-width: 90%;
+    margin-top: 1%;
+    margin-left: 2%;
+}
+
+.right-aggregate {
+    display: inline-block;
+    font-size: 0.75rem;
+    text-align: left;
+    margin-left: 2%;
+    color: #9D9D9D;
+}
+
+.right-news-title{
+    display: inline;
+    color: black;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: left;
+}
+
+.topnews-info {
+    display: block;
+    margin-top: 1%;
+}
+
+.topnews-content_id {
+    display: inline-block;
+    height: 9vh;
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: bold;
+    max-width: 5%;
+    margin-right: 3%;
+}
+
+.topnews-content_title {
+    display: inline-block;
+    width: 25vw;
+    height: 7vh;
+    font-size: 1rem;
+    margin-left: 2%;
+    padding-top: 2%;
+}
+
+.topnews-thumbnail {
+    display: inline-block;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    margin-left: 1%;
+    margin-right: 2%;
+    max-width: 25%;
+    border-radius: 20px;
+    vertical-align: middle;
+}
+
+.more {
+    display: block;
+    text-align: right;
+    font-weight: bold;
+    color: #B6B6B6;
+    clear: both;
+    margin-top: 5%;
+    margin-bottom: 7%;
+    padding-right: 11%;
 }

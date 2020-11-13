@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import TopNewsInfo from './TopNewsInfo';
 
 class TopNewsList extends Component {

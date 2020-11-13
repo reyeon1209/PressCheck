@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import SimilarNewsInfo from './SimilarNewsInfo';
+
 
 class SimilarNewsList extends Component {
     static defaultProps = {

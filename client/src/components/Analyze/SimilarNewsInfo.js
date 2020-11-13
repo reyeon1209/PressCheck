@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import './Analyze.css';
+
 
 class SimilarNewsInfo extends Component {
     static defaultProps = {

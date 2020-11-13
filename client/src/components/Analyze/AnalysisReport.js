@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+
+import EmailDialog from './EmailDialog';
 import SimilarNewsList from './SimilarNewsList';
 import Summary from './Summary';
 import './Analyze.css';
 
-import EmailDialog from './EmailDialog';
 import Report from '../../assets/images/report.png';
+
 
 class AnalysisReport extends Component {
     constructor(props) {

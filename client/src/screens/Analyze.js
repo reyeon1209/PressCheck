@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import Split from 'react-split';
-import '../components/Analyze/Analyze.css';
+
 import OriginalNewsText from '../components/Analyze/OriginalNewsText';
 import AnalysisReport from '../components/Analyze/AnalysisReport';
+import '../components/Analyze/Analyze.css';
 
 
-// TODO (News/NewsList화면 기사랑 연결)
 class Analyze extends Component {
     constructor(props) {
         super(props);

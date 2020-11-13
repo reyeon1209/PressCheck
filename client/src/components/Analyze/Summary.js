@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 
+import './Analyze.css';
+
 import Short from '../../assets/images/short.png';
 import Middle from '../../assets/images/middle.png';
 import Long from '../../assets/images/long.png';
+
 
 class Summary extends Component {
     constructor(props) {

@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+
 import Tabs from '../components/Todays/Tabs';
 import KeywordInfoList from '../components/Todays/KeywordInfoList';
-import SummaryList from '../components/Todays/SummaryList';
 import TimeKeywordList from '../components/Todays/TimeKeywordList';
 import KeywordChart from '../components/Todays/KeywordChart';
+import SummaryList from '../components/Todays/SummaryList';
 import '../components/Todays/Todays.css';
+
 
 class Todays extends Component {
     constructor(props) {
