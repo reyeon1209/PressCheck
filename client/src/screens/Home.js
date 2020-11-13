@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import TopNewsList from '../components/Home/TopNewsList';
 import '../components/Home/Home.css';
 
-import Josun from '../assets/images/press_josun.png';
+import Hankyoreh from '../assets/images/press_hankyoreh.png';
 import Jungang from '../assets/images/press_jungang.png';
 import Donga from '../assets/images/press_donga.png';
 import KBS from '../assets/images/press_kbs.png';
@@ -21,7 +21,7 @@ class Home extends Component {
             isInternation: false,
             isSports: false,
             isCulture: false,
-            currentPress: 'josun',
+            currentPress: 'hankyoreh',
             information: [
                 {
                     id: 1,
@@ -159,7 +159,7 @@ class Home extends Component {
                     <tr>
                         <th className="left-table-content">
                             <div className='left-button-press'>
-                                <button className='left-button'><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun"/></button>
+                                <button className='left-button'><img src={Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh"/></button>
                                 <button className='left-button'><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
                                 <button className='left-button'><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
                                 <br></br>
@@ -179,6 +179,7 @@ class Home extends Component {
                     </div>
                     <br></br>
                     <TopNewsList data={this.state.information} />
+                    <a className='more' href = '../news/newslist'>더보기 &gt;</a>
                 </div>
             </div>
         );

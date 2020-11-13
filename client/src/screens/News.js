@@ -3,7 +3,7 @@ import NewsInfoList from '../components/News/NewsInfoList';
 
 import '../components/News/News.css';
 
-import Josun from '../assets/images/press_josun.png';
+import Hankyoreh from '../assets/images/press_hankyoreh.png';
 import Jungang from '../assets/images/press_jungang.png';
 import Donga from '../assets/images/press_donga.png';
 import KBS from '../assets/images/press_kbs.png';
@@ -23,7 +23,7 @@ class News extends Component {
             isInternation: false,
             isSports: false,
             isCulture: false,
-            press: 'josun',
+            press: 'hankyoreh',
             information: [
                 {
                     id: 0,
@@ -168,7 +168,7 @@ class News extends Component {
                         <th className="table-content-title">언론사</th>
                         <th className="table-content-content">
                             <div className='button-press'>
-                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun" /></button>
+                                <button><img src={Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh" /></button>
                                 <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang" /></button>
                                 <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga" /></button>
                                 <button><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>

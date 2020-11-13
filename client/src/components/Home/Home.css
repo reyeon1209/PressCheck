@@ -73,6 +73,17 @@
     max-width: 20%;
 }
 
+.more {
+    display: block;
+    text-align: right;
+    font-weight: bold;
+    color: #B6B6B6;
+    clear: both;
+    margin-top: 10%;
+    margin-bottom: 7%;
+    padding-right: 11%;
+}
+
 
 /* category, press */
 .left-table {

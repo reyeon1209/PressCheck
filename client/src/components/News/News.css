@@ -44,6 +44,8 @@
 
 .news-tr {
     background-color: #ebebeb;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 a { 
@@ -74,13 +76,8 @@ a:hover, a:active {
 
 .table-content-title {
     width: 15%;
-}
-
-.table-content-content {
-}
-
-.button-press{
-    float: left;
+    margin-top: 10%;
+    margin-bottom: 10%;
 }
 
 .button-press{
