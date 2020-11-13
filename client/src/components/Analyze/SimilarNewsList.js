@@ -13,6 +13,7 @@ class SimilarNewsList extends Component {
                                     press={info.press}
                                     title={info.title}
                                     similarity={info.similarity}
+                                    diffKeyword={info.diffKeyword}
                     />);
         });
 
@@ -24,6 +25,7 @@ class SimilarNewsList extends Component {
                         <th>언론사</th>
                         <th>뉴스 기사</th>
                         <th>유사도(%)</th>
+                        <th>차이점 키워드</th>
                     </tr>
                     {list}
                 </table>
