@@ -6,8 +6,6 @@ import TimeKeywordList from '../components/Todays/TimeKeywordList';
 import KeywordChart from '../components/Todays/KeywordChart';
 import '../components/Todays/Todays.css';
 
-
-
 class Todays extends Component {
     constructor(props) {
         super(props);

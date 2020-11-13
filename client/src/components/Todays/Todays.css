@@ -46,15 +46,15 @@
 }
 
 .keyword-align {
-    margin-left: 23%;
+    margin-left: 13%;
 }
 
 .keyword-box {
     float: left;
-    min-width: 20%;
-    max-width: 20%;
+    min-width: 22%;
+    max-width: 22%;
     margin-left: 3%;
-    margin-right: 3%
+    margin-right: 3%;
 }
 
 .keyword-fix {
@@ -68,14 +68,18 @@
     float: left;
     padding-left: 3%;
     padding-top: 3%;
+    margin-top: 2%;
+    margin-left: 5%;
 }
 
 .keyword-fix-date {
     padding-left: 3%;
     padding-top: 3%;
+    padding-bottom: 2%;
     text-align: right;
     padding-right: 0.2vw;
     font-size: 0.7rem;
+    margin-right: 5%;
 }
 
 .keyword-change {
@@ -138,6 +142,8 @@
 .today-title {
     font-weight: bold;
     font-size: 1.2rem;
+    margin-top: 0.5%;
+    margin-bottom: 3%;
 }
 
 .time-keyword-left {
