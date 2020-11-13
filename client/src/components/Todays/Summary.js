@@ -14,6 +14,7 @@ class Summary extends Component {
     render() {
         // eslint-disable-next-line
         const { id, title, date } = this.props.info;
+        const titleList = title.map((ti) => {return (<div className="title-content">{ti}</div>)})
 
         return (
             <div className='summary-box'>
@@ -26,9 +27,7 @@ class Summary extends Component {
                     </div>
                 </div>
                 <div className='summary-right'>
-                    <div>{title[0]}</div>
-                    <div>{title[1]}</div>
-                    <div>{title[2]}</div>
+                    {titleList}
                 </div>
             </div>
         );

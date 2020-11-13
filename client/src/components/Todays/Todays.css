@@ -96,6 +96,7 @@
 .summary-box {
     box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
     margin-top: 1%;
+    
 }
 
 .summary-left {
@@ -104,20 +105,33 @@
     border-bottom-left-radius: 10px;
     background-color: #5ca2e5;
     min-width: 2vw;
+    padding-top: 1%;
     padding-left: 1%;
+    padding-bottom: 1%;
     color: white;
+    margin-bottom: 3%;
 }
 
 .summary-left-content {
+    display: block;
     float: right;
+    text-align: right;
     font-size: 0.7rem;
 }
 
 .summary-right {
     float: left;
     background-color: white;
+    min-width: 50%;
+    padding-top: 1%;
     padding-left: 1%;
+    padding-bottom: 1%;
     height: 76px;
+    margin-bottom: 3%;
+}
+
+.title-content {
+    padding-bottom: 0.8%;
 }
 
 .timeKeyword-table {
