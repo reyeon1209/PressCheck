@@ -18,7 +18,7 @@ class Analyze extends Component {
         return (
             <div className='App'>
                 <Split className="wrap" sizes={[45, 55]}>
-                    <div className="content-news" ><OriginalNewsText /></div>
+                    <div className="content-news"><OriginalNewsText /></div>
                     <div className="analysis-report"><AnalysisReport  /></div>
                 </Split>
             </div>

@@ -18,15 +18,15 @@ class SimilarNewsInfo extends Component {
     render() {
         // eslint-disable-next-line
         const {ranking, press, title, similarity, diffKeyword} = this.props;
-        const diffKeywordList = diffKeyword.map((kw) => {return (<div className="diff-keyword">#{kw}&nbsp;&nbsp;</div>)})
+        const diffKeywordList = diffKeyword.map((kw) => {return (<div className="diff-keyword">#{kw}</div>)})
 
         return (
             <tr className='similar-news-info'>
                 <td><b>{ranking}</b></td>
                 <td>{press}</td>
                 <td className='similar-news-info-title'>{title}</td>
-                <td>{similarity}</td>
-                <td>{diffKeywordList}</td>
+                <td>{similarity}%</td>
+                <td className='similar-news-info-keyword'>{diffKeywordList}</td>
             </tr>
         );
     }
