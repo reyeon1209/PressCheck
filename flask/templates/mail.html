@@ -1,1132 +1,348 @@
-<html lang="ko"><head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#000000">
-    <meta name="description" content="Web site created using create-react-app">
-
-    <title>Email</title>
-    
-    <style type="text/css">
-        body {
-            margin-left: 10;
-            margin-right: 10;
-            font-family: 'Roboto';
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-            overflow-y: auto;
-        }
-    </style>
-
-    <style type="text/css">
-        body{
-            margin: 0;
-        }
-
-        .sns {
-            height: 1.2rem;
-            border-bottom: thin solid #B6B6B6;
-        }
-
-        .logo {
-            margin-top: 1.2rem;
-            margin-bottom: 1.2rem;
-            height: 3.5rem;
-            background-color: white;
-            width: 100vw;
-            line-height: 3.5rem;
-            color: black;
-            font-size: 3rem;
-            font-weight: bold;
-            font-style: italic;
-            justify-content: center;
-            text-align: center;
-        }
-
-        .menu {
-            background-color: #212529;
-            height: 3rem;
-            margin-left: 5%;
-            margin-right: 8%;
-            padding-left: 1.2rem;
-            border-top: 0.5rem solid #4DB2EC;
-            width: 90%;
-        }
-
-        .menu-item {
-            display: inline-block;
-            color: white;
-            font-size: 1.2rem;
-            line-height: 2.8rem;
-            width: 10%;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            text-decoration: none;
-        }
-
-        .menu-item:visited {
-            text-decoration: none;
-        }
-
-        .menu-item:hover {
-            background-color: #FFFFFF;
-            color: #000000;
-            font-weight: bold;
-        }
-
-        .menu-item:active {
-            background-color: #FFFFFF;
-        }
-    </style>
-    
-    <style type="text/css">/* split style */
-        .App {
-            
-        }
-
-        .gutter {
-        background: rgba(255, 255, 255, 0.05);
-        flex-shrink: 0;
-        }
-
-        .gutter-horizontal {
-        cursor: ew-resize;
-        }
-
-        .gutter-vertical {
-        cursor: ns-resize;
-        }
-
-        .comp {
-        background: red;
-        color: white;
-        height: 100px;
-        display: inline-block;
-        }
-
-        .wrap {
-        display: flex;
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 2%;
-        }
-
-        /* Select Table */
-        .left-table {
-            margin: 0;
-            width: 33vw;
-            margin-top: 3%;
-            margin-left: 10%;
-            margin-right: 3%;
-            float: left;
-            max-width: 30%;
-            border-collapse:collapse;
-            box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-            text-align: center;
-        }
-
-        .left-table > tr {
-            background-color: #ebebeb;
-        }
-
-        a { 
-            text-decoration: none; 
-            color: white; 
-        }
-        a:visited { 
-            text-decoration: none; 
-        }
-        a:hover { 
-            text-decoration: none; 
-        }
-        a:focus { 
-            text-decoration: none; 
-        }
-        a:hover, a:active { 
-            text-decoration: none; 
-        }
-
-        .left-table-title {
-            background-color: #00598D;
-            color: white;
-            font-size: 1.2rem;
-            text-align: right;
-            padding-right: 3%;
-            padding-top: 0.5%;
-            padding-bottom: 0.5%;
-        }
-
-        .left-table-content {
-        }
-
-        .left-button-category{
-            display: block;
-            max-width: 100%;
-            font-weight: normal;
-            margin-top: 3%;
-            margin-bottom: 2%;
-            margin-right: 7%;
-        }
-
-        .left-button-press{
-            display: block;
-            max-width: 100%;
-            margin-top: 1%;
-            margin-bottom: 1%;
-        }
-
-        input{
-            margin-left: 10%;
-            margin-bottom: 3%;
-        }
-
-        hr {
-            border-top: 1px dashed black;
-            border-bottom: none;
-        }
-
-        .left-button {
-            width: 19%;
-            max-width: 20%;
-            border: 0;
-            outline: 0;
-            background-color: transparent !important;
-            cursor: pointer;
-            margin-right: 2%;
-            margin-bottom: 1%;
-        }
-
-        .left-button > img {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        /* news list */
-        .right-news-list {
-            display: inline-block;
-            width: 3vw;
-            min-width: 50%;
-            max-width: 90%;
-            margin-top: 1%;
-            margin-left: 2%;
-        }
-
-        .right-aggregate {
-            display: inline-block;
-            font-size: 0.75rem;
-            text-align: left;
-            margin-left: 2%;
-            color: #9D9D9D;
-        }
-
-        .right-news-title{
-            display: inline;
-            color: black;
-            font-size: 1.3rem;
-            font-weight: bold;
-            text-align: left;
-        }
-
-        .topnews-info {
-            display: block;
-            margin-top: 1%;
-        }
-
-        .topnews-content_id {
-            display: inline-block;
-            height: 9vh;
-            text-align: center;
-            font-size: 2.5rem;
-            font-weight: bold;
-            max-width: 5%;
-            margin-right: 3%;
-        }
-
-        .topnews-content_title {
-            display: inline-block;
-            width: 25vw;
-            height: 7vh;
-            font-size: 1rem;
-            margin-left: 2%;
-            padding-top: 2%;
-        }
-
-        .topnews-thumbnail {
-            display: inline-block;
-            margin-top: 2%;
-            margin-bottom: 2%;
-            margin-left: 1%;
-            margin-right: 2%;
-            max-width: 25%;
-            vertical-align: middle;
-        }
-
-        .more {
-            display: block;
-            text-align: right;
-            font-weight: bold;
-            color: #B6B6B6;
-            clear: both;
-            margin-top: 5%;
-            margin-bottom: 7%;
-            padding-right: 11%;
-        }
-    </style>
-    
-    <style type="text/css">
-    /* Select Table */
-        .entire-table {
-            margin-top: 1rem;
-            margin-left: 15%;
-            margin-right: 12%;
-            border-collapse:collapse;
-            box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-            text-align: center;
-        }
-
-        .news-tr {
-            background-color: #ebebeb;
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
-
-        a { 
-            text-decoration: none; 
-            color: white; 
-        }
-        a:visited { 
-            text-decoration: none; 
-        }
-        a:hover { 
-            text-decoration: none; 
-        }
-        a:focus { 
-            text-decoration: none; 
-        }
-        a:hover, a:active { 
-            text-decoration: none; 
-        }
-
-        .table-title {
-            background-color: #00598D;
-            max-height: 100;
-            color: white;
-            font-size: 1.2rem;
-            text-align: right;
-            padding-right: 3%;
-        }
-
-        .table-content-title {
-            width: 15%;
-            margin-top: 10%;
-            margin-bottom: 10%;
-        }
-
-        .button-press{
-            float: left;
-        }
-
-        input{
-            margin-top: 1.5%;
-            margin-left: 5%;
-            margin-bottom: 1%;
-        }
-
-        .button-press > button {
-            max-width: 11%;
-            border: 0;
-            outline: 0;
-            background-color: transparent !important;
-            cursor: pointer;
-            margin-top: 0.5%;
-            margin-right: 2%;
-            margin-bottom: 0.5%;
-        }
-
-
-        .button-press > button > img {
-            width: 100%;
-            max-width: 100%;
-        }
-
-        /* News List */
-        .aggregate {
-            font-size: 0.9rem;
-            margin-left: 5%;
-            margin-right: 5%;
-            margin-top: 2%;
-            margin-bottom: 1%;
-        }
-
-        .newsinfo {
-            margin-left: 5%;
-            padding: 0.5%;
-            margin-bottom: 1%;
-        }
-
-        .news-thumbnail {
-            display: inline-block;
-            max-width: 13%;
-            vertical-align: top;
-        }
-
-        .news-content {
-            display: inline-block;
-            font-size: 1rem;
-            margin-left: 1%;
-            max-width: 80%;
-        }
-
-        .news-keyword {
-            display: inline-block;
-            color: #4db2ec;
-        }</style><style type="text/css">/* split style */
-        .App {
-            
-        }
-
-        .gutter {
-        background: rgba(255, 255, 255, 0.05);
-        flex-shrink: 0;
-        }
-
-        .gutter-horizontal {
-        cursor: ew-resize;
-        }
-
-        .gutter-vertical {
-        cursor: ns-resize;
-        }
-
-        .comp {
-        background: red;
-        color: white;
-        height: 100px;
-        display: inline-block;
-        }
-
-        .wrap {
-        display: flex;
-        margin-left: 5%;
-        margin-right: 5%;
-        margin-top: 2%;
-        }
-
-        /* original news part */
-        .content-news { 
-            border-right: 1px solid #d1d1d1;
-            padding-left: 2%;
-            padding-right: 2%;
-            margin-bottom: 3%;
-        }
-        .original-news-title {
-            font-size: 1.7rem;
-        }
-        .original-news-upload {
-            color: #a7a7a7;
-            margin-top: 1%;
-            margin-bottom: 1%;
-        }
-        .original-news-reporter {
-            width: 1vw;
-            min-width: 1vw;
-            max-width: 1vw;
-            margin-top: 1%;
-            margin-right: 0.5%;
-        }
-        .original-news-thumbnail {
-            width: 50%;
-            display: block;
-            margin: auto;
-            margin-top: 2%;
-            margin-bottom: 2%;
-        }
-        .original-news-text {
-            margin-top: 5%;
-            margin-bottom: 3%;
-            white-space: pre-line;
-        }
-
-        /* news report part */
-        .analysis-report {
-            padding-left: 1%;
-            padding-right: 1%;
-        }
-
-        .analysis-report-title > img {
-            display: inline-block;
-            width: 8%;
-            vertical-align: bottom;
-        }
-
-        .analysis-report-title > div {
-            display: inline-block;
-            font-size: 2rem;
-            margin-left: 1%;
-            font-weight: bold;
-        }
-
-        .email-text {
-            display: inline-block;
-            float: right;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-
-        .email-button {
-            display: inline-block;
-            float: right;
-            width: 6%;
-            margin-right: 1%;
-            border: 0;
-            outline: 0;
-            background-color: transparent !important;
-            cursor: pointer;
-        }
-
-        /* news report part > keyword & summary */
-        .keyword-summary {
-            margin: 0 auto;
-            border: 1px solid #CBCBCB;
-            border-collapse:collapse;
-            min-width: 100%;
-            min-height: 150px;
-            margin-bottom: 7%;
-        }
-
-        .keyword-summary > tr, .keyword-summary > td {
-            padding: 1.5% 1.5% 1.5% 1.5%;
-            border: 1px solid #CBCBCB;
-        }
-
-        .title-td {
-            background-color: #ebebeb;
-            text-align: center;
-            width: 20%;
-        }
-
-        .content-td {
-            padding-left: 1.5%;
-        }
-
-        .analyze-keyword {
-            display: inline-block;
-            font-weight: 600;
-        }
-
-        .summary-td > button {
-            max-width: 17%;
-            border: 0;
-            outline: 0;
-            background-color: transparent !important;
-            cursor: pointer;
-            margin-left: 12%;
-        }
-
-        .summary-td > button > img {
-            max-width: 100%;
-        }
-
-        /* news report part > similar news */
-        .similar-title {
-            display: inline-block;
-            font-size: 1.5rem;
-            margin-left: 1%;
-            font-weight: 600;
-        }
-
-        .similar-aggregate {
-            display: inline-block;
-            font-size: 0.8rem;
-            margin-left: 1%;
-            color: #9D9D9D;
-        }
-
-        .right-botton-table {
-            margin: 0 auto;
-            border: 1px solid #CBCBCB;
-            border-collapse:collapse;
-            min-width: 100%;
-            margin-top: 1.5%;
-            margin-bottom: 5%;
-        }
-
-        .right-botton-table > tr, .similar-news-info {
-            border: 1px solid #CBCBCB;
-            text-align: center;
-            font-size: 0.8rem;
-        }
-
-        .similar-news-info-title {
-            padding: 2%;
-            text-align: justify;
-        }
-
-        .similar-news-info:nth-child(2n) {
-            background-color: #F3F3F3;
-        }</style><style type="text/css">h2 {
-            max-width: 50%;
-        }
-
-        .email-title {
-            margin-left: 50%;
-            margin-right: 50%;
-            margin-top: 8%;
-            margin-bottom: 5%;
-        }
-
-        .MuiDialogContent-root {
-            max-width: 50%;
-            margin-left: 20%;
-            margin-right: 20%;
-            margin-bottom: 5%;
-        }
-
-        .MuiDialogActions-root {
-            margin-left: 38.85%;
-            margin-right: 38.85%;
-            margin-bottom: 5%;
-        }
-    </style>
-    
-    <style type="text/css">
-        .box {
-            -ms-overflow-style: none; /* IE and Edge */
-            scrollbar-width: none; /* Firefox */
-        }
-        .box::-webkit-scrollbar {
-            display: none; /* Chrome, Safari, Opera*/
-        }
-
-        .todays-background {
-            background-color: #f9f9f9;
-            margin-left: 5%;
-            margin-right: 5%;
-            padding-bottom: 3%;
-        }
-
-        .tabs {
-            float: left;
-            margin-left: 0.5%;
-            padding-left: 1%;
-            padding-right: 1%;
-            background-color: #f3f3f3;
-            cursor: pointer;
-        }
-
-        .tab-margin {
-            margin-left: 2.4%;
-        }
-
-        .tab-clear {
-            list-style: none;
-        }
-
-        .style-clear {
-            clear: both;
-        }
-
-        .style-float-left {
-            float: left;
-        }
-        .style-time-keyword {
-            width: 100%;
-        }
-
-        .keywords {
-            display: block;
-        }
-
-        .keyword-align {
-            margin-left: 13%;
-        }
-
-        .keyword-box {
-            float: left;
-            min-width: 22%;
-            max-width: 22%;
-            margin-left: 3%;
-            margin-right: 3%;
-        }
-
-        .keyword-fix {
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
-            background-color: #5ca2e5;
-            color: white;
-        }
-
-        .keyword-fix-title {
-            float: left;
-            padding-left: 3%;
-            padding-top: 3%;
-            margin-top: 2%;
-            margin-left: 5%;
-        }
-
-        .keyword-fix-date {
-            padding-left: 3%;
-            padding-top: 3%;
-            padding-bottom: 2%;
-            text-align: right;
-            padding-right: 0.2vw;
-            font-size: 0.7rem;
-            margin-right: 5%;
-        }
-
-        .keyword-change {
-            background-color: white;
-            font-size: 1.3rem;
-            height: 2vw;
-            text-align: center;
-            vertical-align: middle;
-            box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-            padding-top: 1%;
-            padding-bottom: 1%;
-        }
-
-        .summary-box {
-            box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-            margin-top: 1%;
-        }
-
-        .summary-left {
-            float: left;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-            background-color: #5ca2e5;
-            min-width: 2vw;
-            padding-top: 1%;
-            padding-left: 1%;
-            padding-bottom: 1%;
-            color: white;
-            margin-bottom: 3%;
-        }
-
-        .summary-left-content {
-            display: block;
-            float: right;
-            text-align: right;
-            font-size: 0.7rem;
-        }
-
-        .summary-right {
-            float: left;
-            background-color: white;
-            min-width: 60%;
-            padding-top: 1%;
-            padding-left: 1%;
-            padding-bottom: 1%;
-            height: 76px;
-            margin-bottom: 3%;
-        }
-
-        .title-content {
-            padding-bottom: 0.8%;
-        }
-
-        .timeKeyword-table {
-            width: 13vw;
-            margin-left: 30%;
-            border: 1px solid black;
-            margin-bottom: 5%;
-            box-shadow: 0px 3px rgba(0, 0, 0, 0.25);
-        }
-
-        .timeKeyword-title {
-            color: white;
-            background-color: #5ca2e5;
-            text-align: center;
-        }
-
-        .timeKeyword-content {
-            background-color: white;
-            font-size: 1rem;
-            text-align: left;
-            padding-left: 4%;
-            vertical-align: middle;
-        }
-
-        .today-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-top: 0.5%;
-            margin-bottom: 3%;
-        }
-
-        .time-keyword-left {
-            float: left;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .time-keyword-right {
-            float: right;
-            width: 50%;
-            box-sizing: border-box;
-        }
-
-        .chart-left {
-            float: left;
-            margin-left: 10%;
-            margin-top: 3%;
-        }
-
-        .chart-right {
-            display: inline-block;
-            margin-left: 8%;
-        }
-
-        .keyword-div {
-            float :left;
-        }
-
-        .today-margin{
-            margin-left: 3%;
-            padding-top: 1%;
-            padding-bottom: 20px;
-        }
-
-        .mid-margin{
-            margin-top: 5%;
-        }
-    </style>
-    
-    <style data-jss="" data-meta="MuiDialog">
-        @media print {
-            .MuiDialog-root {
-                position: absolute !important;
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#000000">
+        <meta name="description" content="Web site created using create-react-app">
+
+        <title>Email</title>
+        
+        <style type="text/css">
+            body {
+                margin-left: 10;
+                margin-right: 10;
+                font-family: 'Roboto';
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                overflow-x: hidden;
+                overflow-y: auto;
             }
-        }
+        </style>
 
-        .MuiDialog-scrollPaper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .MuiDialog-scrollBody {
-            overflow-x: hidden;
-            overflow-y: auto;
-            text-align: center;
-        }
-
-        .MuiDialog-scrollBody:after {
-            width: 0;
-            height: 100%;
-            content: "";
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        .MuiDialog-container {
-            height: 100%;
-            outline: 0;
-        }
-
-        @media print {
-            .MuiDialog-container {
-                height: auto;
+        <style type="text/css">
+            body{
+                margin: 0;
             }
-        }
 
-        .MuiDialog-paper {
-            margin: 32px;
-            position: relative;
-            overflow-y: auto;
-        }
-
-        @media print {
-            .MuiDialog-paper {
-                box-shadow: none;
-                overflow-y: visible;
+            .sns {
+                height: 1.2rem;
+                border-bottom: thin solid #B6B6B6;
             }
-        }
 
-        .MuiDialog-paperScrollPaper {
-            display: flex;
-            max-height: calc(100% - 64px);
-            flex-direction: column;
-        }
-
-        .MuiDialog-paperScrollBody {
-            display: inline-block;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        .MuiDialog-paperWidthFalse {
-            max-width: calc(100% - 64px);
-        }
-
-        .MuiDialog-paperWidthXs {
-            max-width: 444px;
-        }
-
-        @media (max-width:507.95px) {
-            .MuiDialog-paperWidthXs.MuiDialog-paperScrollBody {
-                max-width: calc(100% - 64px);
+            .logo {
+                margin-top: 1.2rem;
+                margin-bottom: 1.2rem;
+                height: 3.5rem;
+                background-color: white;
+                width: 100vw;
+                line-height: 3.5rem;
+                color: black;
+                font-size: 3rem;
+                font-weight: bold;
+                font-style: italic;
+                justify-content: center;
+                text-align: center;
             }
-        }
 
-        .MuiDialog-paperWidthSm {
-            max-width: 600px;
-        }
-
-        @media (max-width:663.95px) {
-            .MuiDialog-paperWidthSm.MuiDialog-paperScrollBody {
-                max-width: calc(100% - 64px);
+            .menu {
+                background-color: #212529;
+                height: 3rem;
+                margin-left: 25%;
+                margin-right: 25%;
+                padding-left: 1.2rem;
+                border-top: 0.5rem solid #4DB2EC;
+                width: 50%;
             }
-        }
 
-        .MuiDialog-paperWidthMd {
-            max-width: 960px;
-        }
-        @media (max-width:1023.95px) {
-            .MuiDialog-paperWidthMd.MuiDialog-paperScrollBody {
-                max-width: calc(100% - 64px);
+            .menu-item {
+                display: inline-block;
+                color: white;
+                font-size: 1.2rem;
+                line-height: 2.8rem;
+                width: 10%;
+                text-align: center;
+                cursor: pointer;
+                transition: background-color 0.3s;
+                text-decoration: none;
             }
-        }
 
-        .MuiDialog-paperWidthLg {
-            max-width: 1280px;
-        }
-
-        @media (max-width:1343.95px) {
-            .MuiDialog-paperWidthLg.MuiDialog-paperScrollBody {
-                max-width: calc(100% - 64px);
+            .menu-item:visited {
+                text-decoration: none;
             }
-        }
 
-        .MuiDialog-paperWidthXl {
-            max-width: 1920px;
-        }
-
-        @media (max-width:1983.95px) {
-            .MuiDialog-paperWidthXl.MuiDialog-paperScrollBody {
-                max-width: calc(100% - 64px);
+            .menu-item:hover {
+                background-color: #FFFFFF;
+                color: #000000;
+                font-weight: bold;
             }
-        }
 
-        .MuiDialog-paperFullWidth {
-            width: calc(100% - 64px);
-        }
+            .menu-item:active {
+                background-color: #FFFFFF;
+            }
+        </style>
 
-        .MuiDialog-paperFullScreen {
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            max-width: 100%;
-            max-height: none;
-            border-radius: 0;
-        }
+        <style type="text/css">/* split style */
+            .comp {
+                background: red;
+                color: white;
+                height: 100px;
+                display: inline-block;
+            }
 
-        .MuiDialog-paperFullScreen.MuiDialog-paperScrollBody {
-            margin: 0;
-            max-width: 100%;
-        }
-    </style>
+            .wrap {
+                display: flex;
+                margin-left: 30%;
+                margin-right: 30%;
+                margin-top: 2%;
+            }
 
-</head>
-  <body>
-    <div id="root">
-        <div>
+            /* news report part */
+            .analysis-report {
+                padding-left: 1%;
+                padding-right: 1%;
+            }
+
+            .analysis-report-title > img {
+                display: inline-block;
+                width: 8%;
+                vertical-align: bottom;
+            }
+
+            .analysis-report-title > div {
+                display: inline-block;
+                font-size: 2rem;
+                margin-left: 1%;
+                font-weight: bold;
+            }
+
+            /* news report part > keyword & summary */
+            .keyword-summary {
+                margin: 0 auto;
+                border: 1px solid #CBCBCB;
+                border-collapse:collapse;
+                min-width: 100%;
+                min-height: 150px;
+                margin-bottom: 7%;
+            }
+
+            .keyword-summary > tr, .keyword-summary > td {
+                padding: 1.5% 1.5% 1.5% 1.5%;
+                border: 1px solid #CBCBCB;
+            }
+
+            .title-td {
+                background-color: #ebebeb;
+                text-align: center;
+                width: 20%;
+            }
+
+            .content-td {
+                padding-left: 1.5%;
+            }
+
+            .analyze-keyword {
+                display: inline-block;
+                font-weight: 600;
+            }
+
+            .summary-td > button {
+                max-width: 17%;
+                border: 0;
+                outline: 0;
+                background-color: transparent !important;
+                cursor: pointer;
+                margin-left: 12%;
+            }
+
+            .summary-td > button > img {
+                max-width: 100%;
+            }
+
+            /* news report part > similar news */
+            .similar-title {
+                display: inline-block;
+                font-size: 1.5rem;
+                margin-left: 1%;
+                font-weight: 600;
+            }
+
+            .similar-aggregate {
+                display: inline-block;
+                font-size: 0.8rem;
+                margin-left: 1%;
+                color: #9D9D9D;
+            }
+
+            .right-botton-table {
+                margin: 0 auto;
+                border: 1px solid #CBCBCB;
+                border-collapse:collapse;
+                min-width: 100%;
+                margin-top: 1.5%;
+                margin-bottom: 5%;
+            }
+
+            .right-botton-table > tr, .similar-news-info {
+                border: 1px solid #CBCBCB;
+                text-align: center;
+                font-size: 0.8rem;
+            }
+
+            .similar-news-info-title {
+                padding: 2%;
+                text-align: justify;
+            }
+
+            .similar-news-info:nth-child(2n) {
+                background-color: #F3F3F3;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div id="root">
             <div>
-                <div class="sns">
+                <div>
+                    <div class="sns"></div>
+                    <div class="logo">PressCheck</div>
+                    <div class="menu"></div>
                 </div>
                 
-                <div class="logo">PressCheck</div>
-                <div class="menu">
-                    <a href="/">
-                        <div class="menu-item">Home</div>
-                    </a>
-                    <a href="/news/newslist">
-                        <div class="menu-item">News</div>
-                    </a>
-                    <a href="/todays">
-                        <div class="menu-item">Today's</div>
-                    </a>
-                </div>
-            </div>
-            
-            <div class="App">
-                <div class="wrap">
-                    <div class="content-news" style="width: calc(45% - 5px);">
-                        <div>
-                            <div class="original-news-title">
-                                <b>"파격" 신형 투싼, 경쟁차엔 "충격" ... 사전계약 첫날, 1만대 돌파</b>
-                            </div>
-                            <div class="original-news-upload">
-                                [입력]2020.09.17. 오전 10:01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[수정]2020.09.17. 오전 10:15
-                            </div>
-                            <div>
-                                <img class="original-news-reporter" src="/static/media/reporter.cd5a7bf0.png" alt="reporter" value="reporter">최기성 기자
-                            </div>
-                                <img class="original-news-thumbnail" src="https://file.mk.co.kr/meet/neds/2020/09/image_readtop_2020_960165_16003051264359396.jpg" alt="thumnail" value="thumnail">
-                                <div class="original-news-text">
-                                    5년 만에 파격 변신한 현대자동차 준중형 SUV '신형 투싼'이 사전 계약 첫날에만 1만대 넘는 실적을 거둬들이며 현대차 SUV 역사를 새로 썼다.
-                                    현대차는 16일부터 전국 영업점을 통해 사전계약에 들어간 신형 4세대 투싼의 첫날 계약대수가 1만842대를 기록했다고 17일 밝혔다.
-                                    신형 투싼은 더뉴 그랜저(1만7294대)와 신형 아반떼(1만58대)에 이어 사전 계약 첫날 1만대를 넘어섰다. 현대차 SUV로 국한하면 사전계약 신기록을 세웠다.
-                                    
-                                    사전계약 돌풍의 1등 공신은 '파격' 디자인이다. 실제로 신형 투싼이 지난 15일 공개된 뒤 "변해도 너무 변했다"는 평가가 나왔다.
-                                    누가 봐도 기존 투싼의 흔적을 찾아보기 어려울 정도로 파격적인 변신이다. 5년 만에 새로 나온 풀체인지(완전변경) 모델이라 하더라도 과하게 여길 수준이다. 파격을 넘어 '과격'이라는 말도 나왔다.
-                                    
-                                    3세대 플랫폼을 통해 대폭 길어진 전장과 축간거리(휠베이스), 짧은 전방 오버행(차량 끝에서 바퀴 중심까지 거리)을 갖춰 정지한 상태에서도 앞으로 달려나가는 듯한 역동적인 비율을 구현했다.
-                                    전장은 4630mm로 기존보다 150mm 늘었다. 휠베이스는 2755mm로 85mm 길어졌다. 중형 SUV인 싼타페(2765mm)와 10mm밖에 차이나지 않는다. 준중형 SUV의 기준과 자격을 새로 정하겠다는 의도다.
-                                    여기에 보석처럼 빛의 변화에 따라 입체적으로 반짝이는 '파라메트릭 쥬얼 패턴 그릴', 시동을 켜면 주간주행등으로 점등되는 '파라메트릭 쥬얼 히든 램프', 후미등을 감싸고 있는 검정 테두리 위에 '파라메트릭 히든 램프'로 파격적인 외형을 완성시켰다.
-                                    실내의 경우 덮개가 없는 10.25인치 개방형 클러스터, 슬림한 송풍구로 구성된 대시보드, 실버 가니쉬 라인으로 미래지향적이면서도 급을 뛰어넘는 공간감을 추구했다.
-                                    이상엽 현대차 디자인센터장(전무)은 15일 열린 온라인 기자간담회에서 "경쟁자가 많은 준중형 SUV 시장에서는 강한 디자인 임팩트가 있어야 소비자에게 선택받을 수 있다"며 "글로벌 베스트셀링 SUV이라는 상징성과 현대차 SUV 라인업의 중심인 투싼을 통해 강렬한 현대차만의 캐릭터를 보여주고 싶었다"고 말했다.
-                                    
-                                    '시선집중'에 성공한 투싼의 '파격'은 현대차의 '반격'이자 경쟁차종엔 '충격'이다.
-                                    이상엽 디자인센터장의 말처럼 준중형 SUV 시장은 국내에서도 경쟁이 치열한 곳이다. 소형 SUV를 이끌어주고 중·대형 SUV를 밀어주는 허리 역할을 담당한다.
-                                    투싼도 베뉴와 코나를 끌어주고 싼타페와 팰리세이드를 밀어주면서 SUV 라인업을 탄탄하게 다져주는 임무를 부여받았다.
-                                    투싼은 2010년대까지 그 임무를 충실히 수행하면서 '국가대표 준중형 SUV'로 자리잡았다. 투싼은 2004년 첫 출시된 뒤 2009년 2세대 투싼 ix를 거쳐 2015년 3세대 올뉴 투싼으로 거듭나면서 현대차를 넘어 국산차시장에서도 준중형 SUV 대표모델로 자리잡았다.
-                                    그러나 형제 모델인 기아차 스포티지의 거센 도전에 '국가대표' 자리를 위협받았다. 여기에 르노삼성차 XM3, 쉐보레 트레일블레이저, 쌍용차 코란도 등과도 경쟁하는 '춘추전국 시대'가 열리면서 스포티지와 함께 집안 싸움을 벌이던 투싼의 위기는 심각해지기 시작했다.
-                                    투싼은 지난 2017년 4만6355대, 2018년 4만2623대 판매되면서 국산 준중형 SUV 판매 1위를 기록했다. 투싼은 지난해에도 1위 자리를 지켰지만 판매대수는 3만6758대에 그쳤다. 스포티지는 같은 기간 2만8271대 팔렸다.
-                                    올해 판매대수를 보면 투싼 위기가 현실화됐다.
-                                    올 1~8월 판매대수는 투싼이 1만6448대에 불과하다. 후발 주자인 XM3(2만5878대)에 뒤쳐졌다. 스포티지(1만2412대)는 물론 트레일블레이저(1만3819대), 코란도(1만2402대)와도 격차가 줄었다.
-            
-                                    그러나 파격적인 디자인으로 시선을 집중시키고, 향상된 주행 안정성을 제공하며, 쾌적한 감성 공조 시스템 및 최첨단 인포테인먼트 사양을 통해 차급을 뛰어넘는 상품성을 갖춘 신형 투싼의 돌풍으로 경쟁차들은 이제는 반대로 위기에 처하게 됐다.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="gutter gutter-horizontal" style="width: 10px;"></div>
-                        <div class="analysis-report" style="width: calc(55% - 5px);">
-                            <div>
-                                <div class="analysis-report-title">
-                                    <img src="data:image/png;base64,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" alt="Report" value="Report">
-                                    <div>분석 리포트</div>
-                                </div>
-                                <div class="email-send">
-                                    <div>
-                                        <div class="email-text">Email</div>
-                                        <button class="email-button"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAATnSURBVHgBvVdtTFtVGH7O/SiFSy8tn/JVOkBMBhkoOCExxmkwfiTLNP6QOGOyYDYXdZlRf+ii+GOamKl/li1uKptGnf7QDf8sRkc0xAWHiHzMIWN8DWWMQikfbWnvOZ57CXSF0hZofJK2933Pe973Oe85531vCcLAOTV9kBF8gDiCge3NsFpPrNQL4YwpaAriDALYwumlSJM+/OgLPFZ7L/7o6kVmehoSzQn49MuzxlhJUQFe2f8MXj98FIderkdSohmNZ5pQUXYHCu25OHL8c3g8PrxU/xTsebetGSMigY6evzE27uTBU0EIgSgIsKZYsPvJR6EoiYZN38AIJl1ug4BOVCdwoeUSfL4FlJeWoL3zSkQCAqKg83Ifuv66uiyP35zEDf4pKsgzZJvVgtbfu/HjL60YGb0B1aIg1apifGIS8x4Pau7eFtG/hCjYtrWYkwgSWFr5Ehx5OTj1dRNkSYLX50N+TpZBTtMoWn7rwLHGb/D2a/vW9B81A7se2QElKRh06bmt47Lxq2fAqlpQXGg3Vm+SZVxs68S5881IUZPhW/BH9B8xA7X33YNCvpo9dTuRkWaDqiro6e3nAf40DmFVxVbUVJUjOyudP5eitb3bmLf9zjJc6RuE0+XCwb1PRwqh345QTB13OFDT8J3meLwCcYQ4dK4Zv765x/b84OCt+pAMuD+xPwfG3tPmx6y6PD4XwFdd09gM6ittUGS+0+6BHaLMmt0f2xvU+uHTIQSmGh1WIcCO8XJVd+vkQZcfFwbmsBk8WKigLNO8JDp40k9Nn7RXE5N2SH121CnMnMy7X9RYB7/mdfifwGvKPvilNucJe6lEM/ATmQh/GxxWEx7YomAzyFTWPOcOKYO2SCxdEyAxkHGRNwGyYrKIA9VpiDsE3ppyA2AKsxr0mJXqAoRhLvqDJH642Ib+0X+wGRTzQlVbXRVUmBhofgCQmSEG88MVtMAPYSyoykpLhdlkwmaQblOXn1kKX2iWZmRgCaEbxCWax9kljhhieUkhPF4fmts6QCnFevFQTZVRGQ2Yr4JlB1bZGASInAFiygCdWyyvZO5bXjhmoeW8xaVk3Jx0YSOglJ+twCTf2gMgvkvLekEpA/MNgwXcIK6WbEZM2SAJ2aAz7SEOmCkXdMtnYHIuNgLi7eXB94MsjIboheRKTmAIzD8RuRnpE8W+JzjL78OPB5wgmjvsmOA8A/Ha7lXBVyJqOwadhnj9VdCFIdDMFxYDUw9EdxPEuZ8NOWB5GJq6Mxj833c5gdOIBdEJLDkdPwoy3wOa9SJk91m++utBJzPnIXq64Vd38eDvcLu2WN3GTsAg4WmHNPE+f0hYNaYTMk0cAfV2g63HZ6yGJCEfgloZNnjQm5nb1Bi2sSJ6BogEkljE48Z4E3hXE5JuBxVkMM+1qOYRCRB9Rcn8pVJMxnohmB1gUhrYXBcY9a5tp3+xwBSYdyg0uGiFYKnaUPBlH5KF+7iLLyQpRE/1GqDNLtrohWjVxAQ7T2Mx4gfeZ+Z5KfaNrBqRVlDm+13M9zsH8cXiuWCCCdTTH56Asd9KOdeEeQEhMiS1mtvIiAmMwe9qXu3GXABBTgWbDZ4LnQCDZCN6g8BaAZifM+9DrLeWsbX/CxDRAsLPBZ3pALR5L5lu3d4gKMVv8OuzrqK0WfA+6aLTnYf/AzEMqXHHFvcbAAAAAElFTkSuQmCC" alt="Email" value="Email">
-                                        </button>
+                <div class="App">
+                    <div class="wrap">
+                        <div class="content-news">
+                            <div class="analysis-report">
+                                <div>
+                                    <div class="analysis-report-title">
+                                        <img src="data:image/png;base64,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" alt="Report" value="Report">
+                                        <div>분석 리포트</div>
                                     </div>
-                                </div>
-                                <br><br>
-                                <table class="keyword-summary">
-                                    <tr>
-                                        <td class="title-td">키워드</td>
-                                        <td class="content-td">
-                                            <div class="analyze-keyword">#신형&nbsp;&nbsp;</div>
-                                            <div class="analyze-keyword">#투싼&nbsp;&nbsp;</div>
-                                            <div class="analyze-keyword">#현대&nbsp;&nbsp;</div>
-                                            <div class="analyze-keyword">#SUV&nbsp;&nbsp;</div>
-                                            <div class="analyze-keyword">#사전계약&nbsp;&nbsp;</div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="title-td">기사 요약</td>
-                                        <td class="content-td">
-                                            <div class="summary-td">
-                                                <button>
-                                                    <img src="data:image/png;base64,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" alt="한줄요약" value="short">
-                                                </button>
-                                                <button>
-                                                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAH4AAAApCAYAAADzqJ3HAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAApzSURBVHgB7VxNbBTJFX41nhnsMV7WXjteEn5DItkgJVJMLklAPgFRTovEKSS3RDlmr2wOXOC6HCO4ZX0CyVxyWLjEWpS9AJE2B2wpS7C9bAixsQn22Hhm3J331dRrasrV4+lxD2s780mt7q6/96pe1fup6hlFDi7+6euQ2th1GPv1d5T9npGHy5cvZ+z3NnYXXPnKg8yGDmpjV4IFL7LVss7Ky82bN/HcFvzuRc7c1/kKseIxA9TKygqe91AbuxX5AwcOYHHrFQ9hw5nLTE9PY7XnqI1tgYsn99GlM+/R4d4spYTs06dPIXRt3qNWBwYG1NzcXKqqvpDP0NmhbmoGd6aKtFIKvHkffzBI/XubZ/VXn/yr4bL93R10uC/Hfam6QSulkOaWKzS7WKGkQFvD7+f5nqX5YoVmFsqx7Rzuy9LQ4B7qyqfmb2PAIp8uEnwYhopS9uoxWOd/2EPN4N7jFR5kf96nk8VIELX0MnRuuDrRHn71Wg9sMyjkeMIe76bTx7q0kHyYX16nyedrdPuLJZorrtdtb4AF/pufvkvDgxstKdq48deXm7axVRQKhQzM+cjICD18+PDNig+CQFEL8eH480Tl5+sMxJ2pZW/62eG90TO0xe2/L1FSQEiXzvRrjbJSDrVgZxbL0SQa4PRDfXk6ebCTTh0r0Ajfr3/+Uk+0zdqbfF6iO5PLmjdM0hHTBvKv3p33Cv8058uE+dtXq8xLck0DsNBh0kMIHdDG3syCkGcFtQrzLZ7RGMCLJ9/RdIo8sHjHQEJwSSBCusNaZezBfzfko30RYJXmPvr9aB/94c//8QrlA9Z4aG+c+XAnIiYLTMdZ1lLQCFfvvvD2y6bdrOC7u7upq6uL5ufn9TsEH+3U8aygnYahwbw2J1gVGJgrd6sd+4gFeP4HPXT6uwUa5wGH6dgMGGQICWV9QndRNUeBFvwvf7zPK7iRg13Vsv/00wdvp8yqhhZw/ZprEwuRtoEGahbFYlFfAtuAtVTVp4VhFjRULbxdDKrY+qqwXkUDB9MCwWPF/fYn7+qVCXuKQZziO1atC0wi4LPHjS8AWbWHezcGRJhE4A/+AC4fwO8c58GZK+TUBr8G2itNbWnbeMUPGL2Wqvo0AZWO2a+F+O81+jQmAsBq+oxXGlaTtpXv7zE2mQfyeSm2/e4mPOmCp44I2+eI1tIzEUP57R2TiKrXFFup6hGTJgFsrM9hwkrFam50FWDw7y2vRKq+UEeoL4ygDvHqjXPWXGClQ7CTMRMJ2gVhGew4+uRCzMssO5C+yfvh6Hs8Iap8jd1/1TBfHujZZZy7MNrJaRVEQAN7t74RAa995GA6m4sY5GsTizVp0BygAZ8BZmGqjlYA4LHDvgNxPgScuktn9mhTo8t9ucqCDKKQ8dxQNRIZu+/3KeCgrpoJUSxtWSOIrHUcH0LvP3nyRC0sLFCawGpLGsbVA1aW2mSeHjIrEN7vaswGEODbI8BkGHvwkn2CXu0cQpiw9+4EwEbMqe8VtNBAC8KNEzw0ARy0i+z8QfgyASKarN6vcxwfpzHG7r/cdAI2AvbqQ3buoplTs+LZxm/rs3iEZrepfniGXb1CvoOu/eVFU07RvcerWghXfvEtrYYlnMJOG1DIddTYbMTwm0UMejOJVTl8DfgY8CHg0CFNIoNWg4Wu+vr61NGjR3Xorle86H1KSe3/SHcuHQtS3SHb+oxPSnN2saRtMxzEblbLb3yDshYYIgZt29m5bLRN29d428CKh0YXrd6ScO7n7MgMDaZjiyH0SRObC7AKEaLVw8fnB73pjaxQG/e+XPFqjnN8BgHN0ipc8ewJbAUSw5twTtV4XGmp+k84nu7O1Z9H2CEDrjpCdeFzaOB4Xf98kZIA4Vxak7EZfMRRTTP0sSE1lY7Gg6qPXlxXO5VVP5vgcKQZNV5Vm6uJ6mDQhwbpG8OD2TW2643bcvgChXy6ARer+dCo+taHc60AwqifHUu22YSj1W8ScQdLcWhWQ9SBVp0bTueQsVP26rHhgVgboVASjxi22le+uleer6VhjmMRhvnqiLPny4cfsQ2hvXp5rjmk2Wl4MLtKN1IYZOzRn4rRIFC59eDL36aCt1V9TRyv9+vp/xCYPDe2qbBShvKpep1BOwjw1E8fS36wlOTTq90CZ+cujLZsZ2ZmQjmkfxvADlmzgFc//kXyr2t2EmYWsFOo6m47J4GJ45XZrFP602qqqvxOjuN7zv/xH19TG7sO47/7/rfZeYf0seLK0VeX8Ph24hc4bTQGI1tR9Uq+qw8zmcyO+RCjjeYBsw7oFX/8+HEF+95e8bsXWNT9/f3yIYYWvHr06BG1sfthO+/2d0g7buu2jcahlNL2Hdpdv5t0bGRjC6onn8+/UyqV8HMUbBRHGzzZbDasVCr25Nhwfs9lFJcJrXd95zT9LHc7De3gGW1JmUZhl3frurzYY2B4lzpNf4cgY+LhI7ZND5/Rs6+eNW6ab7eMb8wsHpCBj/RwUPCKr6J5r+BAGbs5mXK5nGUbn+NKWXb0ckEQZNAA39FAwGnEVwDgHUxwvv0ePSMdZZk4ktbxbhgJBPIMp1Jo4O626V6m7XXUo6pTKu3ou01byku6zZ9BGFemkUv4tWmZ5zCOdylrv9tjgslkj7M8C5Dv66fDl+Yhl8uhcRyVlngDZ41lXB4dHS1PT09XN3B6enqweYPClbW1NcwSfa7K6kH28pXMKm6MuD6ZfDIAESXpblmrHNJCTlNuHatsaJXV5VAe+UIL5Uwe2TTRtklTpj3RUpFWkXT72dRVNo/IN3SERlTHgaS7q7XmXWhJffDoaiR7PKS+PcZmzIVvsmhGYZqUNWXQ6VJnZ2eZN3DwNUkwMTFRUxArH8dTUO/46cceRp4nQYZVP7HqJ7lLw5xPnK9sJp0yNem4c15oDYhPHUZp3H6I9k1dDVM/qoM8TBSLD5LyNq9URyBx9dy+xLzbbdXrT5Tn0NF5Pp5lfOPG36IRZ6bQRsBtYCa9NtfqhQsXKrdu3VoXAxOwuq+YH1bgqrAqed3R0ZExP7bTRBESSMjHefa7kq93uJwy+wHRMa/UFTsldYRD1OW06EcdyDfCDK06yu20RSsaZKhC1Jd2JN8KVZWhRxZ95Ot00EOfYeZsQYMWWQIEHStN+lMjEKHDd92my4u9b+L0T3H/o3GXfplxVCITi/eIvt0XvgeszdeXlpaw8vFxYHDixImQBf9m8PHnOPiflCNHjnSwDYC330ENOD3yOQ+O+3p7e9Xi4mKAXUC8I8++S8cknzyrRNrDz7axmqWe00YEjk31IMivfS0+Qh+vNl2L9w18oA0xO24fYvrlo9NInmJaxPwib9P+1qNhp2Fc2HyH+/fvD549ewYzrlW9uWrGRq92VgUQuPw7Ro41Qc3duvLmit5RhsMFnW7uOk/S3HqmTV9Zm2beoelrz+Wvpj3hSy6nTN7XN5sPm4Zd1u6rledrzx2fqC2pa9XL+/rse7fLO3KyedD/bWT+9apG2D74bKLPVhLF2+t6dclJSxpSuXWJkodkcY6Rm79Zmo+fJH2uNw5xbZDFc706vnBW438OgI+le5+nhQAAAABJRU5ErkJggg==" alt="두줄요약" value="middle">
-                                                </button>
-                                                <button>
-                                                    <img src="data:image/png;base64,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" alt="세줄요약" value="long">
-                                                </button>
-                                                <div>   
-                                                </div>
-                                                <div>현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다.</div>
-                                                <div></div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div class="similar-title">유사한 뉴스</div>
-                                <div class="similar-aggregate">※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
-                                <div class="similar-news-list">
-                                    <table class="right-botton-table">
+
+                                    <br><br>
+
+                                    <table class="keyword-summary">
                                         <tr>
-                                            <th>순위</th>
-                                            <th>언론사</th>
-                                            <th>뉴스 기사</th>
-                                            <th>유사도(%)</th>
-                                            <th>차이점 키워드</th>
-                                        </tr>
-                                        <tr class="similar-news-info">
-                                            <td><b>6</b></td>
-                                            <td>중앙일보</td>
-                                            <td class="similar-news-info-title">현대차 50년, 위기와 도전</td>
-                                            <td>3</td>
-                                            <td>
-                                                <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                            <td class="title-td">키워드</td>
+                                            <td class="content-td">
+                                                <div class="analyze-keyword">#신형&nbsp;&nbsp;</div>
+                                                <div class="analyze-keyword">#투싼&nbsp;&nbsp;</div>
+                                                <div class="analyze-keyword">#현대&nbsp;&nbsp;</div>
+                                                <div class="analyze-keyword">#SUV&nbsp;&nbsp;</div>
+                                                <div class="analyze-keyword">#사전계약&nbsp;&nbsp;</div>
                                             </td>
                                         </tr>
-                                        <tr class="similar-news-info">
-                                            <td><b>5</b></td>
-                                            <td>SBS</td>
-                                            <td class="similar-news-info-title">SUV의 역사</td>
-                                            <td>14</td>
-                                            <td>
-                                                <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
-                                            </td>
-                                        </tr>
-                                        <tr class="similar-news-info">
-                                            <td><b>4</b></td>
-                                            <td>국민일보</td>
-                                            <td class="similar-news-info-title">슬기로운 SUV 탐구생활</td>
-                                            <td>32</td>
-                                            <td>
-                                                <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
-                                            </td>
-                                        </tr>
-                                        <tr class="similar-news-info">
-                                            <td><b>3</b></td>
-                                            <td>KBS</td>
-                                            <td class="similar-news-info-title">2020년 현대차 신형 투산에 대해 알아보자</td>
-                                            <td>51</td>
-                                            <td>
-                                                <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
-                                            </td>
-                                        </tr>
-                                        <tr class="similar-news-info">
-                                            <td><b>2</b></td>
-                                            <td>연합뉴스TV</td>
-                                            <td class="similar-news-info-title">현대자동차 신형 투산 출시</td>
-                                            <td>85</td><td>
-                                                <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
-                                            </td>
-                                        </tr>
-                                        <tr class="similar-news-info">
-                                            <td><b>1</b></td>
-                                            <td>조선일보</td>
-                                            <td class="similar-news-info-title">SUV의 역습... 신형 투산 사전계약 첫날, 1만대 돌파</td>
-                                            <td>98</td>
-                                            <td>
-                                                <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
-                                                <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                        <tr>
+                                            <td class="title-td">기사 요약</td>
+                                            <td class="content-td">
+                                                <div class="summary-td">
+                                                    <button>
+                                                        <img src="data:image/png;base64,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" alt="한줄요약" value="short">
+                                                    </button>
+                                                    <button>
+                                                        <img src="data:image/png;base64,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" alt="두줄요약" value="middle">
+                                                    </button>
+                                                    <button>
+                                                        <img src="data:image/png;base64,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" alt="세줄요약" value="long">
+                                                    </button>
+                                                    <div>   
+                                                    </div>
+                                                    <div>현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다.</div>
+                                                    <div></div>
+                                                </div>
                                             </td>
                                         </tr>
                                     </table>
+
+                                    <div class="similar-title">유사한 뉴스</div>
+                                    <div class="similar-aggregate">※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
+                                    <div class="similar-news-list">
+                                        <table class="right-botton-table">
+                                            <tr>
+                                                <th>순위</th>
+                                                <th>언론사</th>
+                                                <th>뉴스 기사</th>
+                                                <th>유사도(%)</th>
+                                                <th>차이점 키워드</th>
+                                            </tr>
+                                            <tr class="similar-news-info">
+                                                <td><b>6</b></td>
+                                                <td>중앙일보</td>
+                                                <td class="similar-news-info-title">현대차 50년, 위기와 도전</td>
+                                                <td>3</td>
+                                                <td>
+                                                    <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                                </td>
+                                            </tr>
+                                            <tr class="similar-news-info">
+                                                <td><b>5</b></td>
+                                                <td>SBS</td>
+                                                <td class="similar-news-info-title">SUV의 역사</td>
+                                                <td>14</td>
+                                                <td>
+                                                    <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                                </td>
+                                            </tr>
+                                            <tr class="similar-news-info">
+                                                <td><b>4</b></td>
+                                                <td>국민일보</td>
+                                                <td class="similar-news-info-title">슬기로운 SUV 탐구생활</td>
+                                                <td>32</td>
+                                                <td>
+                                                    <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                                </td>
+                                            </tr>
+                                            <tr class="similar-news-info">
+                                                <td><b>3</b></td>
+                                                <td>KBS</td>
+                                                <td class="similar-news-info-title">2020년 현대차 신형 투산에 대해 알아보자</td>
+                                                <td>51</td>
+                                                <td>
+                                                    <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                                </td>
+                                            </tr>
+                                            <tr class="similar-news-info">
+                                                <td><b>2</b></td>
+                                                <td>연합뉴스TV</td>
+                                                <td class="similar-news-info-title">현대자동차 신형 투산 출시</td>
+                                                <td>85</td><td>
+                                                    <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                                </td>
+                                            </tr>
+                                            <tr class="similar-news-info">
+                                                <td><b>1</b></td>
+                                                <td>조선일보</td>
+                                                <td class="similar-news-info-title">SUV의 역습... 신형 투산 사전계약 첫날, 1만대 돌파</td>
+                                                <td>98</td>
+                                                <td>
+                                                    <div class="diff-keyword">#키워드1&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드2&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드3&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드4&nbsp;&nbsp;</div>
+                                                    <div class="diff-keyword">#키워드5&nbsp;&nbsp;</div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1139,6 +355,5 @@
         <script src="/static/js/1.chunk.js"></script>
         <script src="/static/js/main.chunk.js"></script>
         <script src="/main.ca3be56e8c9bac43a5b5.hot-update.js"></script>
-
     </body>
 </html>
