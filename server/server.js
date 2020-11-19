@@ -19,8 +19,8 @@ connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 })
 
-app.use('/articleTest', require('./routes/articleTestSheets'));
-app.use('/todaysTest', require('./routes/todaysTestSheets'));
+app.use('/articleTest', require('./routes/articleTest'));
+app.use('/todaysTest', require('./routes/todaysTest'));
 
 const port = process.env.PORT || 1818;
 
