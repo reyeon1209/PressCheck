@@ -6,6 +6,6 @@ const TodaysTestSchema = new Schema({
     press: { type: String },
 });
 
-const TodaysTest = mongoose.model('TodaysTest', TodaysTestSchema);
+const TodaysTest = mongoose.model('TodaysTest', TodaysTestSchema, 'TodaysTest');
 
 module.exports = { TodaysTest };

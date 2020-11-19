@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { ArticleTest } = require('../models/ArticleTest');
+const { CollectedArticle } = require('../models/CollectedArticle');
 
 router.get('/', (req, res) => {
-    ArticleTest.find({})
+    CollectedArticle.find({})
         .exec((err) => {
             if (err)  return  res.status(400).send(err);
-            res.status(200).json({ArticleTest});
+            res.status(200).json({CollectedArticle});
         });
 });
 
