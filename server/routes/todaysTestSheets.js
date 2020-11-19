@@ -1,10 +1,14 @@
-const router = require('express').Router();
-let todaysTestSchema = require('../models/todaysTest.model');
+const express = require('express');
+const router = express.Router();
+const { TodaysTestSchema } = require('../models/TodaysTest.model');
 
-router.route('/').get((req, res) => {
-    todaysTestSchema.find()
-        .then(todaysTestSchema => res.json(todaysTestSchema))
-        .catch(err => res.status(400).json('Error: ' + err));
+router.get('/todaysTest', (req, res) => {
+    TodaysTestSchema.find()
+        .then(TodaysTestSchema => res.json(TodaysTestSchema))
+        .exec((err, todays) => {
+            if (err)    return  res.status(400).send(err);
+            res.status(200).json({ success: true, todays });
+        });
 });
 
 module.exports = router;

@@ -2,9 +2,10 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const articleTestSchema = new Schema({
+const ArticleTestSchema = new Schema({
     "_id": Schema.Types.ObjectId,
     "title": String,
+    "link": String,
     "press": String,
     "category": String,
     "uploaded": String,
@@ -12,12 +13,12 @@ const articleTestSchema = new Schema({
     "editor": String,
     "img_src": String,
     "content": String,
-    "Keyword": Array,
+    "keyword": Array,
     "sum_short": String,
     "sum_mid": String,
     "sum_long": String
 });
 
-const articleTestSheet = mongoose.model('articleTest', articleTestSchema);
+const ArticleTestSheet = mongoose.model('ArticleTest', ArticleTestSchema);
 
-module.exports = articleTestSheet;
+module.exports = ArticleTestSheet;

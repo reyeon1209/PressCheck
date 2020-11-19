@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const todaysTestSchema = new Schema({
+const TodaysTestSchema = new Schema({
     "_id": Schema.Types.ObjectId,
     "press": String,
 });
 
-const todaysTestSheet = mongoose.model('todaysTest', todaysTestSchema);
+const TodaysTestSheet = mongoose.model('TodaysTest', TodaysTestSchema);
 
-module.exports = todaysTestSheet;
+module.exports = TodaysTestSheet;
