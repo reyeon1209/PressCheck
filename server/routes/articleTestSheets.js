@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const { ArticleTestSchema } = require('../models/ArticleTest.model');
+const { ArticleTest } = require('../models/ArticleTest');
 
-router.get('/articleTest', (req, res) => {
-    ArticleTestSchema.find()
-        .then(ArticleTestSchema => res.json(ArticleTestSchema))
+router.get('/', (req, res) => {
+    ArticleTest.find({})
         .exec((err, articles) => {
             if (err)  return  res.status(400).send(err);
             res.status(200).json({ success: true, articles });
