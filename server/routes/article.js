@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
     Article.find(variable)
         .exec((err, articles) => {
             if (err)  return  res.status(400).send(err);
-            res.status(200).json({ success: true, articles });
+            res.status(200).json(articles);
         });
 
 });
