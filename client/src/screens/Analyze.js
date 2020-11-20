@@ -33,7 +33,7 @@ class Analyze extends Component {
     componentDidMount() {
         fetch('http://localhost:1818/article/analyze')
         .then(res => res.json())
-        .then(data => this.setState({ information: data}));
+        .then(data => this.setState({ information: data }));
     }
 
     render() {
