@@ -20,7 +20,7 @@ connection.on('open', () => {
       console.log(err);
       return;
     }
-      //console.log(collectionNames);
+      console.log(collectionNames);
       //connection.close();
   });
 });
@@ -32,9 +32,11 @@ app.use(express.json());
 
 //app.use('/articleTest', require('./routes/articleTest'));
 //app.use('/todaysTest', require('./routes/todaysTest'));
-app.use('/article', require('./routes/article'));
-app.use('/subject', require('./routes/subject'));
+// app.use('/article', require('./routes/article'));
+// app.use('/subject', require('./routes/subject'));
 
+
+app.use('/mostRead', require('./routes/mostRead'));
 
 app.listen(port, () => {
   console.log(`Server is running on port: ${port}`);
