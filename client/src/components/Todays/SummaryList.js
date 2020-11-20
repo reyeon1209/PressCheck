@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Summary from './Summary';
+import SummaryIcon from '../../assets/images/summary.png';
 
 
 class SummaryList extends Component {
@@ -9,14 +9,24 @@ class SummaryList extends Component {
     }
 
     render() {
-        const { data } = this.props;
-        const list = data.map(
-            info => (<Summary info={info} />)
-        );
+        const { headline } = this.props.data;
+        const today = new Date();
+        const date = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
 
+    
         return (
-            <div>
-                {list}
+            <div className='summary-box'>
+                <div className='summary-left'>
+                    <div>오늘의 기사 요약</div>
+                    <div>Today's Summary</div>
+                    <div className="summary-left-content">
+                        {date}
+                        <img src={SummaryIcon} alt='summary' width="18%" />
+                    </div>
+                </div>
+                <div className='summary-right'>
+                    {headline}
+                </div>
             </div>
         );
     }

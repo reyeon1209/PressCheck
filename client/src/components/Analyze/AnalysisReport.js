@@ -66,7 +66,10 @@ class AnalysisReport extends Component {
     render() {
         // eslint-disable-next-line
         var { keyword } = this.props.data;
-        const keywordList = keyword && keyword.map(kw => {return (<div className="analyze-keyword">#{kw}&nbsp;&nbsp;</div>)});
+        const keywordList = keyword &&
+                    keyword.map(kw => {
+                        return (<div className="analyze-keyword">#{kw}&nbsp;&nbsp;</div>)
+                    });
 
         const { information } = this.props.information;
         
