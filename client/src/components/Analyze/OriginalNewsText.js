@@ -10,8 +10,8 @@ class OriginalNewsText extends Component {
         info: {
             id: 0,
             title: '"파격" 신형 투싼, 경쟁차엔 "충격" ... 사전계약 첫날, 1만대 돌파',
-            uploaded: '[입력]2020.09.17. 오전 10:01',
-            updated: '[수정]2020.09.17. 오전 10:15',
+            uploaded: '[입력] 2020.09.17. 오전 10:01',
+            updated: '[수정] 2020.09.17. 오전 10:15',
             editor: '최기성',
             thumnail: 'https://file.mk.co.kr/meet/neds/2020/09/image_readtop_2020_960165_16003051264359396.jpg',
             content: `5년 만에 파격 변신한 현대자동차 준중형 SUV '신형 투싼'이 사전 계약 첫날에만 1만대 넘는 실적을 거둬들이며 현대차 SUV 역사를 새로 썼다.
@@ -80,7 +80,7 @@ class OriginalNewsText extends Component {
                 <div>
                     <div className='original-news-title'><b>{title}</b></div>
                     <div className='original-news-upload'>{uploaded}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{updated}</div>
-                    <div><img className='original-news-reporter' src={Reporter} alt="reporter" value="reporter"/>{editor} 기자</div>
+                    <div>{editor}</div>
                     <img className='original-news-thumbnail' src={thumnail} alt="thumnail" value="thumnail"/>
                     <div className='original-news-text'>{content}</div> 
                 </div>
