@@ -2,9 +2,13 @@ const router = require('express').Router();
 let MostRead = require('../models/MostRead');
 
 router.route('/').get((req, res) => {
-    MostRead.find()
-        .then(mostRead => res.json(mostRead))
-        .catch(err => res.status(400).json('Error: ' + err));
+    let variable = {};
+
+    MostRead.find(variable)
+        .exec((err, mostRead) => {
+            if (err)  return  res.status(400).send(err);
+            res.status(200).json({ success: true, mostRead });
+        });
 });
 
 module.exports = router;

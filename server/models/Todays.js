@@ -6,6 +6,6 @@ const TodaysSchema = new Schema({
     all_keyword: Array
 });
 
-const Todays = mongoose.model('todays', TodaysSchema);
+const Todays = mongoose.model('todays', TodaysSchema, "todays");
 
 module.exports = { Todays };
