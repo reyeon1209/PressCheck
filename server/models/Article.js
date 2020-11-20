@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const CollectedArticleSchema = new Schema({
-    _id: { type: Schema.Types.ObjectId },
+const ArticleSchema = mongoose.Schema({
     title: { type: String },
     link: { type: String },
     press: { type: String },
@@ -12,12 +11,12 @@ const CollectedArticleSchema = new Schema({
     editor: { type: String },
     img_src: { type: String },
     content: { type: String },
-    keyword: { type: String },
+    keyword: { type: Array },
     sum_short: { type: String },
     sum_mid: { type: String },
     sum_long: { type: String }
 });
 
-const CollectedArticle = mongoose.model('collectedArticle', CollectedArticleSchema);
+const Article = mongoose.model('collected', ArticleSchema);
 
-module.exports = { CollectedArticle };
+module.exports = { Article };

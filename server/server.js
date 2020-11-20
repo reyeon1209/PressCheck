@@ -20,23 +20,20 @@ connection.on('open', () => {
       console.log(err);
       return;
     }
-      console.log(collectionNames);
-      connection.close();
+      //console.log(collectionNames);
+      //connection.close();
   });
 });
-
 
 
 app.use(cors())
 app.use(express.json());
 
 
-
-
-
-app.use('/articleTest', require('./routes/articleTest'));
-app.use('/todaysTest', require('./routes/todaysTest'));
-app.use('/collectedArticle', require('./routes/collectedArticle'));
+//app.use('/articleTest', require('./routes/articleTest'));
+//app.use('/todaysTest', require('./routes/todaysTest'));
+app.use('/article', require('./routes/article'));
+app.use('/subject', require('./routes/subject'));
 
 
 app.listen(port, () => {

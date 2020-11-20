@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const TodaysTestSchema = new Schema({
+const TodaysTestSchema =  mongoose.Schema({
     _id: { type: Schema.Types.ObjectId },
     press: { type: String },
 });
