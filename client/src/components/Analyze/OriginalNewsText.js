@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import './Analyze.css';
 
-import Reporter from '../../assets/images/reporter.png';
-
 
 class OriginalNewsText extends Component {
     static defaultProps = {
