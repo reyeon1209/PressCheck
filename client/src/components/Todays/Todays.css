@@ -124,9 +124,14 @@
     min-width: 60%;
     padding-top: 1%;
     padding-left: 1%;
-    padding-bottom: 1%;
+    padding-bottom: 1.5%;
     height: 76px;
     margin-bottom: 3%;
+}
+
+.summary-text {
+    padding-top: 0.5%;
+    
 }
 
 .title-content {

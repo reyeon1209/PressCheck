@@ -9,7 +9,9 @@ class SummaryList extends Component {
     }
 
     render() {
-        const { headline } = this.props.data;
+        var headline = [];
+        headline = this.props.data;
+
         const today = new Date();
         const date = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
 
@@ -25,7 +27,9 @@ class SummaryList extends Component {
                     </div>
                 </div>
                 <div className='summary-right'>
-                    {headline}
+                    <div className='summary-text'>{headline[0]}</div>
+                    <div className='summary-text'>{headline[1]}</div>
+                    <div className='summary-text'>{headline[2]}</div>
                 </div>
             </div>
         );
