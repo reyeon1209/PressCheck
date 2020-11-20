@@ -32,19 +32,18 @@ router.get('/searchAddr', (req, res) => {
     .then(response => {
         res.status(200).json(response)
     })*/
-    let target_links;
+    let target_links_list;
 
     axios.get('http://localhost:1818/mostRead/getLink')
         .then(function (response) {
             // target_links = Object.keys(response.data);
             // console.log(response.data);
-            // console.log(target_links);
-            target_links = response.data;
+            let target_links = [];
+            target_links = response.data.map(ind => {
+                return ind['link'];
+            })
+            console.log(target_links);
 
-            let test = JSON.stringify(target_links);
-            // let test2 = JSON.parse(test)[0].link;
-            console.log(test);
-            // console.log(test2);
         })
         .catch(function(err) {
             console.log(err);
