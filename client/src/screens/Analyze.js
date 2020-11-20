@@ -10,16 +10,38 @@ class Analyze extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            information: [
+                {
+                    title: '',
+                    link: '',
+                    press: '',
+                    category: '',
+                    uploaded: '',
+                    updated: '',
+                    editor: '',
+                    img_src: '',
+                    content: '',
+                    keyword: [],
+                    sum_short: '',
+                    sum_mid: '',
+                    sum_long: ''
+                }
+            ]
         };
+    }
+
+    componentDidMount() {
+        fetch('http://localhost:1818/article/analyze')
+        .then(res => res.json())
+        .then(data => this.setState({ information: data}));
     }
 
     render() {
         return (
             <div className='App'>
                 <Split className="wrap" sizes={[45, 55]}>
-                    <div className="content-news"><OriginalNewsText /></div>
-                    <div className="analysis-report"><AnalysisReport  /></div>
+                    <div className="content-news"><OriginalNewsText data={this.state.information} /></div>
+                    <div className="analysis-report"><AnalysisReport data={this.state.information} /></div>
                 </Split>
             </div>
         );
