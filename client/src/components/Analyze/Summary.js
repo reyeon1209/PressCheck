@@ -5,6 +5,9 @@ import './Analyze.css';
 import Short from '../../assets/images/short.png';
 import Middle from '../../assets/images/middle.png';
 import Long from '../../assets/images/long.png';
+import ClickShort from '../../assets/images/short_click.png';
+import ClickMiddle from '../../assets/images/middle_click.png';
+import ClickLong from '../../assets/images/long_click.png';
 
 
 class Summary extends Component {
@@ -53,9 +56,9 @@ class Summary extends Component {
         const { sum_short, sum_mid, sum_long } = this.props.data;
         return (
             <div className='summary-td'>
-                <button onClick={() => this.summaryClickHandler("showShort")} ><img src={Short} alt="한줄요약" value="short" /></button>
-                <button onClick={() => this.summaryClickHandler("showMiddle")} ><img src={Middle} alt="두줄요약" value="middle" /></button>
-                <button onClick={() => this.summaryClickHandler("showLong")} ><img src={Long} alt="세줄요약" value="long" /></button>
+                <button onClick={() => this.summaryClickHandler("showShort")} ><img src={ showShort ? ClickShort : Short} alt="한줄요약" value="short" /></button>
+                <button onClick={() => this.summaryClickHandler("showMiddle")} ><img src={ showMiddle ? ClickMiddle : Middle} alt="두줄요약" value="middle" /></button>
+                <button onClick={() => this.summaryClickHandler("showLong")} ><img src={ showLong ? ClickLong : Long} alt="세줄요약" value="long" /></button>
                 <div>{ showShort ? sum_short : null}</div>
                 <div>{ showMiddle ? sum_mid : null}</div>
                 <div>{ showLong ? sum_long : null}</div>
