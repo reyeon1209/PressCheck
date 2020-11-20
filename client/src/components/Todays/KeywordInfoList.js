@@ -10,11 +10,9 @@ class KeywordInfoList extends Component {
     }
 
     render() {
-        const { keyword } = this.props.data;
-        console.log(keyword);
+        var keyword = [];
+        keyword = this.props.data;
 
-        const keywordList = keyword &&
-            keyword.map(kw => {return (kw);});
         const today = new Date();
         const date = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
         
@@ -33,7 +31,10 @@ class KeywordInfoList extends Component {
                             <div><img src={KeywordIcon} alt='keyword' width="18%" /></div>
                         </div>
                     </div>
-                    <div className='keyword-change'>{keywordList}</div>
+                    <div className='keyword-change'>{keyword[0][0]}</div>
+                </div>
+
+                <div className='keyword-box'>
 
                     <div className='keyword-fix'>
                         <div className='keyword-fix-title'>
@@ -45,7 +46,10 @@ class KeywordInfoList extends Component {
                             <div><img src={KeywordIcon} alt='keyword' width="18%" /></div>
                         </div>
                     </div>
-                    <div className='keyword-change'>{keywordList}</div>
+                    <div className='keyword-change'>{keyword[1][0]}</div>
+                </div>
+
+                <div className='keyword-box'>
 
                     <div className='keyword-fix'>
                         <div className='keyword-fix-title'>
@@ -57,9 +61,9 @@ class KeywordInfoList extends Component {
                             <div><img src={KeywordIcon} alt='keyword' width="18%" /></div>
                         </div>
                     </div>
-                    <div className='keyword-change'>{keywordList}</div>
+                    <div className='keyword-change'>{keyword[2][0]}</div>
                 </div>
-            </div>
+            </div>     
         );
     }
 }
