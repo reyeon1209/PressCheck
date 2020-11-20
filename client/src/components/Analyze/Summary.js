@@ -14,11 +14,7 @@ class Summary extends Component {
             showShort: false,
             showMiddle: true,
             showLong: false,
-            summary: {
-                sum_short: '현대자동차 준중형 SUV "신형 투산"이 출시됐다.',
-                sum_mid: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다.',
-                sum_long: '현대자동차 준중형 SUV "신형 투산"이 출시됐다. 사전계약 첫날에 1만대를 돌파했다. 한줄 더 있다.'
-            }
+            data: []
         };
 
         this.summaryClickHandler = this.summaryClickHandler.bind(this);
@@ -54,7 +50,7 @@ class Summary extends Component {
 
     render() {
         const { showShort, showMiddle, showLong } = this.state;
-        const { sum_short, sum_mid, sum_long } = this.state.summary;
+        const { sum_short, sum_mid, sum_long } = this.props.data;
         return (
             <div className='summary-td'>
                 <button onClick={() => this.summaryClickHandler("showShort")} ><img src={Short} alt="한줄요약" value="short" /></button>

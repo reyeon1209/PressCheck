@@ -67,6 +67,7 @@ class AnalysisReport extends Component {
         // eslint-disable-next-line
         var { keyword } = this.props.data;
         const keywordList = keyword && keyword.map(kw => {return (<div className="analyze-keyword">#{kw}&nbsp;&nbsp;</div>)});
+
         const { information } = this.props.information;
         
 
@@ -84,11 +85,11 @@ class AnalysisReport extends Component {
                 <table className='keyword-summary'>
                     <tr>
                         <td className='title-td'>키워드</td>
-                        <td className='content-td'>{keywordList}</td>
+                        <td className='keyword-td'>{keywordList}</td>
                     </tr>
                     <tr>
                         <td className='title-td'>기사 요약</td>
-                        <td className='content-td'><Summary /></td>
+                        <td className='summary-td'><Summary data={this.props.data} /></td>
                     </tr>
                 </table>
 

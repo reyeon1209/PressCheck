@@ -123,8 +123,18 @@
     width: 20%;
 }
 
-.content-td {
+.keyword-td, .summary-td {
     padding-left: 2%;
+}
+
+.keyword-td {
+    height: 32px;
+    min-height: 32px;
+}
+
+.summary-td {
+    height: 210px;
+    min-height: 210px;
 }
 
 .analyze-keyword {
@@ -139,6 +149,8 @@
     background-color: transparent !important;
     cursor: pointer;
     margin-left: 12%;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
 
 .summary-td > button > img {
