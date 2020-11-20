@@ -15,7 +15,7 @@ class News extends Component {
                     press: '',
                     title: '',
                     img_src: 'https://www.flaticon.com/svg/static/icons/svg/1402/1402120.svg',
-                    content: '준비 중입니다..(오전 12시에 다시..)',
+                    content: '준비 중입니다...',
                     keyword: []
                 },
             ]
@@ -23,13 +23,6 @@ class News extends Component {
     }
 
     componentDidMount() {
-        // axios.get('http://localhost:1818/article')
-        // .catch(response => {
-        //     this.setState({information: response.data})
-        // })
-        // .catch(err => {
-        //     console.log(err);
-        // })
         fetch('http://localhost:1818/article')
         .then(res => res.json())
         .then(data => this.setState({information: data}));

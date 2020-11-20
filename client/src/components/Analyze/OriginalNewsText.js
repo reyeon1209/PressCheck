@@ -12,7 +12,7 @@ class OriginalNewsText extends Component {
 
     render() {
         // eslint-disable-next-line
-        const {title, uploaded, updated, editor, thumnail, content} = this.props;
+        const {title, uploaded, updated, editor, thumnail, content} = this.props.data;
 
         if (thumnail == '') {
             return (
