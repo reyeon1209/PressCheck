@@ -1,38 +1,40 @@
-const express = require('express');
-const cors = require('cors');
-const mongoose = require('mongoose');
+const express = require("express");
+const app = express();
+const mongoose = require("mongoose");
+const cors = require('cors')
+const port = process.env.PORT || 1818;
 
 require('dotenv').config();
 
-const app = express();
-const port = process.env.PORT || 1818;
-
-app.use(cors());
-app.use(express.json());
-
-const uri = process.env.ATLAS_URI;
-mongoose.connect(uri, { 
+mongoose.connect(process.env.ATLAS_URI, { 
   useNewUrlParser: true, useUnifiedTopology: true,
-  useCreateIndex: true, useFindAndModify: false
+  useCreateIndex: true, useFindAndModify: true
 });
 const connection = mongoose.connection;
 connection.once('open', () => {
   console.log("MongoDB database connection established successfully");
 })
+connection.on('open', () => {
+  connection.db.listCollections().toArray(function (err, collectionNames) {
+    if (err) {
+      console.log(err);
+      return;
+    }
+      //console.log(collectionNames);
+      //connection.close();
+  });
+});
 
-/*
-const exercisesRouter = require('./routes/exercises');
-const usersRouter = require('./routes/users');
 
-app.use('/exercises', exercisesRouter);
-app.use('/users', usersRouter);
-*/
+app.use(cors())
+app.use(express.json());
 
-const articleTestRouter = require('./routes/articleTestSheets');
-const todaysTestRouter = require('./routes/todaysTestSheets');
-app.use('/articleTest', articleTestRouter);
-app.use('/todaysTest', todaysTestRouter);
+
+app.use('/article', require('./routes/article'));
+app.use('/mostRead', require('./routes/mostRead'));
+app.use('/todays', require('./routes/todays'));
+
 
 app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
+  console.log(`Server is running on port: ${port}`);
 });
