@@ -108,6 +108,7 @@ input{
     color: #4db2ec;
 }
 
-.newslist-press {
-    width: 10px;
+.newslist-press > img {
+    width: 7%;
+    margin-bottom: 1%;
 }

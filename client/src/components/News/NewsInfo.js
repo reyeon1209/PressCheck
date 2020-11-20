@@ -29,29 +29,29 @@ class NewsInfo extends Component {
                 return (
                     <div className='newslist-press'><img src={Jungang} alt="Jungang" value="Jungang" /></div>
                 )
-            case '한겨래':
+            case '한겨레':
                 return (
-                    <div><img src={Hankyoreh} alt="Hankyoreh" value="Hankyoreh" /></div>
+                    <div className='newslist-press'><img src={Hankyoreh} alt="Hankyoreh" value="Hankyoreh" /></div>
                 )
             case '동아':
                 return (
-                    <div><img src={Donga} alt="Donga" value="Donga" /></div>
+                    <div className='newslist-press'><img src={Donga} alt="Donga" value="Donga" /></div>
                 )
             case 'sbs':
                 return (
-                    <div><img src={Sbs} alt="Sbs" value="Sbs" /></div>
+                    <div className='newslist-press'><img src={Sbs} alt="Sbs" value="Sbs" /></div>
                 )
             case 'kbs':
                 return (
-                    <div><img src={Kbs} alt="Kbs" value="Kbs" /></div>
+                    <div className='newslist-press'><img src={Kbs} alt="Kbs" value="Kbs" /></div>
                 )
             case '국민':
                 return (
-                    <div><img src={Kukmin} alt="Kukmin" value="Kukmin" /></div>
+                    <div className='newslist-press'><img src={Kukmin} alt="Kukmin" value="Kukmin" /></div>
                 )
             case '연합':
                 return (
-                    <div><img src={Yeonhap} alt="Yeonhap" value="Yeonhap" /></div>
+                    <div className='newslist-press'><img src={Yeonhap} alt="Yeonhap" value="Yeonhap" /></div>
                 )
             default:
                 return (
