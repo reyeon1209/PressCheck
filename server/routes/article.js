@@ -13,4 +13,15 @@ router.get('/', (req, res) => {
 
 });
 
+router.get('/analyze', (req, res) => {
+    let _id = "5fb76446a38ae36b6c1b29ee";
+
+    Article.findById(_id)
+        .exec((err, articles) => {
+            if (err)  return  res.status(400).send(err);
+            res.status(200).json(articles);
+        });
+
+});
+
 module.exports = router;
