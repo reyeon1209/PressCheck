@@ -9,6 +9,7 @@ class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            date: new Date().getHours(),
             information: [
                 {
                     id: 0,
@@ -32,8 +33,7 @@ class News extends Component {
         return (
             <div>
                 <SelectTable />
-
-                <div className='aggregate'>※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
+                <div className='aggregate'>※ 0시 ~ {this.state.date}시까지 집계한 뉴스리스트입니다.<br></br></div>
                 <NewsInfoList data={this.state.information} />
             </div>
         );

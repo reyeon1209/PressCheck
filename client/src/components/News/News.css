@@ -107,3 +107,7 @@ input{
     display: inline-block;
     color: #4db2ec;
 }
+
+.newslist-press {
+    width: 10px;
+}
