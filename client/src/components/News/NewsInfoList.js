@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+
 import NewsInfo from './NewsInfo';
+
 
 class NewsInfoList extends Component {
     static defaultProps = {

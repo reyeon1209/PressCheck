@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
-import KeywordIcon from '../../assets/images/keyword.png';
+
 import './Todays.css';
+
+import KeywordIcon from '../../assets/images/keyword.png';
+
 
 class KeywordInfo extends Component {
     static defaultProps = {

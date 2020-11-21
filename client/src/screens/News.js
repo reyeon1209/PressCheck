@@ -1,184 +1,40 @@
 import React, { Component } from 'react';
+
+import SelectTable from '../components/News/SelectTable';
 import NewsInfoList from '../components/News/NewsInfoList';
-
 import '../components/News/News.css';
-
-import Josun from '../assets/images/press_josun.png';
-import Jungang from '../assets/images/press_jungang.png';
-import Donga from '../assets/images/press_donga.png';
-import KBS from '../assets/images/press_kbs.png';
-import SBS from '../assets/images/press_sbs.png';
-import Kukmin from '../assets/images/press_kukmin.png';
-import Yeonhap from '../assets/images/press_yeonhap.png';
 
 
 class News extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isAll: true,
-            isPolitics: true,
-            isSociety: true,
-            isEconomy: true,
-            isInternation: true,
-            isSports: true,
-            isCulture: true,
-            press: 'josun',
             information: [
                 {
                     id: 0,
-                    category: '생활',
-                    press: '뉴스1',
-                    title: '제목1',
-                    content: '뉴스 내용1',
-                    updated: '뉴스업로드시간1',
-                    keyword: ['#키워드1'],
-                    summary: []
+                    press: '동아일보',
+                    title: '[속보] 주호영 "국방부가 추장관 지키는 추방부, 서씨 지키는 서방부 됐다"',
+                    thumnail: 'https://imgmmw.mbn.co.kr/storage/news/2020/09/17/1374B399-A6F6-488C-A404-E31A38DF1BE1_576.jpg',
+                    content: '국민의 힘 주호영 원내대표는 17일 열린 비대위 회의에서 추미애 법무부 장관의 아들 서모씨의 군 특혜 의혹을 거론하며 "서일병 구하려다 검찰, 국방부, 국민권익위원회가 망가지고 있다"고 비판했다. ...',
+                    keyword: ['국방부', '추미애', '국민권익위원회']
                 },
                 {
-                    id: 0,
-                    category: '오락',
-                    press: '뉴스2',
-                    title: '제목2',
-                    content: '뉴스 내용2',
-                    updated: '뉴스업로드시간2',
-                    keyword: ['#키워드2'],
-                    summary: []
-                },
-                {
-                    id: 0,
-                    category: '아악',
-                    press: '뉴스3',
-                    title: '제목3',
-                    content: '뉴스 내용3',
-                    updated: '뉴스업로드시간3',
-                    keyword: ['#키워드3 ', '#키워드4'],
-                    summary: []
+                    id: 1,
+                    press: '동아일보',
+                    title: '"전화로 "위국헌신"하게 해달라" ... 秋 아들, 안중근 비유에 "부글부글"',
+                    thumnail: 'https://img.mbn.co.kr/filewww/news/other/2020/09/17/990099100290.jpg',
+                    content: '추미애 법무부 장관 아들 서 모씨를 독립운동가 안중근 의사에 빗댄 박성준 더불어민주당 원내대변인이 사과했지만 논란은 가라앉지 않고 있다. 진중권 전 동양대 교수는 17일 "서일병만이 아니라 대한민국의 모든 병사가 전화 한통만으로 안중근 정신을 실천할 수 있게 해 달라"고 비판했다. ...',
+                    keyword: ['국방부', '추미애', '안중근']
                 }
             ]
         };
-        this.pressClickHandler = this.pressClickHandler.bind(this);
-        this.categoryAllClickHandler = this.categoryAllClickHandler.bind(this);
-        this.categoryPoliticsClickHandler = this.categoryPoliticsClickHandler.bind(this);
-        this.categorySocietyClickHandler = this.categorySocietyClickHandler.bind(this);
-        this.categoryEconomyClickHandler = this.categoryEconomyClickHandler.bind(this);
-        this.categoryInternationClickHandler = this.categoryInternationClickHandler.bind(this);
-        this.categorySportsClickHandler = this.categorySportsClickHandler.bind(this);
-        this.categoryCultureClickHandler = this.categoryCultureClickHandler.bind(this);
-    }
-
-    pressClickHandler(e) {
-        console.log(e);
-        this.setState({ press: e });
-    }
-
-    categoryAllClickHandler() {
-        this.setState(initialState => ({
-            isAll: true,
-            isPolitics: true,
-            isSociety: true,
-            isEconomy: true,
-            isInternation: true,
-            isSports: true,
-            isCulture: true
-        }));
-    }
-
-    categoryPoliticsClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isPolitics: !initialState.isPolitics
-        }));
-    }
-
-    categorySocietyClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isSociety: !initialState.isSociety
-        }));
-    }
-
-    categoryEconomyClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isEconomy: !initialState.isEconomy
-        }));
-    }
-
-    categoryInternationClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isInternation: !initialState.isInternation
-        }));
-    }
-
-    categorySportsClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isSports: !initialState.isSports
-        }));
-    }
-
-    categoryCultureClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isCulture: !initialState.isCulture
-        }));
     }
 
     render() {
         return (
             <div>
-                <table>
-                    <caption className="table-title"><a href='../todays'>DATA &gt;</a></caption>
-                    <tr>
-                        <th className="table-content-title">카테고리</th>
-                        <th className="table-content-content">
-                            <input type="checkbox"
-                                checked={this.state.isAll}
-                                onChange={this.categoryAllClickHandler}
-                            /> 전체
-                            <input type="checkbox"
-                                checked={this.state.isPolitics}
-                                onChange={this.categoryPoliticsClickHandler}
-                            /> 정치
-                            <input type="checkbox"
-                                checked={this.state.isSociety}
-                                onChange={this.categorySocietyClickHandler}
-                            /> 사회
-                            <input type="checkbox"
-                                checked={this.state.isEconomy}
-                                onChange={this.categoryEconomyClickHandler}
-                            /> 경제
-                            <input type="checkbox"
-                                checked={this.state.isInternation}
-                                onChange={this.categoryInternationClickHandler}
-                            /> 국제
-                            <input type="checkbox"
-                                checked={this.state.isSports}
-                                onChange={this.categorySportsClickHandler}
-                            /> 스포츠
-                            <input type="checkbox"
-                                checked={this.state.isCulture}
-                                onChange={this.categoryCultureClickHandler}
-                            /> 문화
-                        </th>
-                    </tr>
-                    <tr>
-                        <th className="table-content-title">언론사</th>
-                        <th className="table-content-content">
-                            <div className='button-press'>
-                                <button><img src={Josun} alt="josun" onClick={() => this.pressClickHandler("josun")} value="josun" /></button>
-                                <button><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang" /></button>
-                                <button><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga" /></button>
-                                <button><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
-                                <button><img src={SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
-                                <button><img src={Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
-                                <button><img src={Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
-                            </div>
-                        </th>
-                    </tr>
-                </table>
+                <SelectTable />
+
                 <div className='aggregate'>※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
                 <NewsInfoList data={this.state.information} />
             </div>

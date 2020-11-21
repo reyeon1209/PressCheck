@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import Keyword from './KeywordInfo';
 import './Todays.css';
+
 
 class KeywordInfoList extends Component {
     static defaultProps = {

@@ -1,0 +1,24 @@
+h2 {
+    max-width: 50%;
+}
+
+.email-title {
+    margin-left: 50%;
+    margin-right: 50%;
+    margin-top: 8%;
+    margin-bottom: 5%;
+    max-width: 100%;
+}
+
+.MuiDialogContent-root {
+    max-width: 50%;
+    margin-left: 20%;
+    margin-right: 20%;
+    margin-bottom: 5%;
+}
+
+.MuiDialogActions-root {
+    margin-left: 38.85%;
+    margin-right: 38.85%;
+    margin-bottom: 5%;
+}
