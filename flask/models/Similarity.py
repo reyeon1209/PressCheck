@@ -2,15 +2,49 @@ from kobert_transformers import get_tokenizer
 from numpy import dot
 from numpy.linalg import norm
 from tensorflow.keras.preprocessing.sequence import pad_sequences
+from bson import ObjectId
 
 
+def setting_standard(collection):
+    origin_news_data = collection.find({'_id': ObjectId('5fb8c4ad56e76939a59e6b60')}, {'_id', 'pre_content', 'press', 'category', 'keyword'})
+    for elem in origin_news_data:
+        myid = elem['_id']
+        pre_content = elem['pre_content']
+        press = elem['press']
+        category = elem['category']
+        keyword = elem['keyword']
+        return [(myid, pre_content)], press, category, keyword
 
 
+def setting_targets(collection, press, category):
+    targets_news_data = collection.find({'press': {'$ne': press}, 'category' : category},{'press': 1, "title":1, 'pre_content': 1, 'keyword': 1})
+    targets = []
+    targets_title = []
+    targets_press = []
+    targets_keyword = []
+    for elem in targets_news_data:
+        targets.append((elem['_id'], elem['pre_content']))
+        targets_title.append(elem['title'])
+        targets_press.append(elem['press'])
+        targets_keyword.append(elem['keyword'])
+    return targets, targets_title, targets_press, targets_keyword
 
 
+def setting_ranking(ids, json_data):
+    ranking  = [(idx, json_data[val]['similarity']) for idx, val in enumerate(ids)]
+    ranking.sort(key=lambda x: x[1])
+    for i in range(len(ids)):
+        json_data[ids[i]].update({'ranking': ranking[i][0] + 1})
+    return json_data
 
-# the main point of Similarity part
-def get_similarity_res(standard, targets):
+
+def setting_diffKeyword(ids, json_data, standard_keyword, target_keyword):
+    for i in range(len(target_keyword)):
+        json_data[ids[i]].update({'diffKeyword': list(set(target_keyword[i]) - set(standard_keyword))})
+    print(json_data)
+
+
+def setting_similarity(standard, targets):
     # combine separated sentences to the only one sentence & setting encoding form
     def setting_encoding_form(separated_sentences_list):
         for idx, content in enumerate(separated_sentences_list):
@@ -38,9 +72,15 @@ def get_similarity_res(standard, targets):
 
     res = {}
     for i in range(1, len(input_ids)):
-        res.update({ids[i]: {'keyword': int(cos_sim(input_ids[0], input_ids[i]) * 100)}})
+        res.update({ids[i]: {'similarity': int(cos_sim(input_ids[0], input_ids[i]) * 100)}})
     return res
 
+
+def setting_etc(ids, json_data, target_press, target_title):
+    for i in range(len(target_press)):
+        json_data[ids[i]].update({'press': target_press[i]})
+        json_data[ids[i]].update({'title': target_title[i]})
+    return json_data
 
 if __name__ == '__main__':
     standard = [
@@ -49,7 +89,6 @@ if __name__ == '__main__':
             '포토4차전 결정 박석민, 다음 경기엔 명예회복손가락 부상으로 4차전에 결장한 박석민이 더그아웃에서 경기를 지켜보고 있다.'
          ]),
     ]
-
     targets = [
         ("22222", [
             '‘2020 신한은행 SOL KBO리그’ 포스트시즌 한국시리즈 4차전 NC와 두산의 경기가 21일 오후 서울 고척 스카이돔에서 열렸다.',
@@ -70,4 +109,11 @@ if __name__ == '__main__':
             '과연 보리과자 찌르기는 어떻게 끝났을지, 펜싱 전설의 기상천외한 피지컬 테스트 결과가 궁금해진다.'
         ])
     ]
-    print(get_similarity_res(standard, targets))
+#    standard, standard_press, standard_category, standard_keyword = setting_standard(collection)
+#    targets, targets_title, targets_press, targets_keyword = setting_targets(collection, standard_press,
+                                                                                standard_category)
+    ids = [myid for myid, mycontent in targets]
+    res = setting_similarity(standard, targets)
+    res = setting_ranking(ids, res)
+    res = setting_diffKeyword(ids, res, standard_keyword, targets_keyword)
+    res = setting_etc(ids, res, target_press, target_title)
