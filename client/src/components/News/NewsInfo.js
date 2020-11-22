@@ -7,6 +7,7 @@ import Kbs from '../../assets/images/newslist_kbs.png';
 import Kukmin from '../../assets/images/newslist_kukmin.png';
 import Yeonhap from '../../assets/images/newslist_yeonhap.png';
 import Hankyoreh from '../../assets/images/newslist_hankyoreh.png';
+import NoImage from '../../assets/images/noimage.png';
 
 import './News.css';
 
@@ -73,6 +74,8 @@ class NewsInfo extends Component {
         keyword = keyword.slice(0, 5);
         const keywordList = keyword.map((kw) => { return (<div className="news-keyword">#{kw}&nbsp;&nbsp;</div>) })
         press = press.trim();
+        if (img_src.substr(0, 4) !== "http")
+            img_src = NoImage;
 
         return (
             <div className='newsinfo'>
