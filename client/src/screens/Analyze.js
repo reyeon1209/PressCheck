@@ -24,7 +24,8 @@ class Analyze extends Component {
                     keyword: [],
                     sum_short: '',
                     sum_mid: '',
-                    sum_long: ''
+                    sum_long: '',
+                    porint_keyword: []
                 }
             ],
             target_info: [

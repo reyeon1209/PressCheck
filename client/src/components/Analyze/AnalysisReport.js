@@ -16,12 +16,12 @@ class AnalysisReport extends Component {
 
     render() {
         // eslint-disable-next-line
-        var { keyword } = this.props.origin_info;
+        var { point_keyword } = this.props.origin_info;
         var target_info = [];
         target_info = this.props.target_info;
         
-        const keywordList = keyword &&
-                    keyword.map(kw => {
+        const keywordList = point_keyword &&
+                    point_keyword.map(kw => {
                         return (<div className="analyze-keyword">#{kw}&nbsp;&nbsp;</div>)
                     });
         
