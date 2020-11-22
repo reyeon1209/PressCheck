@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import './Home.css';
-
+import NoImage from '../../assets/images/noimage.png';
 
 class TopNewsInfo extends Component {
     static defaultProps = {
@@ -22,6 +22,9 @@ class TopNewsInfo extends Component {
             if (img_src == " ")
                 img_src = 'https://www.flaticon.com/svg/static/icons/svg/1402/1402120.svg';
         }
+        if (img_src.substr(0, 4) !== "http")
+            img_src = NoImage;
+
         return (
             <div className='topnews-info'>
                 <div className='topnews-content_id'>{rank}</div>
