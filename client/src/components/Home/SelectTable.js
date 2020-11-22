@@ -10,6 +10,14 @@ import SBS from '../../assets/images/press_sbs.png';
 import Kukmin from '../../assets/images/press_kukmin.png';
 import Yeonhap from '../../assets/images/press_yeonhap.png';
 
+import HankyorehClick from '../../assets/images/press_hankyoreh_click.png';
+import JungangClick from '../../assets/images/press_jungang_click.png';
+import DongaClick from '../../assets/images/press_donga_click.png';
+import KBSClick from '../../assets/images/press_kbs_click.png';
+import SBSClick from '../../assets/images/press_sbs_click.png';
+import KukminClick from '../../assets/images/press_kukmin_click.png';
+import YeonhapClick from '../../assets/images/press_yeonhap_click.png';
+
 
 class SelectTable extends Component {
     constructor(props) {
@@ -138,14 +146,14 @@ class SelectTable extends Component {
                     <tr>
                         <th className="left-table-content">
                             <div className='left-button-press'>
-                                <button className='left-button'><img src={Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh"/></button>
-                                <button className='left-button'><img src={Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
-                                <button className='left-button'><img src={Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'hankyoreh' ? HankyorehClick : Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh"/></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'jungang' ? JungangClick : Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'donga' ? DongaClick : Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
                                 <br></br>
-                                <button className='left-button'><img src={KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
-                                <button className='left-button'><img src={SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
-                                <button className='left-button'><img src={Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
-                                <button className='left-button'><img src={Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'kbs' ? KBSClick : KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'sbs' ? SBSClick : SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'kukmin' ? KukminClick : Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
+                                <button className='left-button'><img src={this.state.currentPress == 'yeonhap' ? YeonhapClick : Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
                             </div>
                         </th>
                     </tr>
