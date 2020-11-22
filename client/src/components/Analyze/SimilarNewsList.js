@@ -5,17 +5,18 @@ import SimilarNewsInfo from './SimilarNewsInfo';
 
 class SimilarNewsList extends Component {
     static defaultProps = {
-        data: []
+        target_info: []
     }
 
     render() {
-        const { data } = this.props;
-        const list = data.map((info) => {
-            return (<SimilarNewsInfo ranking={info.ranking}
-                                    press={info.press}
-                                    title={info.title}
+        const list = (this.props.target_info).map((info) => {
+            return (<SimilarNewsInfo origin_id={info.origin_id}
+                                    target_id={info.target_id}
                                     similarity={info.similarity}
+                                    ranking={info.ranking}
                                     diffKeyword={info.diffKeyword}
+                                    press={info.press}
+                                    title={info.title}       
                     />);
         });
 

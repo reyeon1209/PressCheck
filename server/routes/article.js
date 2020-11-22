@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/analyze', (req, res) => {
-    let _id = "5fb99933a26669575d73c512";
+    let _id = "5fba0620a26669575d73c8d2";
 
     Article.findById(_id)
         .exec((err, articles) => {

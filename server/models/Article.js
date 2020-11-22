@@ -17,6 +17,6 @@ const ArticleSchema = mongoose.Schema({
     sum_long: { type: String }
 });
 
-const Article = mongoose.model('test5', ArticleSchema, "test5");
+const Article = mongoose.model('collected', ArticleSchema, "collected");
 
 module.exports = { Article };

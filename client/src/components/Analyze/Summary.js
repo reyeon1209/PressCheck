@@ -17,7 +17,7 @@ class Summary extends Component {
             showShort: false,
             showMiddle: true,
             showLong: false,
-            data: []
+            origin_info: []
         };
 
         this.summaryClickHandler = this.summaryClickHandler.bind(this);
@@ -53,7 +53,8 @@ class Summary extends Component {
 
     render() {
         const { showShort, showMiddle, showLong } = this.state;
-        const { sum_short, sum_mid, sum_long } = this.props.data;
+        const { sum_short, sum_mid, sum_long } = this.props.origin_info;
+        
         return (
             <div className='summary-td'>
                 <button onClick={() => this.summaryClickHandler("showShort")} ><img src={ showShort ? ClickShort : Short} alt="한줄요약" value="short" /></button>
