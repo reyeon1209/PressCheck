@@ -10,23 +10,22 @@ class Analyze extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            information: [
-                {
-                    title: '',
-                    link: '',
-                    press: '',
-                    category: '',
-                    uploaded: '',
-                    updated: '',
-                    editor: '',
-                    img_src: '',
-                    content: '',
-                    keyword: [],
-                    sum_short: '',
-                    sum_mid: '',
-                    sum_long: ''
-                }
-            ]
+            information: {
+                keyword: [],
+                title: "",
+                link: "",
+                press: "",
+                category: "",
+                uploaded: "",
+                updated: "",
+                editor: "",
+                img_src: "",
+                content: "",
+                pre_content: "",
+                sum_short: "",
+                sum_mid: "",
+                sum_long: ""
+            }
         };
     }
 
@@ -37,6 +36,7 @@ class Analyze extends Component {
     }
 
     render() {
+        console.log(this.state.information);
         return (
             <div className='App'>
                 <Split className="wrap" sizes={[45, 55]}>
