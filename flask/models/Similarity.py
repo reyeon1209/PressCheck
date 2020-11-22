@@ -3,17 +3,27 @@ from numpy import dot
 from numpy.linalg import norm
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from bson import ObjectId
+from pymongo import MongoClient
+import time
 
 
-def setting_standard(collection):
-    origin_news_data = collection.find({'_id': ObjectId('5fb8c4ad56e76939a59e6b60')}, {'_id', 'pre_content', 'press', 'category', 'keyword'})
+def load_all_objectId(collection):
+    res = []
+    data = collection.find({}, {'_id'})
+    for elem in data:
+        res.append(str(elem['_id']))
+    return res
+
+
+def setting_standard(collection, standard_id):
+    origin_news_data = collection.find({'_id': ObjectId(standard_id)}, {'_id', 'pre_content', 'press', 'category', 'keyword'})
     for elem in origin_news_data:
         myid = elem['_id']
         pre_content = elem['pre_content']
         press = elem['press']
         category = elem['category']
         keyword = elem['keyword']
-        return [(myid, pre_content)], press, category, keyword
+        return [(myid, pre_content)], myid, press, category, keyword
 
 
 def setting_targets(collection, press, category):
@@ -30,90 +40,99 @@ def setting_targets(collection, press, category):
     return targets, targets_title, targets_press, targets_keyword
 
 
-def setting_ranking(ids, json_data):
-    ranking  = [(idx, json_data[val]['similarity']) for idx, val in enumerate(ids)]
-    ranking.sort(key=lambda x: x[1])
-    for i in range(len(ids)):
-        json_data[ids[i]].update({'ranking': ranking[i][0] + 1})
-    return json_data
+def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyword):
+    def setting_similarity(standard, targets):
+        # combine separated sentences to the only one sentence & setting encoding form
+        def setting_encoding_form(separated_sentences_list):
+            for idx, content in enumerate(separated_sentences_list):
+                res = ""
+                for sentence in content:
+                    res += sentence + " "
+                separated_sentences_list[idx] = "[CLS] " + res + "[SEP]"
+            return separated_sentences_list
 
+        # calculate similarity
+        def cos_sim(A, B):
+            return dot(A, B) / (norm(A) * norm(B))
 
-def setting_diffKeyword(ids, json_data, standard_keyword, target_keyword):
-    for i in range(len(target_keyword)):
-        json_data[ids[i]].update({'diffKeyword': list(set(target_keyword[i]) - set(standard_keyword))})
-    print(json_data)
+        # merge data & separate from ids to contents
+        merge_data = standard + targets
+        ids = list(i[0] for i in merge_data)
+        contents = list(i[1] for i in merge_data)
 
+        # similarity function
+        contents = setting_encoding_form(contents)
+        tokenizer = get_tokenizer()
+        tokenized_texts = [tokenizer.tokenize(content) for content in contents]
+        input_ids = [tokenizer.convert_tokens_to_ids(x) for x in tokenized_texts]
+        input_ids = pad_sequences(input_ids, maxlen=1000, dtype=int, truncating="post", padding="post")
 
-def setting_similarity(standard, targets):
-    # combine separated sentences to the only one sentence & setting encoding form
-    def setting_encoding_form(separated_sentences_list):
-        for idx, content in enumerate(separated_sentences_list):
-            res = ""
-            for sentence in content:
-                res += sentence + " "
-            separated_sentences_list[idx] = "[CLS] " + res + "[SEP]"
-        return separated_sentences_list
+        res = {}
+        for i in range(1, len(input_ids)):
+            similar_val = round(cos_sim(input_ids[0], input_ids[i]) * 100, 2)
+            if similar_val > 0:
+                res.update({ids[i]: {'similarity': similar_val}})
+        return res
 
-    # calculate similarity
-    def cos_sim(A, B):
-        return dot(A, B) / (norm(A) * norm(B))
+    def setting_ranking(ids, json_data):
+        ranking = [(idx, json_data[val]['similarity']) for idx, val in enumerate(ids)]
+        ranking.sort(key=lambda x: x[1])
+        for i in range(len(ranking)):
+            json_data[ids[i]].update({'ranking': ranking[i][1] + 1})
+        return json_data
 
-    # merge data & separate from ids to contents
-    merge_data = standard + targets
-    ids = list(i[0] for i in merge_data)
-    contents = list(i[1] for i in merge_data)
+    def setting_diffKeyword(ids, json_data, standard_keyword, target_keyword):
+        for i in range(len(target_keyword)):
+            json_data[ids[i]].update({'diffKeyword': list(set(target_keyword[i]) - set(standard_keyword))})
+        return json_data
 
-    # similarity function
-    contents = setting_encoding_form(contents)
-    tokenizer = get_tokenizer()
-    tokenized_texts = [tokenizer.tokenize(content) for content in contents]
-    input_ids = [tokenizer.convert_tokens_to_ids(x) for x in tokenized_texts]
-    input_ids = pad_sequences(input_ids, maxlen=600, dtype=int, truncating="post", padding="post")
+    def setting_etc(ids, json_data, target_press, target_title):
+        for i in range(len(target_press)):
+            json_data[ids[i]].update({'press': target_press[i], 'title': target_title[i]})
+        return json_data
 
-    res = {}
-    for i in range(1, len(input_ids)):
-        res.update({ids[i]: {'similarity': int(cos_sim(input_ids[0], input_ids[i]) * 100)}})
+    def setting_real_form(ids, json_data, origin_id):
+        res = []
+        for i in range(len(ids)):
+            r1 = {'origin_id': origin_id, 'target_id': ids[i]}
+            r2 = json_data[ids[i]]
+            res.append({**r1, **r2})
+        return res
+
+    ids = [myid for myid, mycontent in targets]
+    res = setting_similarity(standard, targets)
+    res = setting_diffKeyword(ids, res, standard_keyword, targets_keyword)
+    res = setting_etc(ids, res, target_press, target_title)
+    res = setting_ranking(ids, res)
+    res = setting_real_form(ids, res, origin_id)
     return res
 
 
-def setting_etc(ids, json_data, target_press, target_title):
-    for i in range(len(target_press)):
-        json_data[ids[i]].update({'press': target_press[i]})
-        json_data[ids[i]].update({'title': target_title[i]})
-    return json_data
-
 if __name__ == '__main__':
-    standard = [
-        ("11111", [
-            '프로야구 2020 KBO 포스트시즌 두산베어스와 NC다이노스의 한국시리즈 4차전이 21일 오후 서울 고척스카이돔에서 열렸다.',
-            '포토4차전 결정 박석민, 다음 경기엔 명예회복손가락 부상으로 4차전에 결장한 박석민이 더그아웃에서 경기를 지켜보고 있다.'
-         ]),
-    ]
-    targets = [
-        ("22222", [
-            '‘2020 신한은행 SOL KBO리그’ 포스트시즌 한국시리즈 4차전 NC와 두산의 경기가 21일 오후 서울 고척 스카이돔에서 열렸다.',
-            '강진성,펜스에 붙어서NC 1루수 강진성이 4회말 두산 죄주환의 파울타구를 잡아내고 있다.'
-        ]),
-        ("33333", [
-            '22일 방송될 JTBC 예능프로그램 ‘뭉쳐야 찬다’에서는 ‘어쩌다FC’의 용병이 되기 위한 대한민국 남자 펜싱 레전드 최병철의 진땀나는 피지컬 테스트가 펼쳐진다.',
-            '펜싱 레전드 ‘괴짜 검객’ 최병철이 0.8cm 보리과자를 찌르는 역대급 도전에 나선다.',
-            '이날 ‘어쩌다FC’는 펜싱 선수들이 준비 자세부터 상대의 몸을 터치하는 공격 순간까지 단 0.03초 밖에 걸리지 않는다는 사실을 듣고 놀라움을 금치 못한다.',
-            '이에 총알이 나가는 속도와 맞먹는 스피드를 눈으로 확인하고자 움직이는 과일을 찔러보는 테스트를 진행한다.',
-            '최병철은 자몽, 사과, 파프리카 등 던지는 족족 과즙을 팡팡 터트리며 칼끝을 정확하게 꽂는 레전드의 실력을 보여준다.'
-            '과일의 크기는 점점 작아지고 어느덧 최고난도 방울토마토가 등장하자 전설들은 “이거 성공하면 핵인정”이라며 기대에 찬 목소리를 높인다.',
-            '그는 다른 과일들과 달리 방울토마토 표면을 스치기만 하는 아쉬운 결과가 이어지자 국대급 승부욕이 발동, 얼굴에 웃음기를 싹 지우고 집중해 성공시킨다고.',
-            '자몽부터 방울토마토까지 그의 칼을 통과한 과일들로 원앤온리 펜싱 꼬치가 완성돼 펜싱 전설이라 가능한 진귀한 장면을 연출해낸다.',
-            '이어 다음은 실에 매달린 작은 과자들이 등장, 그중에는 미세한 바람에도 크게 흔들리는 0.8cm 크기의 작은 가벼운 보리과자도 준비돼 최병철을 한층 더 긴장시킨다.',
-            '터치 할 듯 말 듯 마음처럼 되지 않는 테스트에 최병철은 연신 ‘알레’를 외치며 기합을 넣었고, 현장에 있던 모든 이들이 숨죽인 채 그의 칼끝을 주시했다는 후문.',
-            '한편, 최병철은 피지컬 테스트 외에도 ‘펜싱계 이단아’란 수식어에 걸맞은 화려한 변칙 기술을 선보이며 전설들의 시선을 사로잡을 예정이다.',
-            '과연 보리과자 찌르기는 어떻게 끝났을지, 펜싱 전설의 기상천외한 피지컬 테스트 결과가 궁금해진다.'
-        ])
-    ]
-#    standard, standard_press, standard_category, standard_keyword = setting_standard(collection)
-#    targets, targets_title, targets_press, targets_keyword = setting_targets(collection, standard_press,
-                                                                                standard_category)
-    ids = [myid for myid, mycontent in targets]
-    res = setting_similarity(standard, targets)
-    res = setting_ranking(ids, res)
-    res = setting_diffKeyword(ids, res, standard_keyword, targets_keyword)
-    res = setting_etc(ids, res, target_press, target_title)
+    # start = time.time()
+
+    # connect pymongo
+    client = MongoClient("mongodb+srv://choi95:qpdlf52425@cluster0.kz4b2.mongodb.net/collectTest?retryWrites=true&w=majority")
+    db_collectTest = client.get_database('collectTest')
+    collection_collectTest = db_collectTest.get_collection('test5')
+    db_similarityTest = client.get_database('similarityTest')
+    collection_similarityTest = db_similarityTest.get_collection('test1')
+
+    db_FrontTest = client.get_database('FrontTest')
+    collection_FrontTest_collected = db_FrontTest.get_collection('collected')
+    collection_FrontTest_similarity = db_FrontTest.get_collection('similarity')
+
+    ### delete docs in similarityTest collection
+    # collection_similarityTest.delete_many({})
+
+    # # load all objectId (article)
+    list_objectId = load_all_objectId( collection_FrontTest_collected)
+
+    # setting standard, target article & check similarity
+    for objId in list_objectId:
+        standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard( collection_FrontTest_collected, objId)
+        target, target_title, target_press, target_keyword = setting_targets(collection_FrontTest_collected, standard_press, standard_category)
+        res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
+        print(res[:1])
+        # collection_FrontTest_similarity.insert_many(res)
+        break
