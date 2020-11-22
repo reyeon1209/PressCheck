@@ -125,7 +125,7 @@
     width: 20%;
 }
 
-.keyword-td, .summary-td {
+.keyword-td {
     padding-left: 2%;
 }
 
@@ -137,6 +137,8 @@
 .summary-td {
     height: 210px;
     min-height: 210px;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 .analyze-keyword {
