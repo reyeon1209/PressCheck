@@ -12,7 +12,7 @@ class OriginalNewsText extends Component {
         // eslint-disable-next-line
         const { title, uploaded, updated, editor, img_src, content } = this.props.data;
         
-        if (img_src == '') {
+        if (img_src.substr(0, 4) !== "http") {
             return (
                 <div>
                     <div className='original-news-title'><b>{title}</b></div>
