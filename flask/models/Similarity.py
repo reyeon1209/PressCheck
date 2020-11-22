@@ -126,13 +126,12 @@ if __name__ == '__main__':
     # collection_similarityTest.delete_many({})
 
     # # load all objectId (article)
-    list_objectId = load_all_objectId( collection_FrontTest_collected)
+    list_objectId = load_all_objectId(collection_FrontTest_collected)
 
     # setting standard, target article & check similarity
     for objId in list_objectId:
         standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard( collection_FrontTest_collected, objId)
         target, target_title, target_press, target_keyword = setting_targets(collection_FrontTest_collected, standard_press, standard_category)
         res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
-        print(res[:1])
         # collection_FrontTest_similarity.insert_many(res)
         break
