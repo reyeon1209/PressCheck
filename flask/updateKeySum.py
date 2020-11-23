@@ -1,31 +1,22 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
-
-#get_ipython().system('pip install flask')
-#get_ipython().system('pip install krwordrank')
-#get_ipython().system('pip install konlpy')
-
 # -*- coding: utf-8 -*-
-from flask import Flask
 import pymongo
+from sklearn.metrics.pairwise import cosine_similarity
 from nltk.tokenize import sent_tokenize
 from krwordrank.word import KRWordRank
 from konlpy.tag import Okt
-import fasttext.util
+import networkx as nx
 import numpy as np
-from apscheduler.schedulers.background import BackgroundScheduler
-from models import todays
-from models import Analysis as an
+import fasttext
 from konlpy.tag import Hannanum
+import re
 
 word_dict = {}
 strip_clean_sentence = []
 total_clean_sentence = []
 string_id = []
 
+embedding_dim = 300
+zero_vector = np.zeros(embedding_dim)
 
 def clean_text(text):
     content = text
@@ -42,27 +33,27 @@ def insert_summary():
     client = pymongo.MongoClient(
         "mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest?retryWrites=true&w=majority")
     db = client.get_database('scheduleTest')
-    collection = db.mostread1
-
+    collection = db.collected
+    ft = fasttext.load_model('cc.ko.300.bin')
     total_clean_sentence = []
     string_id = []
 
     for content in collection.find({}, {"_id": 1, "content": 1}):
         string = ""
-        sent_list = []
         content_list = []
-        clean_sentence = []
         cleaned_sentence = []
+        clean_sentence = []
         string_id.append(list(content.values())[0])
         string = list(content.values())[1]
         string = string.replace(u'\xa0', u' ')
         string = string.replace(u'\n', u' ')
+        string = string.replace(u'\r', u' ')
         clean_sentence.append(sent_tokenize(string))
         for i in clean_sentence:
             for j in i:
-                if '기자' not in j:
-                    cleaned_sentence.append(j)
+                cleaned_sentence.append(j)
             total_clean_sentence.append(cleaned_sentence)
+
 
     temp = []
     okt = Okt()
@@ -83,12 +74,12 @@ def insert_summary():
         summaryShort_list = ""
         summaryMed_list = ""
         summaryLong_list = ""
-        article_embedding = an.articles_to_vectors(clean_sentence)
-        similar_matrix = an.similarity_matrix(article_embedding)
-        score = an.calculate_score(similar_matrix)
-        summaryShort_list = an.summaryShort(clean_sentence, score)
-        summaryMed_list = an.summaryMed(clean_sentence, score)
-        summaryLong_list = an.summaryLong(clean_sentence, score)
+        article_embedding = articles_to_vectors(clean_sentence)
+        similar_matrix = similarity_matrix(article_embedding)
+        score = calculate_score(similar_matrix)
+        summaryShort_list = summaryShort(clean_sentence, score)
+        summaryMed_list = summaryMed(clean_sentence, score)
+        summaryLong_list = summaryLong(clean_sentence, score)
         collection.update_one({'_id': string_id[string_idx]}, {
             '$set': {'sum_short': summaryShort_list, 'sum_mid': summaryMed_list, 'sum_long': summaryLong_list}})
         string_idx += 1
@@ -96,9 +87,9 @@ def insert_summary():
 
 def insert_keyword():
     client = pymongo.MongoClient(
-        "mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
-    db = client.get_database('scheduleTest1')
-    collection = db.test5
+        "mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest?retryWrites=true&w=majority")
+    db = client.get_database('scheduleTest')
+    collection = db.collected
 
     okt = Okt()
     min_count = 3  # 단어의 최소 출현 빈도수 (그래프 생성 시)
@@ -158,8 +149,59 @@ def insert_keyword():
         collection.update_one({'_id': string_id[string_idx]}, {'$set': {'keyword': s1_list, 'point_keyword': s2_list}})
         string_idx += 1
 
-# In[ ]:
+# 단어 백터들의 평균을 구함으로서 문장 벡터를 얻는다.
+def calculate_article_vector(sentence):
+    if len(sentence) != 0:
+        return sum([updateKeySum.word_dict.get(word, zero_vector)
+                for word in sentence])/len(sentence)
+    else:
+        return zero_vector
+
+# 모든 기사에 대한 문장 벡터를 반환
+def articles_to_vectors( sentences):
+    return [calculate_article_vector(sentence)
+            for sentence in sentences]
+
+# 문장 벡터들 간의 코사인 유사도를 구한 유사도 행렬
+def similarity_matrix( sentence_embedding):
+    sim_mat = np.zeros([len(sentence_embedding), len(sentence_embedding)])
+    for i in range(len(sentence_embedding)):
+        for j in range(len(sentence_embedding)):
+            sim_mat[i][j] = cosine_similarity(sentence_embedding[i].reshape(1, embedding_dim),
+                                        sentence_embedding[j].reshape(1, embedding_dim))[0,0]
+    return sim_mat
+
+# 페이지 랭크 알고리즘을 입력으로 사용하여 각 문장의 점수를 구한다.
+def calculate_score(sim_matrix):
+    nx_graph = nx.from_numpy_array(sim_matrix)
+    scores = nx.pagerank(nx_graph)
+    return scores
 
 
+#score점수가 가장 높은 상위 1개의 문장
+def summaryShort(sentences, scores):
+    top_scores =  sorted(((scores[i],s)
+                        for i,s in enumerate(sentences)),
+                                reverse=True)
+    top_1_sentences = [sentence
+                        for score,sentence in top_scores[:1]]
+    return " ".join(top_1_sentences)
 
 
+#score점수가 가장 높은 상위 2개의 문장
+def summaryMed(sentences, scores):
+    top_scores =  sorted(((scores[i],s)
+                        for i,s in enumerate(sentences)),
+                                reverse=True)
+    top_2_sentences = [sentence
+                        for score,sentence in top_scores[:2]]
+    return " ".join(top_2_sentences)
+
+#score점수가 가장 높은 상위 3개의 문장
+def summaryLong( sentences, scores):
+    top_scores =  sorted(((scores[i],s)
+                        for i,s in enumerate(sentences)),
+                                reverse=True)
+    top_3_sentences = [sentence
+                        for score,sentence in top_scores[:3]]
+    return " ".join(top_3_sentences)

@@ -1,19 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[1]:
-
-
-#get_ipython().system('pip install feedparser')
-#get_ipython().system('pip install pymongo')
-#get_ipython().system('pip install pymongo[srv,tls]')
-#get_ipython().system('pip install dnspython==2.0.0')
-#get_ipython().system('pip install requests')
-#get_ipython().system('pip install goose3')
-
-
-# In[2]:
-
 
 import feedparser
 import requests
@@ -31,7 +15,6 @@ import operator
 import math
 
 
-# In[3]:
 
 
 def text2vec(text):
@@ -81,7 +64,7 @@ def headline_vec():
 def db_vec():
     db_head=[]  #DB비교용 (제목,제목벡터화,링크,이미지소스) 리스트
     client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
-    for x in client.scheduleTest.collected5.find():
+    for x in client.scheduleTest.collected.find():
         v2 = text2vec(x['title'])
         db_head.append([x['title'],v2,x['_id'],x['img_src'],x['category'],x['press']])
     return db_head
@@ -92,7 +75,7 @@ def candidate_article():
     headline=headline_vec()
     db_head=db_vec()
     MostRead=[]
-    for i in range(0,20):  
+    for i in range(0,30):
         for j in range(0,len(db_head)):
             cosine = get_cosine(headline[i][1],db_head[j][1]) #headline과 db_head간 벡터값 코사인유사도 비교
             if cosine >= 0.9:
@@ -117,18 +100,11 @@ def rerank(rank):
     return rank
 
 def insertMostRead(rank):
-    client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
-    db = client.get_database('scheduleTest1')
-    collection = db.mostread1
+    client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest?retryWrites=true&w=majority")
+    db = client.get_database('scheduleTest')
+    collection = db.mostread
     for i in range(0,len(rank)):
          collection.insert_one(rank[i])
-            
-def main():
+
+def getMostRead():
     insertMostRead(rerank(makeDic()))
-    print('complete')
-
-# In[ ]:
-
-
-
-

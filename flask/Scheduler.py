@@ -1,29 +1,31 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[4]:
-
 
 #install 코드
 #get_ipython().system('pip install flask')
 
 
-# In[12]:
-
 
 #import 코드
-#mport crawler
-import mostRead
-#import updateKeySum
+#import crawler
+#import mostRead
+import updateKeySum
 #import similarity
 ##import todays
+import pymongo
 from flask import Flask
 
 #app = Flask(__name__)
+from pymongo import MongoClient
 
 #crawler.batch_collect()
+#mostRead.getMostRead()
+updateKeySum.insert_keyword()
+updateKeySum.insert_summary()
 
 
+
+#mr.insertMostRead(mr.reran90k(mr.makeDic()))
+#updateKeySum.insert_keyword()
+#updateKeySum.insert_summary()
 
 
 #많이본뉴스
@@ -43,10 +45,6 @@ from flask import Flask
 
 #sched.start()
 
-if __name__ == '__main__':
-    mostRead.main()
-
-# In[ ]:
 
 
 

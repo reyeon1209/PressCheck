@@ -60,9 +60,9 @@ yonhap_url = ['http://www.yonhapnewstv.co.kr/browse/feed/','http://www.yonhapnew
               'http://www.yonhapnewstv.co.kr/category/news/economy/feed/','http://www.yonhapnewstv.co.kr/category/news/international/feed/','http://www.yonhapnewstv.co.kr/category/news/sports/feed/'
               ,'http://www.yonhapnewstv.co.kr/category/news/culture/feed/']
 
-client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
-db = client.get_database('scheduleTest1')
-collection = db.collected5
+client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest?retryWrites=true&w=majority")
+db = client.get_database('scheduleTest')
+collection = db.collected
 
 nltk.download('punkt')
 
@@ -124,12 +124,13 @@ def collectJoongang():
                 request = requests.get(pagelink)
                 html = request.content
                 soup = BeautifulSoup(html,'html.parser')
-                news_article = soup.find('div',id ='article_body')
+                news_article = soup.find('div', itemprop='articleBody')
                 for tag in news_article:
                     if tag.string is None:
                         continue
-                description += tag.string
+                    description += tag.string
                 description=clean_text(description)
+
 
                 string = ""
                 clean_sentence = []
