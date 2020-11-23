@@ -33,12 +33,11 @@
 /* Select Table */
 .left-table {
     margin: 0;
-    width: 33vw;
     margin-top: 3%;
-    margin-left: 10%;
+    margin-left: 5%;
     margin-right: 3%;
     float: left;
-    max-width: 30%;
+    max-width: 35%;
     border-collapse:collapse;
     box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
     text-align: center;
@@ -162,7 +161,7 @@ hr {
 .topnews-content_title {
     display: inline-block;
     font-size: 1rem;
-    width: 60%;
+    width: 62%;
     margin-left: 2%;
 }
 
@@ -184,5 +183,4 @@ hr {
     clear: both;
     margin-top: 5%;
     margin-bottom: 7%;
-    padding-right: 11%;
 }
