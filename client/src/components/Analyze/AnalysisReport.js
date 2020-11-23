@@ -17,14 +17,15 @@ class AnalysisReport extends Component {
     render() {
         // eslint-disable-next-line
         var { point_keyword } = this.props.origin_info;
-        var target_info = [];
-        target_info = this.props.target_info;
-        
         const keywordList = point_keyword &&
                     point_keyword.map(kw => {
                         return (<div className="analyze-keyword">#{kw}&nbsp;&nbsp;</div>)
                     });
-        
+
+        var target_info = [];
+        target_info = this.props.target_info;
+
+        const date = new Date().getHours();
 
         return (
             <div>
@@ -49,7 +50,7 @@ class AnalysisReport extends Component {
                 </table>
 
                 <div className='similar-title'>유사한 뉴스</div>
-                <div className='similar-aggregate'>※ 0시 ~ 1시까지 집계한 뉴스리스트입니다.</div>
+                <div className='similar-aggregate'>※ 0시 ~ {date}시까지 집계한 뉴스리스트입니다.</div>
                 <SimilarNewsList target_info={target_info} />
             </div>
         );
