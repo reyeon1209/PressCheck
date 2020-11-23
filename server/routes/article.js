@@ -50,4 +50,25 @@ router.get('/searchAddr', (req, res) => {
         })
 })
 
+router.get('/press', (req, res) => {
+    var press = req;
+    console.log('body : ' + req.body);
+    console.log('press : ' + req.body.press);
+
+    press = 'hankyoreh';
+    switch (press) {
+        case 'hankyoreh': press = '한겨레'; break;
+        case 'jungang': press = '중앙'; break;
+        case 'donga': press = '동아'; break;
+        case 'kukmin': press = '국민'; break;
+        case 'yeonhap': press = '연합'; break;
+    }
+    
+    Article.find({ press: press })
+        .exec((err, articles) => {
+            if (err) return res.status(400).send(err);
+            res.status(200).json(articles);
+        })
+})
+
 module.exports = router;

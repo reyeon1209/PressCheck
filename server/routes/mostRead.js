@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { mongoose } = require('mongoose');
+const { collection } = require('../models/MostRead');
 let MostRead = require('../models/MostRead');
 
 router.route('/').get((req, res) => {

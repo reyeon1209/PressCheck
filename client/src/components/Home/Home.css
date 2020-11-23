@@ -1,133 +1,8 @@
-/* split style */
-.App {
-    
-}
-
-.gutter {
-  background: rgba(255, 255, 255, 0.05);
-  flex-shrink: 0;
-}
-
-.gutter-horizontal {
-  cursor: ew-resize;
-}
-
-.gutter-vertical {
-  cursor: ns-resize;
-}
-
-.comp {
-  background: red;
-  color: white;
-  height: 100px;
-  display: inline-block;
-}
-
-.wrap {
-  display: flex;
-  margin-left: 5%;
-  margin-right: 5%;
-  margin-top: 2%;
-}
-
-/* Select Table */
-.left-table {
-    margin: 0;
-    margin-top: 3%;
-    margin-left: 5%;
-    margin-right: 3%;
-    float: left;
-    max-width: 35%;
-    border-collapse:collapse;
-    box-shadow: 3px 4px 4px rgba(0, 0, 0, 0.25);
-    text-align: center;
-}
-
-.left-table > tr {
-    background-color: #ebebeb;
-}
-
-a { 
-    text-decoration: none; 
-    color: white; 
-}
-a:visited { 
-    text-decoration: none; 
-}
-a:hover { 
-    text-decoration: none; 
-}
-a:focus { 
-    text-decoration: none; 
-}
-a:hover, a:active { 
-    text-decoration: none; 
-}
-
-.left-table-title {
-    background-color: #00598D;
-    color: white;
-    font-size: 1.2rem;
-    text-align: right;
-    padding-right: 3%;
-    padding-top: 0.5%;
-    padding-bottom: 0.5%;
-}
-
-.left-table-content {
-}
-
-.left-button-category{
-    display: block;
-    max-width: 100%;
-    font-weight: normal;
-    margin-top: 1.5%;
-    margin-bottom: 2%;
-    margin-right: 7%;
-}
-
-.left-button-press{
-    display: block;
-    max-width: 100%;
-    margin-top: 1%;
-    margin-bottom: 1%;
-}
-
-input{
-    margin-left: 10%;
-    margin-bottom: 3%;
-}
-
-hr {
-    border-top: 1px dashed black;
-    border-bottom: none;
-}
-
-.left-button {
-    width: 19%;
-    max-width: 20%;
-    border: 0;
-    outline: 0;
-    background-color: transparent !important;
-    cursor: pointer;
-    margin-right: 2%;
-    margin-bottom: 1%;
-}
-
-
-.left-button > img {
-    width: 100%;
-    max-width: 100%;
-}
-
 /* news list */
-.right-news-list {
-    display: inline-block;
-    width: 3vw;
-    min-width: 50%;
-    max-width: 90%;
-    margin-top: 1%;
-    margin-left: 2%;
+.app {
+    width: 65%;
+    margin-top: 2%;
+    margin-left: 20%;
 }
 
 .right-aggregate {
@@ -138,10 +13,15 @@ hr {
     color: #9D9D9D;
 }
 
+.right-news-list {
+    width: 80%;
+    margin-left: 10%;
+}
+
 .right-news-title{
     display: inline;
     color: black;
-    font-size: 1.3rem;
+    font-size: 1.8rem;
     font-weight: bold;
     text-align: left;
 }
@@ -153,7 +33,7 @@ hr {
 .topnews-content_id {
     display: inline-block;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     margin-right: 3%;
 }
@@ -161,7 +41,7 @@ hr {
 .topnews-content_title {
     display: inline-block;
     font-size: 1rem;
-    width: 62%;
+    width: 65%;
     margin-left: 2%;
 }
 
@@ -183,4 +63,5 @@ hr {
     clear: both;
     margin-top: 5%;
     margin-bottom: 7%;
+    margin-right: 5%;
 }
