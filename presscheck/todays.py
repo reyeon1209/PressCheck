@@ -1,18 +1,6 @@
-import numpy as np
 from collections import Counter
 import random
-import pymongo
-
-client = pymongo.MongoClient(
-    "mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/FrontTest?retryWrites=true&w=majority")
-db = client.get_database('FrontTest')
-collection = db.collected
-todays = db.todays
-
-cl = ['전체', '정치', '사회', '경제', '국제', '스포츠', '문화']
-
-timeKeywords = []
-mongo_cnt = 0
+from presscheck.utils.db import *
 
 
 # 하루단위
@@ -22,7 +10,7 @@ def headline():
         for content in collection.find({"category": cl[idx]}):
             headline.append(content['title'])
         random_headline = random.sample(headline, 3)
-        # todays.insert_one({"category": cl[idx], 'keyword' : '\0', 'timeKeywords' : '\0', 'headline' : random_headline })
+        # mongoDB.todays.insert_one({"category": cl[idx], 'keyword' : '\0', 'timeKeywords' : '\0', 'headline' : random_headline })
 
 
 # 하루단위
@@ -36,30 +24,21 @@ def todays_keyword():
         cnt = Counter(frequency_keyword[3:])
         frequency_dictionary = cnt.most_common(7)
         # print(frequency_dictionary[4:])
-        # todays.update_one({'category' : cl[idx] }, {'$set' : {'keyword' : frequency_dictionary[4:] }})
+        # mongoDB.todays.update_one({'category' : cl[idx] }, {'$set' : {'keyword' : frequency_dictionary[4:] }})
 
 
 def timedict1():
-    timedict = {}
-    timedict['title'] = '6시~12시'
-    timedict['keyword'] = [0, 0, 0, 0, 0]
-    timedict['keywordFreq'] = [0, 0, 0, 0, 0]
+    timedict = {'title': '6시~12시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
 
 def timedict2():
-    timedict = {}
-    timedict['title'] = '12시~18시'
-    timedict['keyword'] = [0, 0, 0, 0, 0]
-    timedict['keywordFreq'] = [0, 0, 0, 0, 0]
+    timedict = {'title': '12시~18시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
 
 def timedict3():
-    timedict = {}
-    timedict['title'] = '18시~24시'
-    timedict['keyword'] = [0, 0, 0, 0, 0]
-    timedict['keywordFreq'] = [0, 0, 0, 0, 0]
+    timedict = {'title': '18시~24시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
 
@@ -77,7 +56,6 @@ def keyword_series():
     keyword_number4 = []
 
     for idx in range(len(cl)):
-
         all_frequency_keyword = []
         for content in collection.find({"category": cl[idx]}):
             for i in content['keyword']:
@@ -92,8 +70,6 @@ def keyword_series():
         total_keyword_cnt.append(total_cnt[4:])
 
         keyword_dict = {}
-        keyword = []
-        keyword_number = []
         for i in today_keyword_cnt:
             for j in i:
                 keyword_list = []
@@ -124,61 +100,45 @@ def keyword_series():
         timeKeywords = []
 
         if mongo_cnt == 1:
-            timedict = {}
-            timedict['title'] = '0시~6시'
-            timedict['keyword'] = keyword1
-            timedict['keywordFreq'] = keyword_number1
+            timedict = {'title': '0시~6시', 'keyword': keyword1, 'keywordFreq': keyword_number1}
             timeKeywords.append(timedict)
             timeKeywords.append(timedict1())
             timeKeywords.append(timedict2())
             timeKeywords.append(timedict3())
         if mongo_cnt == 2:
-            timedict = {}
-            timedict['title'] = '0시~6시'
-            timedict['keyword'] = keyword1
-            timedict['keywordFreq'] = keyword_number1
+            timedict = {'title': '0시~6시', 'keyword': keyword1, 'keywordFreq': keyword_number1}
             timeKeywords.append(timedict)
-            timedict = {}
-            timedict['title'] = '6시~12시'
-            timedict['keyword'] = keyword2
-            timedict['keywordFreq'] = keyword_number2
+            timedict = {'title': '6시~12시', 'keyword': keyword2, 'keywordFreq': keyword_number2}
             timeKeywords.append(timedict)
             timeKeywords.append(timedict2)
             timeKeywords.append(timedict3)
         if mongo_cnt == 3:
-            timedict = {}
-            timedict['title'] = '0시~6시'
-            timedict['keyword'] = keyword1
-            timedict['keywordFreq'] = keyword_number1
+            timedict = {'title': '0시~6시', 'keyword': keyword1, 'keywordFreq': keyword_number1}
             timeKeywords.append(timedict)
-            timedict = {}
-            timedict['title'] = '6시~12시'
-            timedict['keyword'] = keyword2
-            timedict['keywordFreq'] = keyword_number2
+            timedict = {'title': '6시~12시', 'keyword': keyword2, 'keywordFreq': keyword_number2}
             timeKeywords.append(timedict)
-            timedict = {}
-            timedict['title'] = '12시~18시'
-            timedict['keyword'] = keyword3
-            timedict['keywordFreq'] = keyword_number3
+            timedict = {'title': '12시~18시', 'keyword': keyword3, 'keywordFreq': keyword_number3}
             timeKeywords.append(timedict)
             timeKeywords.append(timedict2)
             timeKeywords.append(timedict3)
         if mongo_cnt == 4:
-            timedict = {}
-            timedict['title'] = '0시~6시'
-            timedict['keyword'] = keyword1
-            timedict['keywordFreq'] = keyword_number1
+            timedict = {'title': '0시~6시', 'keyword': keyword1, 'keywordFreq': keyword_number1}
             timeKeywords.append(timedict)
-            timedict = {}
-            timedict['title'] = '6시~12시'
-            timedict['keyword'] = keyword2
-            timedict['keywordFreq'] = keyword_number2
+            timedict = {'title': '6시~12시', 'keyword': keyword2, 'keywordFreq': keyword_number2}
             timeKeywords.append(timedict)
-            timedict = {}
-            timedict['title'] = '12시~18시'
-            timedict['keyword'] = keyword3
-            timedict['keywordFreq'] = keyword_number3
+            timedict = {'title': '12시~18시', 'keyword': keyword3, 'keywordFreq': keyword_number3}
             timeKeywords.append(timedict)
             timeKeywords.append(timedict3)
         print(timeKeywords)
-        # todays.update_one({"category": cl[idx]}, {'$set': {'timeKeywords': timeKeywords}})
+        # mongoDB.todays.update_one({"category": cl[idx]}, {'$set': {'timeKeywords': timeKeywords}})
+
+
+if __name__ == '__main__':
+    mongoDB = myMongoDB("CapstoneTest")
+    collection = mongoDB.collected
+    todays = mongoDB.todays
+
+    cl = ['전체', '정치', '사회', '경제', '국제', '스포츠', '문화']
+
+    timeKeywords = []
+    mongo_cnt = 0

@@ -1,16 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
-
 
 from kobert_transformers import get_tokenizer
 from numpy import dot
 from numpy.linalg import norm
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from bson import ObjectId
-from pymongo import MongoClient
-import time
+from presscheck.utils.db import *
 
 
 def load_all_objectId(collection):
@@ -115,36 +112,18 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
 
 
 if __name__ == '__main__':
-    # start = time.time()
-
     # connect pymongo
-    client = MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest?retryWrites=true&w=majority")
-    db_collectTest = client.get_database('scheduleTest')
-    collection_collectTest = db_collectTest.get_collection('collected')
-    db_similarityTest = client.get_database('scheduleTest')
-    collection_similarityTest = db_similarityTest.get_collection('similar')
+    mongoDB = myMongoDB("CapstoneTest")
 
-    #db_FrontTest = client.get_database('FrontTest')
-    #collection_FrontTest_collected = db_FrontTest.get_collection('collected')
-    #collection_FrontTest_similarity = db_FrontTest.get_collection('similarity')
+    ## delete docs in similarityTest collection
+    mongoDB.similarity.delete_many({})
 
-    ### delete docs in similarityTest collection
-    # collection_similarityTest.delete_many({})
-
-    # # load all objectId (article)
-    list_objectId = load_all_objectId(collection_collectTest)
+    # load all objectId (article)
+    list_objectId = load_all_objectId(mongoDB.collected)
 
     # setting standard, target article & check similarity
     for objId in list_objectId:
-        standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard(  collection_collectTest , objId)
-        target, target_title, target_press, target_keyword = setting_targets( collection_collectTest , standard_press, standard_category)
+        standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard(mongoDB.collected , objId)
+        target, target_title, target_press, target_keyword = setting_targets(mongoDB.collected , standard_press, standard_category)
         res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
-        collection_similarityTest.insert_many(res)
-        break
-
-
-# In[ ]:
-
-
-
-
+        mongoDB.similarity.insert_many(res)
