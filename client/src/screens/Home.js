@@ -66,6 +66,17 @@ class Home extends Component {
         fetch('http://localhost:1818/mostRead')
         .then(res => res.json())
         .then(data => this.setState({information: data}));
+
+        this.setState(initialState => ({
+            isAll: true,
+            isPolitics: false,
+            isSociety: false,
+            isEconomy: false,
+            isInternation: false,
+            isSports: false,
+            isCulture: false
+        }));
+        this.setState({ currentPress: 'hankyoreh' });
     }
 
     categoryAllClickHandler() {
