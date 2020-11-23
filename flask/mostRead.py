@@ -4,12 +4,12 @@
 # In[1]:
 
 
-get_ipython().system('pip install feedparser')
-get_ipython().system('pip install pymongo')
-get_ipython().system('pip install pymongo[srv,tls]')
-get_ipython().system('pip install dnspython==2.0.0')
-get_ipython().system('pip install requests')
-get_ipython().system('pip install goose3')
+#get_ipython().system('pip install feedparser')
+#get_ipython().system('pip install pymongo')
+#get_ipython().system('pip install pymongo[srv,tls]')
+#get_ipython().system('pip install dnspython==2.0.0')
+#get_ipython().system('pip install requests')
+#get_ipython().system('pip install goose3')
 
 
 # In[2]:
@@ -80,8 +80,8 @@ def headline_vec():
 #DB의 모든 뉴스 제목들 벡터화
 def db_vec():
     db_head=[]  #DB비교용 (제목,제목벡터화,링크,이미지소스) 리스트
-    client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/FrontTest?retryWrites=true&w=majority")
-    for x in client.FrontTest.collected.find():
+    client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
+    for x in client.scheduleTest.collected5.find():
         v2 = text2vec(x['title'])
         db_head.append([x['title'],v2,x['_id'],x['img_src'],x['category'],x['press']])
     return db_head
@@ -117,19 +117,15 @@ def rerank(rank):
     return rank
 
 def insertMostRead(rank):
-    client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/FrontTest?retryWrites=true&w=majority")
-    db = client.get_database('FrontTest')
-    collection = db.mostRead
+    client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
+    db = client.get_database('scheduleTest1')
+    collection = db.mostread1
     for i in range(0,len(rank)):
          collection.insert_one(rank[i])
             
 def main():
     insertMostRead(rerank(makeDic()))
     print('complete')
-    
-if __name__ == "__main__":
-    main()
-
 
 # In[ ]:
 

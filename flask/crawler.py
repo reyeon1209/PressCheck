@@ -4,12 +4,12 @@
 # In[1]:
 
 
-get_ipython().system('pip install feedparser')
-get_ipython().system('pip install pymongo')
-get_ipython().system('pip install pymongo[srv,tls]')
-get_ipython().system('pip install dnspython==2.0.0')
-get_ipython().system('pip install requests')
-get_ipython().system('pip install goose3')
+#get_ipython().system('pip install feedparser')
+#get_ipython().system('pip install pymongo')
+#get_ipython().system('pip install pymongo[srv,tls]')
+#get_ipython().system('pip install dnspython==2.0.0')
+#get_ipython().system('pip install requests')
+#get_ipython().system('pip install goose3')
 
 
 # In[2]:
@@ -60,9 +60,9 @@ yonhap_url = ['http://www.yonhapnewstv.co.kr/browse/feed/','http://www.yonhapnew
               'http://www.yonhapnewstv.co.kr/category/news/economy/feed/','http://www.yonhapnewstv.co.kr/category/news/international/feed/','http://www.yonhapnewstv.co.kr/category/news/sports/feed/'
               ,'http://www.yonhapnewstv.co.kr/category/news/culture/feed/']
 
-client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/DuplicationTest?retryWrites=true&w=majority")
-db = client.get_database('DuplicationTest')
-collection = db.test6
+client = pymongo.MongoClient("mongodb+srv://han:qpdlf52425@cluster0.kz4b2.mongodb.net/scheduleTest1?retryWrites=true&w=majority")
+db = client.get_database('scheduleTest1')
+collection = db.collected5
 
 nltk.download('punkt')
 
@@ -147,14 +147,18 @@ def collectJoongang():
                         cleaned_sentence.append(k)
   
                 uploaded ='\0'
-                upload_date = soup.find('div',class_='byline').select("em")[1]
-                if upload_date!=None:
+                try:
+                    upload_date = soup.find('div',class_='byline').select("em")[1]
                     uploaded = upload_date.text
+                except AttributeError as err:
+                    uploaded = '\0'
         
                 updated='\0'
-                update_date = soup.find('div',class_='byline').select("em")[1]
-                if update_date!=None:
-                    updated = update_date.text
+                try:
+                    update_date = soup.find('div',class_='byline').select("em")[1]
+                    updated = upload_date.text
+                except AttributeError as err:
+                    updated = '\0'
       
                 img_src='\0'
                 try:
@@ -225,13 +229,20 @@ def collectDonga():
                         if '기자' not in k: 
                             cleaned_sentence.append(k)
     
-                  uploaded ='\0'   
-                  upload_date = soup.find('div',class_='title_foot').find('span',class_='date01')
-                  uploaded = upload_date.text
+                  uploaded ='\0'
+                  try:
+                    upload_date = soup.find('div',class_='title_foot').find('span',class_='date01')
+                    uploaded = upload_date.text
+                  except AttributeError as err:
+                    uploaded = '\0'
+
 
                   updated='\0'
-                  update_date = soup.find('div',class_='title_foot').find('span',class_='date01')
-                  updated = update_date.text
+                  try:
+                      update_date = soup.find('div',class_='title_foot').find('span',class_='date01')
+                      updated = update_date.text
+                  except AttributeError as err:
+                    upldated = '\0'
 
         
                   editor='\0'  
@@ -308,12 +319,18 @@ def collectKbs():
       
       
           uploaded='\0'
-          upload_date = soup.find('p',class_='date')
-          uploaded = upload_date.text[:26]
+          try:
+            upload_date = soup.find('p',class_='date')
+            uploaded = upload_date.text[:26]
+          except AttributeError as err:
+              uploaded = '\0'
+
     
           updated='\0'
-          updated = upload_date.text[29:]
-      
+          try:
+            updated = upload_date.text[29:]
+          except AttributeError as err:
+            updated = '\0'
         
           #kbs는 작성자 항목이 없습니다!
           editor='\0'
@@ -330,7 +347,6 @@ def collectKbs():
         
           kbs_dic.append({'title':p.title,'link':p.link,'press':'kbs','category':cl[i],'uploaded':uploaded,'updated':updated,'editor':editor,'img_src':img_src,'content':description,'pre_content':cleaned_sentence,'keyword':'\0','sum_short':'\0','sum_mid':'\0','sum_long':'\0'})
           collection.insert_one(kbs_dic[j])
-          count+=1
           j+=1
         i+=1
 
@@ -394,12 +410,18 @@ def collectSbs1():
             cleaned_sentence.append(k)
 
     uploaded='\0'
-    upload_date = soup.find('span',class_='date').find_all('span')[0]
-    uploaded = upload_date.text
+    try:
+        upload_date = soup.find('span',class_='date').find_all('span')[0]
+        uploaded = upload_date.text
+    except AttributeError as err:
+        uploaded = '\0'
   
     updated='\0'
-    update_date = soup.find('span',class_='date').find_all('span')[0]
-    updated = update_date.text
+    try:
+        update_date = soup.find('span',class_='date').find_all('span')[0]
+        updated = update_date.text
+    except AttributeError as err:
+        updated = '\0'
     
 
     editor='\0'
@@ -472,9 +494,7 @@ def collectSbs2():
               if '기자' not in k: 
                     cleaned_sentence.append(k)
     
-      
-    
-     
+
           uploaded ='\0'  
           try:
             upload_date1 = soup.find('span',class_='date')
@@ -569,14 +589,20 @@ def collectKmib():
                     if '기자' not in k: 
                         cleaned_sentence.append(k)
       
-      
+
                 uploaded='\0'
-                upload_date = soup.find('div',class_='date').find_all('span',class_="t11")[0]
-                uploaded = upload_date.text
+                try:
+                    upload_date = soup.find('div',class_='date').find_all('span',class_="t11")[0]
+                    uploaded = upload_date.text
+                except AttributeError as err:
+                    uploaded = '\0'
     
                 updated='\0'
-                update_date = soup.find('div',class_='date').find_all('span',class_="t11")[0]
-                updated = update_date.text
+                try:
+                    update_date = soup.find('div',class_='date').find_all('span',class_="t11")[0]
+                    updated = update_date.text
+                except AttributeError as err:
+                    updated = '\0'
 
                 #editor = soup.find('a',class_='name').text
                 #print(editor)
@@ -593,7 +619,6 @@ def collectKmib():
         
                 kmib_dic.append({'title':news_head,'link':p.link,'press':'국민','category':cl[i],'uploaded':uploaded,'updated':updated,'editor':editor,'img_src':img_src,'content':description,'pre_content':cleaned_sentence,'keyword':'\0','sum_short':'\0','sum_mid':'\0','sum_long':'\0'})
                 collection.insert_one(kmib_dic[j])
-                count+=1
                 j+=1
             i+=1
 
@@ -703,7 +728,7 @@ def collectHani():
         break
       else:
         parse_rss = feedparser.parse(rss)
-        for index,p in enmuerate(parse_rss.entries):
+        for index,p in enumerate(parse_rss.entries):
           if(index==20):
             break
           pagelink=p.link
