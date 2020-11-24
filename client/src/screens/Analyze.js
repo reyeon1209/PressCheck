@@ -62,7 +62,7 @@ class Analyze extends Component {
                 this.setState({ origin_info: response.data });
             });
 
-        Axios.get('http://localhost:1818/similarity/report')
+        Axios.post('http://localhost:1818/similarity/report', variable)
             .then(response => {
                 this.setState({ target_info: response.data });
             });

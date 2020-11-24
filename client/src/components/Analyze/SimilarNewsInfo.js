@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 import './Analyze.css';
 
@@ -15,6 +16,13 @@ class SimilarNewsInfo extends Component {
             press: '',
             title: ''
         }
+    }
+
+    componentDidMount() {
+        Axios.get('http://localhost:1818/mostRead')
+            .then(response => {
+                this.setState({ information: response.data, total_documents: response.data.length });
+            });
     }
 
     render() {
