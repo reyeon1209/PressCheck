@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
-
-
 from kobert_transformers import get_tokenizer
 from numpy import dot
 from numpy.linalg import norm
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from bson import ObjectId
 from presscheck.utils.db import *
+
+
 
 
 def load_all_objectId(collection):
@@ -118,7 +118,7 @@ def getSimilarity():
     mongoDB = myMongoDB("CapstoneTest")
 
     ## delete docs in similarityTest collection
-    mongoDB.similarity.delete_many({})
+    #mongoDB.similarity.delete_many({})
 
     # load all objectId (article)
     list_objectId = load_all_objectId(mongoDB.collected)

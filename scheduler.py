@@ -6,8 +6,8 @@ if __name__ == '__main__':
     mongoDB = myMongoDB("CapstoneTest")
     #crawler.batch_collect()
     #mostRead.getMostRead()
-    updateKeySum.insert_keyword()
-    updateKeySum.insert_summary()
+    #updateKeySum.insert_keyword()
+    #updateKeySum.insert_summary()
     similarity.getSimilarity()
 
 

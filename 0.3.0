@@ -1,0 +1,7 @@
+Collecting onnxruntime
+  Downloading onnxruntime-1.5.2-cp38-cp38-win_amd64.whl (4.0 MB)
+Requirement already satisfied: protobuf in c:\dev\envs\presscheck\lib\site-packages (from onnxruntime) (3.14.0)
+Requirement already satisfied: numpy>=1.16.6 in c:\dev\envs\presscheck\lib\site-packages (from onnxruntime) (1.18.5)
+Requirement already satisfied: six>=1.9 in c:\dev\envs\presscheck\lib\site-packages (from protobuf->onnxruntime) (1.15.0)
+Installing collected packages: onnxruntime
+Successfully installed onnxruntime-1.5.2
