@@ -11,12 +11,4 @@ router.route('/').get((req, res) => {
         });
 });
 
-router.route('/getLink').get((req, res) => {
-    MostRead.find({}, {link: true, _id: false})
-        .exec((err, mostRead) => {
-            if (err)  return  res.status(400).send(err);
-            res.json(mostRead);
-        });
-});
-
 module.exports = router;

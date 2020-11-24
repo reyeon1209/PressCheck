@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 import Split from 'react-split';
 
 import OriginalNewsText from '../components/Analyze/OriginalNewsText';
@@ -43,13 +44,28 @@ class Analyze extends Component {
     }
 
     componentDidMount() {
-        fetch('http://localhost:1818/article/analyze')
-        .then(res => res.json())
-        .then(data => this.setState({ origin_info: data }));
+        // URL에서 id만 cutting
+        var id = "";
+        var url = window.location.href;
+        var params = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+        for (var i = 0; i < params.length; i++) {
+            var varName = params[i].split('=')[0];
+            if (varName == "id") {
+                id = params[i].split('=')[1];
+            }
+        }
 
-        fetch('http://localhost:1818/similarity/report')
-        .then(res => res.json())
-        .then(data => this.setState({ target_info: data }));
+        // cutting한 id로 post
+        const variable = { id: id };
+        Axios.post('http://localhost:1818/article/analyze', variable)
+            .then(response => {
+                this.setState({ origin_info: response.data });
+            });
+
+        Axios.get('http://localhost:1818/similarity/report')
+            .then(response => {
+                this.setState({ target_info: response.data });
+            });
     }
 
     render() {

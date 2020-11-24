@@ -16,8 +16,17 @@ router.get('/', (req, res) => {
 
 });
 
-router.get('/analyze', (req, res) => {
-    let _id = "5fba0625a26669575d73c8d7";
+router.post('/link', (req, res) => {
+    var link = req.body.link;
+    Article.find({ _id: link })
+        .exec((err, news) => {
+            if (err)  return  res.status(400).send(err);
+            res.json(news);
+        });
+});
+
+router.post('/analyze', (req, res) => {
+    var _id = req.body.id;
 
     Article.findById(_id)
         .exec((err, articles) => {
