@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 
 import './Home.css';
 import NoImage from '../../assets/images/noimage.png';
-
 class TopNewsInfo extends Component {
     static defaultProps = {
         info: {
@@ -26,7 +25,7 @@ class TopNewsInfo extends Component {
             img_src = NoImage;
 
         return (
-            <div className='topnews-info'>
+            <div className='topnews-info' onClick="location.href='../news/analyze" >
                 <div className='topnews-content_id'>{rank}</div>
                 <div className='topnews-content_title'>{title}</div>
                 <img className='topnews-thumbnail' src={img_src} alt="thumnail" value="thumnail"/>

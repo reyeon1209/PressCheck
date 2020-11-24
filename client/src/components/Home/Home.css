@@ -14,7 +14,7 @@
 }
 
 .right-news-list {
-    width: 80%;
+    width: 85%;
     margin-left: 10%;
 }
 
@@ -28,6 +28,7 @@
 
 .topnews-info {
     margin-top: 3%;
+    cursor:pointer;
 }
 
 .topnews-content_id {
@@ -36,6 +37,8 @@
     font-size: 2rem;
     font-weight: bold;
     margin-right: 3%;
+    width: 3%;
+    max-width: 3%;
 }
 
 .topnews-content_title {
@@ -48,7 +51,7 @@
 .topnews-thumbnail {
     display: inline-block;
     margin-left: 1%;
-    margin-right: 2%;
+    margin-right: 4%;
     width: 180px;
     height: 100px;
     object-fit: contain;
@@ -63,5 +66,4 @@
     clear: both;
     margin-top: 5%;
     margin-bottom: 7%;
-    margin-right: 5%;
 }
