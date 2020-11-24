@@ -88,6 +88,7 @@ input{
     margin-left: 5%;
     padding: 0.5%;
     margin-bottom: 1%;
+    cursor: pointer;
 }
 
 .news-thumbnail {

@@ -21,8 +21,6 @@ class TopNewsInfo extends Component {
         const _id = data.data[0]._id;
         
         window.location.href = '../news/analyze/detail?id=' + _id;
-        //window.location.replace('../newslist/analyze'); // id와 함께 redirect
-        // 받은 id써서 post(analyze)로 data 받기
     }
 
     render() {

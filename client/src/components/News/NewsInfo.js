@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 import Jungang from '../../assets/images/newslist_jungang.png';
 import Donga from '../../assets/images/newslist_donga.png';
@@ -15,7 +16,7 @@ import './News.css';
 class NewsInfo extends Component {
     static defaultProps = {
         info: {
-            id: 0,
+            _id: 0,
             press: '',
             title: '',
             img_src: 'https://www.flaticon.com/svg/static/icons/svg/1402/1402120.svg',
@@ -23,6 +24,16 @@ class NewsInfo extends Component {
             keyword: []
         },
     }
+
+    newsClickHandler = async (link) => {
+        console.log(link);
+        const variable = { link: link }
+        const data = await Axios.post('http://localhost:1818/article/link', variable);
+        const _id = data.data[0]._id;
+        
+        window.location.href = '../news/analyze/detail?id=' + _id;
+    }
+    
     
     renderSwitch(press) {
         switch (press) {
@@ -63,7 +74,7 @@ class NewsInfo extends Component {
 
     render() {
         // eslint-disable-next-line
-        var { press, title, img_src, content, keyword } = this.props.info;
+        var { _id, press, title, img_src, content, keyword } = this.props.info;
 
         if (press == "") {
             content = '준비 중입니다...';
@@ -78,7 +89,7 @@ class NewsInfo extends Component {
             img_src = NoImage;
 
         return (
-            <div className='newsinfo'>
+            <div className='newsinfo' onClick={() => this.newsClickHandler(_id)} >
                 <img className='news-thumbnail' src={img_src} alt="thumnail" value="thumnail" />
                 <div className='news-content'>
                     <div>{this.renderSwitch(press)}</div>
