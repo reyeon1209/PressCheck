@@ -13,7 +13,7 @@ class SummaryList extends Component {
         headline = this.props.data;
 
         const today = new Date();
-        const date = today.getFullYear() + "-" + today.getMonth() + "-" + today.getDate();
+        const date = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
 
     
         return (

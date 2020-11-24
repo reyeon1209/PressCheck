@@ -124,15 +124,15 @@
     float: left;
     background-color: white;
     min-width: 60%;
-    padding-top: 1%;
+    padding-top: 0.6%;
     padding-left: 1%;
-    padding-bottom: 1.5%;
+    padding-bottom: 1.9%;
     height: 70px;
     margin-bottom: 3%;
 }
 
 .summary-text {
-    padding-top: 0.5%;
+    padding-top: 0.75%;
     
 }
 
