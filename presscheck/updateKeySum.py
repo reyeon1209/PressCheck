@@ -18,22 +18,11 @@ string_id = []
 embedding_dim = 300
 zero_vector = np.zeros(embedding_dim)
 
-
-def clean_text(text):
-    content = text
-    cleaned_text = re.sub('[a-zA-Z]', '', content)
-    cleaned_text = re.sub('[\{\}\[\]\/?,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"▲△▽▼◁◀▷▶]', '', cleaned_text)
-    cleaned_text = cleaned_text.replace("연합뉴스TV 기사문의 및 제보", "")
-    cleaned_text = cleaned_text.replace("카톡/라인 jebo23 (끝)", "")
-    cleaned_text = cleaned_text.replace("아티클 공통  관련기사", "")
-    cleaned_text = cleaned_text.replace("아티클 공통   250", "")
-    return cleaned_text
-
-
 def insert_summary():
     mongoDB = myMongoDB("CapstoneTest")
-    fasttext.util.download_model('ko', if_exists='ignore')
+    #fasttext.util.download_model('ko', if_exists='ignore')
     ft = fasttext.load_model('cc.ko.300.bin')
+    global total_clean_sentence 
     total_clean_sentence = []
     string_id = []
 
