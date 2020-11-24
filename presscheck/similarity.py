@@ -73,15 +73,14 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
         res = {}
         for i in range(1, len(input_ids)):
             similar_val = round(cos_sim(input_ids[0], input_ids[i]) * 100, 2)
-            if similar_val > 0:
-                res.update({ids[i]: {'similarity': similar_val}})
+            res.update({ids[i]: {'similarity': similar_val}})
         return res
 
     def setting_ranking(ids, json_data):
         ranking = [(idx, json_data[val]['similarity']) for idx, val in enumerate(ids)]
         ranking.sort(key=lambda x: x[1])
         for i in range(len(ranking)):
-            json_data[ids[i]].update({'ranking': ranking[i][1] + 1})
+            json_data[ids[i]].update({'ranking': ranking[i][0] + 1})
         return json_data
 
     def setting_diffKeyword(ids, json_data, standard_keyword, target_keyword):
@@ -100,7 +99,7 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
             r1 = {'origin_id': origin_id, 'target_id': ids[i]}
             r2 = json_data[ids[i]]
             res.append({**r1, **r2})
-        return res
+        return [x for x in res if x['similarity'] > 0]
 
     ids = [myid for myid, mycontent in targets]
     res = setting_similarity(standard, targets)
@@ -113,7 +112,7 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
 
 if __name__ == '__main__':
     # connect pymongo
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
 
     ## delete docs in similarityTest collection
     mongoDB.similarity.delete_many({})

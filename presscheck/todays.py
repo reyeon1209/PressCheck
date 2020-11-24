@@ -24,21 +24,21 @@ def todays_keyword():
         cnt = Counter(frequency_keyword[3:])
         frequency_dictionary = cnt.most_common(7)
         # print(frequency_dictionary[4:])
-        mongoDB.todays.update_one({'category' : cl[idx] }, {'$set' : {'keyword' : frequency_dictionary[4:] }})
+        mongoDB.todays.update_one({'category': cl[idx]}, {'$set': {'keyword': frequency_dictionary[4:]}})
 
 
 def timedict1():
-    timedict = {'title': '6시~12시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '6시~12시', 'keyword': ['', '', '', '', ''], 'keywordFreq': ['', '', '', '', '']}
     return timedict
 
 
 def timedict2():
-    timedict = {'title': '12시~18시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '12시~18시', 'keyword': ['', '', '', '', ''], 'keywordFreq': ['', '', '', '', '']}
     return timedict
 
 
 def timedict3():
-    timedict = {'title': '18시~24시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '18시~24시', 'keyword': ['', '', '', '', ''], 'keywordFreq': ['', '', '', '', '']}
     return timedict
 
 
@@ -140,7 +140,7 @@ def keyword_series(mongo_cnt):
 
 
 if __name__ == '__main__':
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
     collection = mongoDB.collected
     todays = mongoDB.todays
 

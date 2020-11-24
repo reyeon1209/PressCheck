@@ -36,7 +36,7 @@ class myMongoDB:
 if __name__ == '__main__':
     # init setting
     try:
-        mongoDB = myMongoDB("mytest")
+        mongoDB = myMongoDB("CapstoneTest")
     except:
         print('[Failed] to connect mongoDB. Please check DB name')
     else:

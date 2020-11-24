@@ -19,7 +19,7 @@ embedding_dim = 300
 zero_vector = np.zeros(embedding_dim)
 
 def insert_summary():
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
     #fasttext.util.download_model('ko', if_exists='ignore')
     ft = fasttext.load_model('./models/cc.ko.300.bin')
     string_id = []
@@ -65,10 +65,10 @@ def insert_summary():
 
 
 def insert_keyword():
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
 
     okt = Okt()
-    min_count = 3  # 단어의 최소 출현 빈도수 (그래프 생성 시)
+    min_count = 1  # 단어의 최소 출현 빈도수 (그래프 생성 시)
     max_length = 10  # 단어의 최대 길이
     string_idx = 0
 
@@ -175,6 +175,6 @@ def summaryLong(sentences, scores):
 
 
 if __name__ == '__main__':
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
     insert_keyword()
     insert_summary()

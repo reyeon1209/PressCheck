@@ -95,7 +95,7 @@ def rerank(rank):
 
 
 def insertMostRead(rank):
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
     for i in range(0, len(rank)):
          mongoDB.mostRead.insert_one(rank[i])
 
