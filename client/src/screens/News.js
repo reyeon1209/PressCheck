@@ -46,7 +46,7 @@ class News extends Component {
                     isInternation: false,
                     isSports: false,
                     isCulture: false,
-                    currentPress: 'hankyoreh',
+                    currentPress: 'jungang',
                 }
             ]
         };
@@ -130,7 +130,7 @@ class News extends Component {
 
     componentDidMount() {
         this.categoryAllClickHandler();
-        this.pressClickHandler('hankyoreh');
+        this.pressClickHandler('jungang');
     }
 
     render() {
@@ -175,13 +175,13 @@ class News extends Component {
                         <th className="table-content-title">언론사</th>
                         <th className="table-content-content">
                             <div className='button-press'>
-                            <button><img src={this.state.currentPress == 'hankyoreh' ? HankyorehClick : Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh"/></button>
-                                    <button><img src={this.state.currentPress == 'jungang' ? JungangClick : Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
-                                    <button><img src={this.state.currentPress == 'donga' ? DongaClick : Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
-                                    <button><img src={this.state.currentPress == 'kbs' ? KBSClick : KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
-                                    <button><img src={this.state.currentPress == 'sbs' ? SBSClick : SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
-                                    <button><img src={this.state.currentPress == 'kukmin' ? KukminClick : Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
-                                    <button><img src={this.state.currentPress == 'yeonhap' ? YeonhapClick : Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
+                                <button><img src={this.state.currentPress == 'jungang' ? JungangClick : Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
+                                <button><img src={this.state.currentPress == 'hankyoreh' ? HankyorehClick : Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh"/></button>
+                                <button><img src={this.state.currentPress == 'donga' ? DongaClick : Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
+                                <button><img src={this.state.currentPress == 'kbs' ? KBSClick : KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
+                                <button><img src={this.state.currentPress == 'sbs' ? SBSClick : SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
+                                <button><img src={this.state.currentPress == 'kukmin' ? KukminClick : Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
+                                <button><img src={this.state.currentPress == 'yeonhap' ? YeonhapClick : Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
                             </div>
                         </th>
                     </tr>
