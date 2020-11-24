@@ -192,6 +192,10 @@
     font-size: 0.8rem;
 }
 
+.similar-news-info {    
+    cursor: pointer;
+}
+
 .right-botton-table > tr > th {
     padding: 0.8%;
 }

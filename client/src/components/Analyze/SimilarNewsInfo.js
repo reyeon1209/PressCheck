@@ -18,6 +18,14 @@ class SimilarNewsInfo extends Component {
         }
     }
 
+    newsClickHandler = async (target_id) => {
+        const variable = { link: target_id }
+        const data = await Axios.post('http://localhost:1818/article/link', variable);
+        const _id = data.data[0]._id;
+        
+        window.location.href = '../analyze/detail?id=' + _id;
+    }
+
     componentDidMount() {
         Axios.get('http://localhost:1818/mostRead')
             .then(response => {
@@ -43,7 +51,7 @@ class SimilarNewsInfo extends Component {
         })
 
         return (
-            <tr className='similar-news-info'>
+            <tr className='similar-news-info' onClick={() => this.newsClickHandler(target_id)} >
                 <td><b>{ranking}</b></td>
                 <td>{press}</td>
                 <td className='similar-news-info-title'>{title}</td>
