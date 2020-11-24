@@ -23,7 +23,7 @@ def todays_keyword():
                 frequency_keyword.append(i)
         cnt = Counter(frequency_keyword[3:])
         frequency_dictionary = cnt.most_common(7)
-        # print(frequency_dictionary[4:])
+        # print(frequency_dictionary[4:])tnwj
         # mongoDB.todays.update_one({'category' : cl[idx] }, {'$set' : {'keyword' : frequency_dictionary[4:] }})
 
 
