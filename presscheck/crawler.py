@@ -517,7 +517,7 @@ def collectKmib():
             i += 1
 
 
-def collectYonhap():
+def collectYonhap(mongoDB):
     yonhap_dic = []
 
     i = 0
@@ -577,12 +577,14 @@ def collectYonhap():
 
                 # 연합뉴스 기자 이름 없음
                 editor = '\0'
-                img = soup.find('img', id_='posterImg')
+
+                img = soup.find('span', class_='img')
                 if img != None:
                     img_src = img.get('src')
                     img_src = 'http://' + img_src
                 else:
                     img_src = '\0'
+                continue
 
                 yonhap_dic.append(
                     {'title': news_title, 'link': p.link, 'press': '연합', 'category': cl[i], 'uploaded': uploaded,
@@ -741,7 +743,7 @@ if __name__ == '__main__':
     ]
 
     # # connect pymongo & setting db and collection
-    mongoDB = myMongoDB("CapstoneTest")
+    mongoDB = myMongoDB("mytest")
 
     # download tokenized file & collecting news data
     nltk.download('punkt')

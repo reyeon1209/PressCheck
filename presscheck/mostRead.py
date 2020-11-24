@@ -62,17 +62,23 @@ def db_vec():
 def candidate_article():
     headline = headline_vec()
     db_head = db_vec()
-    MostRead = []         # 제목,링크(고유아이디),이미지링크,순위,카테고리,언론사,유사도
+    MostRead = []
     for i in range(0, 30):
         for j in range(0, len(db_head)):
-            cosine = get_cosine(headline[i][1], db_head[j][1]) #headline과 db_head간 벡터값 코사인유사도 비교
+            cosine = get_cosine(headline[i][1], db_head[j][1])
             if cosine >= 0.9:
                 MostRead.append([db_head[j][0], db_head[j][2], db_head[j][3],
                                  headline[i][2], db_head[j][4], db_head[j][5], cosine])
-    return MostRead
+    i = 0
+    j = 0
+    temp = []
+    for i in range(0, len(MostRead)):
+        if i not in temp:
+            temp.append(MostRead[i])
+    return temp
 
 
-def makeDic():      
+def makeDic():
     MostRead = candidate_article()
     dic_key = ['title', 'link', 'img_src', 'rank', 'category', 'press']
     rank = []      #top5리스트
@@ -89,7 +95,7 @@ def rerank(rank):
 
 
 def insertMostRead(rank):
-    mongoDB = myMongoDB("CapstoneTest")
+    mongoDB = myMongoDB("mytest")
     for i in range(0, len(rank)):
          mongoDB.mostRead.insert_one(rank[i])
 

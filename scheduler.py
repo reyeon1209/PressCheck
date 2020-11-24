@@ -21,9 +21,9 @@ if __name__ == '__main__':
     # shced.add_job(similarity.,'interval',minute=55)             #55분마다
 
     # Todays
-    # sched.add_job(todays.todays_Keyword(), 'interval' ,hours=24)  #하루
-    # sched.add_job(todays.keyword_series(), 'interval' ,hours=6)  #6시간단위
-    # sched.add_job(todays.headline(), 'interval' ,hours=24)        #하루
-    # sched.add_job(todays.init(),'interval',hours=24)                         #하루
+    sched.add_job(todays.todays_Keyword(), 'interval' ,hours=24)  #하루
+    sched.add_job(todays.keyword_series(), 'interval' ,hours=6)  #6시간단위
+    sched.add_job(todays.headline(), 'interval' ,hours=24)        #하루
+    sched.add_job(todays.init(),'interval',hours=24)                         #하루
 
     # sched.start()

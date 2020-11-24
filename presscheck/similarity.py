@@ -113,7 +113,7 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
 
 if __name__ == '__main__':
     # connect pymongo
-    mongoDB = myMongoDB("CapstoneTest")
+    mongoDB = myMongoDB("mytest")
 
     ## delete docs in similarityTest collection
     mongoDB.similarity.delete_many({})
