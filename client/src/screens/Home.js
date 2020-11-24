@@ -1,27 +1,8 @@
 import React, { Component } from 'react';
-import Split from 'react-split';
 import Axios from 'axios';
 
-import SelectTable from '../components/Home/SelectTable';
 import TopNewsList from '../components/Home/TopNewsList';
 import '../components/Home/Home.css';
-
-import Hankyoreh from '../assets/images/press_hankyoreh.png';
-import Jungang from '../assets/images/press_jungang.png';
-import Donga from '../assets/images/press_donga.png';
-import KBS from '../assets/images/press_kbs.png';
-import SBS from '../assets/images/press_sbs.png';
-import Kukmin from '../assets/images/press_kukmin.png';
-import Yeonhap from '../assets/images/press_yeonhap.png';
-
-import HankyorehClick from '../assets/images/press_hankyoreh_click.png';
-import JungangClick from '../assets/images/press_jungang_click.png';
-import DongaClick from '../assets/images/press_donga_click.png';
-import KBSClick from '../assets/images/press_kbs_click.png';
-import SBSClick from '../assets/images/press_sbs_click.png';
-import KukminClick from '../assets/images/press_kukmin_click.png';
-import YeonhapClick from '../assets/images/press_yeonhap_click.png';
-
 
 
 class Home extends Component {

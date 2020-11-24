@@ -38,37 +38,21 @@ class NewsInfo extends Component {
     renderSwitch(press) {
         switch (press) {
             case '중앙':
-                return (
-                    <div className='newslist-press'><img src={Jungang} alt="Jungang" value="Jungang" /></div>
-                )
+                return ( <div className='newslist-press'><img src={Jungang} alt="Jungang" value="Jungang" /></div> )
             case '한겨레':
-                return (
-                    <div className='newslist-press'><img src={Hankyoreh} alt="Hankyoreh" value="Hankyoreh" /></div>
-                )
+                return (  <div className='newslist-press'><img src={Hankyoreh} alt="Hankyoreh" value="Hankyoreh" /></div> )
             case '동아':
-                return (
-                    <div className='newslist-press'><img src={Donga} alt="Donga" value="Donga" /></div>
-                )
+                return ( <div className='newslist-press'><img src={Donga} alt="Donga" value="Donga" /></div> )
             case 'sbs':
-                return (
-                    <div className='newslist-press'><img src={Sbs} alt="Sbs" value="Sbs" /></div>
-                )
+                return ( <div className='newslist-press'><img src={Sbs} alt="Sbs" value="Sbs" /></div> )
             case 'kbs':
-                return (
-                    <div className='newslist-press'><img src={Kbs} alt="Kbs" value="Kbs" /></div>
-                )
+                return ( <div className='newslist-press'><img src={Kbs} alt="Kbs" value="Kbs" /></div> )
             case '국민':
-                return (
-                    <div className='newslist-press'><img src={Kukmin} alt="Kukmin" value="Kukmin" /></div>
-                )
+                return ( <div className='newslist-press'><img src={Kukmin} alt="Kukmin" value="Kukmin" /></div> )
             case '연합':
-                return (
-                    <div className='newslist-press'><img src={Yeonhap} alt="Yeonhap" value="Yeonhap" /></div>
-                )
+                return ( <div className='newslist-press'><img src={Yeonhap} alt="Yeonhap" value="Yeonhap" /></div> )
             default:
-                return (
-                    <div></div>
-                )
+                return ( <div></div> )
         }
     }
 

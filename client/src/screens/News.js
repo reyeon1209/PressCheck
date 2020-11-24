@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 
-import SelectTable from '../components/News/SelectTable';
 import NewsInfoList from '../components/News/NewsInfoList';
 import '../components/News/News.css';
 

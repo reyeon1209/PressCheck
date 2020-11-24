@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 
-import Tabs from '../components/Todays/Tabs';
 import KeywordInfoList from '../components/Todays/KeywordInfoList';
 import TimeKeywordList from '../components/Todays/TimeKeywordList';
 import KeywordChart from '../components/Todays/KeywordChart';
