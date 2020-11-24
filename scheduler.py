@@ -1,16 +1,15 @@
 from presscheck import crawler, mostRead, similarity, summaries, todays, updateKeySum
-
+from presscheck.utils.db import *
 
 if __name__ == '__main__':
     # put your function to start scheduling
-    crawler.batch_collect()
-    mostRead.getMostRead()
+    mongoDB = myMongoDB("CapstoneTest")
+    #crawler.batch_collect()
+    #mostRead.getMostRead()
     updateKeySum.insert_keyword()
     updateKeySum.insert_summary()
+    similarity.getSimilarity()
 
-    mostRead.insertMostRead(mostRead.reran90k(mostRead.makeDic()))
-    updateKeySum.insert_keyword()
-    updateKeySum.insert_summary()
 
     # 많이본뉴스
     # sched.add_job(mostRead.insertMostRead(mostRead.rerank(mostRead.makeDic())), 'interval', minute="55")#55분주기

@@ -51,6 +51,7 @@ def headline_vec():
 
 # DB의 모든 뉴스 제목들 벡터화
 def db_vec():
+    mongoDB = myMongoDB("CapstoneTest")
     db_head=[]  # DB비교용 (제목,제목벡터화,링크,이미지소스) 리스트
     for x in mongoDB.collected.find():
         v2 = text2vec(x['title'])

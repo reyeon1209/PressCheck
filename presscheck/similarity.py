@@ -11,15 +11,17 @@ from presscheck.utils.db import *
 
 
 def load_all_objectId(collection):
+    mongoDB = myMongoDB("CapstoneTest")
     res = []
-    data = collection.find({}, {'_id'})
+    data = mongoDB.collected.find({}, {'_id'})
     for elem in data:
         res.append(str(elem['_id']))
     return res
 
 
 def setting_standard(collection, standard_id):
-    origin_news_data = collection.find({'_id': ObjectId(standard_id)}, {'_id', 'pre_content', 'press', 'category', 'keyword'})
+    mongoDB = myMongoDB("CapstoneTest")
+    origin_news_data = mongoDB.collected.find({'_id': ObjectId(standard_id)}, {'_id', 'pre_content', 'press', 'category', 'keyword'})
     for elem in origin_news_data:
         myid = elem['_id']
         pre_content = elem['pre_content']
@@ -30,7 +32,8 @@ def setting_standard(collection, standard_id):
 
 
 def setting_targets(collection, press, category):
-    targets_news_data = collection.find({'press': {'$ne': press}, 'category' : category},{'press': 1, "title":1, 'pre_content': 1, 'keyword': 1})
+    mongoDB = myMongoDB("CapstoneTest")
+    targets_news_data = mongoDB.collected.find({'press': {'$ne': press}, 'category' : category},{'press': 1, "title":1, 'pre_content': 1, 'keyword': 1})
     targets = []
     targets_title = []
     targets_press = []
@@ -110,8 +113,7 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
     res = setting_real_form(ids, res, origin_id)
     return res
 
-
-if __name__ == '__main__':
+def getSimilarity():
     # connect pymongo
     mongoDB = myMongoDB("CapstoneTest")
 
@@ -123,7 +125,12 @@ if __name__ == '__main__':
 
     # setting standard, target article & check similarity
     for objId in list_objectId:
-        standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard(mongoDB.collected , objId)
-        target, target_title, target_press, target_keyword = setting_targets(mongoDB.collected , standard_press, standard_category)
+        standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard(mongoDB.collected,
+                                                                                                      objId)
+        target, target_title, target_press, target_keyword = setting_targets(mongoDB.collected, standard_press,
+                                                                             standard_category)
         res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
         mongoDB.similarity.insert_many(res)
+
+if __name__ == '__main__':
+   getSimilarity()

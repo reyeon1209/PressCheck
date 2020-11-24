@@ -11,6 +11,55 @@ from bs4 import BeautifulSoup
 from nltk.tokenize import sent_tokenize
 from presscheck.utils.db import *
 
+# data
+cl = ['전체', '정치', '사회', '경제', '국제', '스포츠', '문화']
+pl = ['한겨레', '중앙', '동아', 'KBS', 'SBS', '국민', '연합']
+hani_url = [
+    'http://www.hani.co.kr/rss/', 'http://www.hani.co.kr/rss/politics/', 'http://www.hani.co.kr/rss/society/',
+    'http://www.hani.co.kr/rss/economy/', 'http://www.hani.co.kr/rss/international/',
+    'http://www.hani.co.kr/rss/sports/', 'http://www.hani.co.kr/rss/culture/']
+joongang_url = [
+    'https://rss.joins.com/joins_news_list.xml', 'https://rss.joins.com/joins_politics_list.xml',
+    'https://rss.joins.com/joins_life_list.xml', 'https://rss.joins.com/joins_money_list.xml',
+    'https://rss.joins.com/joins_world_list.xml', 'https://rss.joins.com/joins_sports_list.xml',
+    'https://rss.joins.com/joins_culture_list.xml'
+]
+donga_url = [
+    'https://rss.donga.com/total.xml', 'https://rss.donga.com/politics.xml', 'https://rss.donga.com/national.xml',
+    'https://rss.donga.com/economy.xml', 'https://rss.donga.com/international.xml',
+    'https://rss.donga.com/sports.xml',
+    'https://rss.donga.com/culture.xml'
+]
+kbs_url = [
+    'http://world.kbs.co.kr/rss/rss_news.htm?lang=k', 'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Po',
+    'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=IK', 'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Ec',
+    'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=In', 'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Sp',
+    'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Cu'
+]
+sbs_topic = 'https://news.sbs.co.kr/news/newsHotIssue.do?plink=GNB&cooper=SBSNEWS'  # sbs전체
+sbs_url = [
+    'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER',
+    'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=03&plink=RSSREADER',
+    'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=02&plink=RSSREADER',
+    'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=08&plink=RSSREADER',
+    'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=09&plink=RSSREADER',
+    'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=07&plink=RSSREADER'
+]
+kmib_url = [
+    'http://rss.kmib.co.kr/data/kmibRssAll.xml', 'http://rss.kmib.co.kr/data/kmibPolRss.xml',
+    'http://rss.kmib.co.kr/data/kmibSocRss.xml', 'http://rss.kmib.co.kr/data/kmibEcoRss.xml',
+    'http://rss.kmib.co.kr/data/kmibIntRss.xml', 'http://rss.kmib.co.kr/data/kmibSpoRss.xml',
+    'http://rss.kmib.co.kr/data/kmibCulRss.xml'
+]
+yonhap_url = [
+    'http://www.yonhapnewstv.co.kr/browse/feed/', 'http://www.yonhapnewstv.co.kr/category/news/politics/feed/',
+    'http://www.yonhapnewstv.co.kr/category/news/society/feed/',
+    'http://www.yonhapnewstv.co.kr/category/news/economy/feed/',
+    'http://www.yonhapnewstv.co.kr/category/news/international/feed/',
+    'http://www.yonhapnewstv.co.kr/category/news/sports/feed/',
+    'http://www.yonhapnewstv.co.kr/category/news/culture/feed/'
+]
+
 
 # 텍스트 전처리
 def clean_text(text):
@@ -32,7 +81,7 @@ def clean_text(text):
     return cleaned
 
 
-def collectJoongang():
+def collectJoongang(mongoDB):
     joongang_dic = []
 
     i = 0
@@ -46,8 +95,17 @@ def collectJoongang():
             for index, p in enumerate(parse_rss.entries):
                 if index == 20:
                     break
-                pagelink = p.link
-                editor = p.author
+                try:
+                    pagelink = p.link
+                except AttributeError as err:
+                    continue
+                try:
+                    editor = p.author
+                except AttributeError as err:
+                    editor = '\0'
+
+
+
                 description = ''
 
                 dup = False
@@ -111,7 +169,7 @@ def collectJoongang():
             i += 1
 
 
-def collectDonga():
+def collectDonga(mongoDB):
     donga_dic = []
 
     i = 0
@@ -125,7 +183,17 @@ def collectDonga():
             for index, p in enumerate(parse_rss.entries):
                 if index == 20:
                     break
-                pagelink = p.link
+
+                try:
+                    pagelink = p.link
+                except AttributeError as err:
+                    continue
+
+                try:
+                    news_title = p.title
+                except AttributeError as err:
+                    news_title='\0'
+
 
                 dup = False
                 for article in mongoDB.collected.find({'press': '동아', 'category': cl[i]}, {'link': 1}):
@@ -169,7 +237,10 @@ def collectDonga():
                 except AttributeError as err:
                     updated = '\0'
 
-                editor = soup.find('div', class_='title_foot').find('span', class_='report').text
+                try:
+                    editor = soup.find('div', class_='title_foot').find('span', class_='report').text
+                except AttributeError as err:
+                    editor = '\0'
 
                 try:
                     img1 = soup.find('div', class_='article_view')
@@ -180,7 +251,7 @@ def collectDonga():
                     img_src = '\0'
 
                 donga_dic.append(
-                    {'title': p.title, 'link': p.link, 'press': '동아', 'category': cl[i], 'uploaded': uploaded,
+                    {'title': news_title, 'link': pagelink, 'press': '동아', 'category': cl[i], 'uploaded': uploaded,
                      'updated': updated, 'editor': editor, 'img_src': img_src, 'content': description,
                      'pre_content': cleaned_sentence, 'keyword': '\0', 'sum_short': '\0', 'sum_mid': '\0',
                      'sum_long': '\0'})
@@ -189,7 +260,7 @@ def collectDonga():
             i += 1
 
 
-def collectKbs():
+def collectKbs(mongoDB):
     kbs_dic = []
 
     i = 0
@@ -204,6 +275,7 @@ def collectKbs():
                 if index == 20:
                     break
                 pagelink = p.link
+                news_title =p.title
 
                 dup = False
                 for article in mongoDB.collected.find({'press': 'kbs', 'category': cl[i]}, {'link': 1}):
@@ -258,7 +330,7 @@ def collectKbs():
                     img_src = '\0'
 
                 kbs_dic.append(
-                    {'title': p.title, 'link': p.link, 'press': 'kbs', 'category': cl[i], 'uploaded': uploaded,
+                    {'title': news_title, 'link': pagelink, 'press': 'kbs', 'category': cl[i], 'uploaded': uploaded,
                      'updated': updated, 'editor': editor, 'img_src': img_src, 'content': description,
                      'pre_content': cleaned_sentence, 'keyword': '\0', 'sum_short': '\0', 'sum_mid': '\0',
                      'sum_long': '\0'})
@@ -267,7 +339,7 @@ def collectKbs():
             i += 1
 
 
-def collectSbs1():
+def collectSbs1(mongoDB):
     sbs_dic = []
 
     # sbs 크롤링 - 전체카테고리
@@ -351,7 +423,7 @@ def collectSbs1():
     j += 1
 
 
-def collectSbs2():
+def collectSbs2(mongoDB):
     # sbs 크롤링-나머지 카테고리
     i = 1
     j = 0
@@ -381,6 +453,8 @@ def collectSbs2():
                 soup = BeautifulSoup(html, 'html.parser')
 
                 news_article = soup.find('div', class_='text_area')
+                if news_article is None:
+                    continue
 
                 description = news_article.text
                 description = clean_text(description)
@@ -435,7 +509,7 @@ def collectSbs2():
             i += 1
 
 
-def collectKmib():
+def collectKmib(mongoDB):
     kmib_dic = []
 
     i = 0
@@ -517,7 +591,7 @@ def collectKmib():
             i += 1
 
 
-def collectYonhap():
+def collectYonhap(mongoDB):
     yonhap_dic = []
 
     i = 0
@@ -594,7 +668,7 @@ def collectYonhap():
             i += 1
 
 
-def collectHani():
+def collectHani(mongoDB):
     i = 0
     j = 0
 
@@ -680,69 +754,20 @@ def collectHani():
 
 
 def batch_collect():
-    collectJoongang()
-    collectDonga()
-    collectKbs()
-    collectSbs1()
-    collectSbs2()
-    collectKmib()
-    collectYonhap()
-    collectHani()
+    # download tokenized file & collecting news data
+    mongoDB = myMongoDB("CapstoneTest")
+    nltk.download('punkt')
+    collectJoongang(mongoDB)
+    collectDonga(mongoDB)
+    collectKbs(mongoDB)
+    collectSbs1(mongoDB)
+    collectSbs2(mongoDB)
+    collectKmib(mongoDB)
+    collectYonhap(mongoDB)
+    collectHani(mongoDB)
 
 
 if __name__ == '__main__':
-    # data
-    cl = ['전체', '정치', '사회', '경제', '국제', '스포츠', '문화']
-    pl = ['한겨레', '중앙', '동아', 'KBS', 'SBS', '국민', '연합']
-    hani_url = [
-        'http://www.hani.co.kr/rss/', 'http://www.hani.co.kr/rss/politics/', 'http://www.hani.co.kr/rss/society/',
-        'http://www.hani.co.kr/rss/economy/', 'http://www.hani.co.kr/rss/international/',
-        'http://www.hani.co.kr/rss/sports/', 'http://www.hani.co.kr/rss/culture/']
-    joongang_url = [
-        'https://rss.joins.com/joins_news_list.xml', 'https://rss.joins.com/joins_politics_list.xml',
-        'https://rss.joins.com/joins_life_list.xml', 'https://rss.joins.com/joins_money_list.xml',
-        'https://rss.joins.com/joins_world_list.xml', 'https://rss.joins.com/joins_sports_list.xml',
-        'https://rss.joins.com/joins_culture_list.xml'
-    ]
-    donga_url = [
-        'https://rss.donga.com/total.xml', 'https://rss.donga.com/politics.xml', 'https://rss.donga.com/national.xml',
-        'https://rss.donga.com/economy.xml', 'https://rss.donga.com/international.xml',
-        'https://rss.donga.com/sports.xml',
-        'https://rss.donga.com/culture.xml'
-    ]
-    kbs_url = [
-        'http://world.kbs.co.kr/rss/rss_news.htm?lang=k', 'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Po',
-        'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=IK', 'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Ec',
-        'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=In', 'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Sp',
-        'http://world.kbs.co.kr/rss/rss_news.htm?lang=k&id=Cu'
-    ]
-    sbs_topic = 'https://news.sbs.co.kr/news/newsHotIssue.do?plink=GNB&cooper=SBSNEWS'  # sbs전체
-    sbs_url = [
-        'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=01&plink=RSSREADER',
-        'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=03&plink=RSSREADER',
-        'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=02&plink=RSSREADER',
-        'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=08&plink=RSSREADER',
-        'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=09&plink=RSSREADER',
-        'https://news.sbs.co.kr/news/SectionRssFeed.do?sectionId=07&plink=RSSREADER'
-    ]
-    kmib_url = [
-        'http://rss.kmib.co.kr/data/kmibRssAll.xml', 'http://rss.kmib.co.kr/data/kmibPolRss.xml',
-        'http://rss.kmib.co.kr/data/kmibSocRss.xml', 'http://rss.kmib.co.kr/data/kmibEcoRss.xml',
-        'http://rss.kmib.co.kr/data/kmibIntRss.xml', 'http://rss.kmib.co.kr/data/kmibSpoRss.xml',
-        'http://rss.kmib.co.kr/data/kmibCulRss.xml'
-    ]
-    yonhap_url = [
-        'http://www.yonhapnewstv.co.kr/browse/feed/', 'http://www.yonhapnewstv.co.kr/category/news/politics/feed/',
-        'http://www.yonhapnewstv.co.kr/category/news/society/feed/',
-        'http://www.yonhapnewstv.co.kr/category/news/economy/feed/',
-        'http://www.yonhapnewstv.co.kr/category/news/international/feed/',
-        'http://www.yonhapnewstv.co.kr/category/news/sports/feed/',
-        'http://www.yonhapnewstv.co.kr/category/news/culture/feed/'
-    ]
-
     # # connect pymongo & setting db and collection
     mongoDB = myMongoDB("CapstoneTest")
-
-    # download tokenized file & collecting news data
-    nltk.download('punkt')
     batch_collect()

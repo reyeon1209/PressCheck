@@ -32,7 +32,8 @@ def clean_text(text):
 
 def insert_summary():
     mongoDB = myMongoDB("CapstoneTest")
-    ft = fasttext.load_model('./models/cc.ko.300.bin')
+    fasttext.util.download_model('ko', if_exists='ignore')
+    ft = fasttext.load_model('cc.ko.300.bin')
     total_clean_sentence = []
     string_id = []
 

@@ -42,5 +42,4 @@ if __name__ == '__main__':
     else:
         print('[Success] to connect mongoDB')
 
-    # example for usage
-    mongoDB.del_all_collection_docs()
+    #mongoDB.del_all_collection_docs()
