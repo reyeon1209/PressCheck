@@ -50,12 +50,8 @@ router.get('/searchAddr', (req, res) => {
         })
 })
 
-router.get('/press', (req, res) => {
-    var press = req;
-    console.log('body : ' + req.body);
-    console.log('press : ' + req.body.press);
-
-    press = 'hankyoreh';
+router.post('/press', (req, res) => {
+    var press = req.body.press;
     switch (press) {
         case 'hankyoreh': press = '한겨레'; break;
         case 'jungang': press = '중앙'; break;

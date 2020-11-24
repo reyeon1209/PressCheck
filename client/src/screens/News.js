@@ -77,8 +77,8 @@ class News extends Component {
     }
 
     pressClickHandler = async (press) => {
-        const variable = { press: press };
-        const data = await Axios.get('http://localhost:1818/article/press', variable);
+        const variable = { press: press }
+        const data = await Axios.post('http://localhost:1818/article/press', variable);
 
         this.setState({
             information: data.data,
