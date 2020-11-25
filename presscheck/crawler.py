@@ -107,6 +107,7 @@ def collectJoongang():
                 except IndexError:
                     updated = '\0'
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='article_body')
                     img2 = img1.find('div', class_='image')
@@ -190,6 +191,8 @@ def collectDonga():
                 except IndexError:
                     updated = '\0'
 
+
+
                 try:
                     editor = soup.find('div', class_='title_foot')
                     editor = editor.find('span', class_='report')
@@ -197,6 +200,7 @@ def collectDonga():
                 except AttributeError:
                     editor='\0'
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='article_view')
                     img2 = img1.find('span', class_='thumb')
@@ -285,6 +289,7 @@ def collectKbs():
                 # kbs는 작성자 항목이 없습니다!
                 editor = '\0'
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='photo no-print')
                     img2 = img1.find('img')
@@ -384,6 +389,7 @@ def collectSbs1():
         else:
             editor = editor.text
 
+
         img_src = '\0'
         img = soup.find('img', class_='mainimg')
         if img != None:
@@ -480,6 +486,7 @@ def collectSbs2():
                 else:
                     editor = '\0'
 
+                img_src = '\0'
                 img = soup.find('img', class_='mainimg')
                 if img != None:
                     img_src = img.get('src')[2:]
@@ -570,6 +577,7 @@ def collectKmib():
                 editor = '\0'
                 # 국민일보 기자이름 예외처리
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='nws_arti')
                     img2 = img1.find('img')
@@ -653,6 +661,7 @@ def collectYonhap():
                 # 연합뉴스 기자 이름 없음
                 editor = '\0'
 
+                img_src = '\0'
                 img = soup.find('span', class_='img')
                 if img != None:
                     img_src = img.get('src')
@@ -739,6 +748,8 @@ def collectHani():
                 # 한겨레 editor보류
                 editor = '\0'
 
+
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='image')
                     img2 = img1.find('img')
