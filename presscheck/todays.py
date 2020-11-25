@@ -10,7 +10,9 @@ def headline():
         random_headline = []
         random_link = []
         for content in collection.find({"category": cl[idx]}):
-            headline_link = [content['title'], content['link']]
+            headline_link = []
+            headline_link.append(content['title'])
+            headline_link.append(content['link'])
             total_headline.append(headline_link)
             
         r = random.sample(total_headline, 3)
@@ -156,8 +158,9 @@ if __name__ == '__main__':
     todays = mongoDB.todays
 
     cl = ['전체', '정치', '사회', '경제', '국제', '스포츠', '문화']
-
+  
     timeKeywords = []
+    headline()
     todays_keyword()
     keyword_series(1)
-    headline()
+    
