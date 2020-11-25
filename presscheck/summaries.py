@@ -84,7 +84,7 @@ if __name__ == '__main__':
     ]
 
     # load model
-    ft = fasttext.load_model('./models/./models/cc.ko.300.bin')
+    ft = fasttext.load_model('./models/cc.ko.300.bin')
 
     # tokenize & create word dictionary (only noun)
     okt = Okt()

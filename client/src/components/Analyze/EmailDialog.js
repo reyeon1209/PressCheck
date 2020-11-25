@@ -59,7 +59,6 @@ class EmailDialog extends Component {
 
         return (
             <div>
-                <div className='email-text'>Email</div>
                 <button className='email-button'><img src={Email} alt="Email" onClick={this.handleClickOpen} value="Email" /></button>
                 
                 <Dialog open={this.state.open} onClose={this.handleClose}>

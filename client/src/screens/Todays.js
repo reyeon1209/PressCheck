@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
-import Tabs from '../components/Todays/Tabs';
 import KeywordInfoList from '../components/Todays/KeywordInfoList';
-import TimeKeywordList from '../components/Todays/TimeKeywordList';
+import TimeKeyword from '../components/Todays/TimeKeyword';
 import KeywordChart from '../components/Todays/KeywordChart';
 import SummaryList from '../components/Todays/SummaryList';
 import '../components/Todays/Todays.css';
@@ -12,83 +12,113 @@ class Todays extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            activeTab: 0,
-            timeKeyword: [],
-            currentCategory: '전체',
-            todayKeywords: [
+            activeCategory : 0,
+            activeTime: 0,
+            information: [
                 {
-                    id: 0,
-                    title: ['1st 오늘의 키워드', 'Today\'s Keyword'],
-                    date: '2020-01-01',
-                    keyword: '#키워드1',
-                },
-                {
-                    id: 1,
-                    title: ['2nd 오늘의 키워드', 'Today\'s Keyword'],
-                    date: '2020-01-02',
-                    keyword: '#키워드2',
-                },
-                {
-                    id: 2,
-                    title: ['3rd 오늘의 키워드', 'Today\'s Keyword'],
-                    date: '2020-01-03',
-                    keyword: '#키워드3',
-                }
-            ],
-            todayKeywordGraph: [0, 10, 30, 20, 0],
-            timeKeywords: [
-                {
-                    title: '0시 ~ 6시',
-                    keyword: ['언텍트1', '메이플스토리m1', '추석1', '단풍1', '미술관1']
-                },
-                {
-                    title: '6시 ~ 12시',
-                    keyword: ['언텍트2', '메이플스토리m2', '추석2', '단풍2', '미술관2']
-                },
-                {
-                    title: '12시 ~ 18시',
-                    keyword: ['언텍트3', '메이플스토리m3', '추석3', '단풍3', '미술관3']
-                },
-                {
-                    title: '18시 ~ 24시',
-                    keyword: ['언텍트4', '메이플스토리m4', '추석4', '단풍4', '미술관4']
-                }
-            ],
-            todayArticles: [
-                {
-                    id: 0,
-                    title: ["머나먼 당신에게 닿기를, '언텍트 미팅'", '사랑스러운 핑크빈과 함께 메이플스토리m의 세계로 떠나보세요!', '다른나라의 추석을 살펴보자'],
-                    date: '2020-11-03',
+                    link: '',
+                    keyword: [ ['키워드1', 80], ['키워드2', 50], ['키워드3', 20] ],
+                    timeKeywords: [
+                        {
+                            title: '0시 ~ 6시',
+                            keyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5'],
+                            keywordFreq: [10, 10, 10, 10, 10]
+                        },
+                        {
+                            title: '6시 ~ 12시',
+                            keyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5'],
+                            keywordFreq: [20, 20, 20, 20, 20]
+                        },
+                        {
+                            title: '12시 ~ 18시',
+                            keyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5'],
+                            keywordFreq: [30, 30, 30, 30, 30]
+                        },
+                        {
+                            title: '18시 ~ 24시',
+                            keyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5'],
+                            keywordFreq: [40, 40, 40, 40, 40]
+                        }
+                    ],
+                    headline: ['헤드라인1', '헤드라인2', '헤드라인3']
                 }
             ]
         };
+
+        this.timeClickHandler = this.timeClickHandler.bind(this);
+    }
+
+    categoryClickHandler = async (id) => {
+        var tab = '전체';
+        switch (id) {
+            case 0: tab = '전체'; break;
+            case 1: tab = '정치'; break;
+            case 2: tab = '사회'; break;
+            case 3: tab = '경제'; break;
+            case 4: tab = '국제'; break;
+            case 5: tab = '스포츠'; break;
+            case 6: tab = '문화'; break;
+        }
+        console.log(tab);
+        const variable = { category: tab};
+        const data = await Axios.post('http://localhost:1818/todays/category', variable);
+        
+        this.setState({
+            activeCategory: id,
+            information: data.data
+        });
+    }
+
+    timeClickHandler = (id) => {
+        this.setState({
+            activeTime: id
+        })
+        console.log(this.state.activeTime);
+    }
+
+    componentDidMount() {
+        Axios.get('http://localhost:1818/todays')
+            .then(response => {
+                console.log(response.data);
+                this.setState({ information: response.data });
+            });
     }
 
     render() {
+        const { link, keyword, timeKeywords, headline } = this.state.information[0];
+
         return (
             <div className='box'>
                 <div className='tab-margin'>
-                    <Tabs />
+                    <ul className='tab-clear'>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 0 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(0)}>전체</li>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 1 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(1)}>정치</li>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 2 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(2)}>사회</li>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 3 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(3)}>경제</li>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 4 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(4)}>국제</li>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 5 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(5)}>스포츠</li>
+                        <li className='tabs' style={{ backgroundColor: this.state.activeCategory == 6 ? "#FFFFFF" : "#EEEEEE" }} onClick={() => this.categoryClickHandler(6)}>문화</li>
+                    </ul>
                 </div>
                 <div className="style-clear"></div>
                 <div className="todays-background">
                     <div className="today-margin">
                         <div className="today-title">오늘의 키워드</div>
-                        <div className="keywords"><KeywordInfoList data={this.state.todayKeywords} /></div>
+                        <div className="keywords"><KeywordInfoList data={keyword} /></div>
                     </div>
                     <div className="style-clear"></div>
                     <div className="today-margin">
                         <div className="today-title mid-margin">시간별 주요 키워드 추이</div>
                         <div>
-                            <KeywordChart keywordsData={this.state.todayKeywordGraph} />
+                            <KeywordChart data={timeKeywords[this.state.activeTime]} />
                             <div className="chart-right">
-                                <TimeKeywordList data={this.state.timeKeywords} />
+                                <TimeKeyword data={timeKeywords} func={this.timeClickHandler} />
                             </div>
                         </div>
                     </div>
                     <div className="today-margin">
                         <div className="today-title">오늘의 주요 기사 요약</div>
-                        <SummaryList data={this.state.todayArticles} />
+                        <SummaryList link={link} headline={headline} />
                     </div>
                     <div className="style-clear"></div>
                 </div>

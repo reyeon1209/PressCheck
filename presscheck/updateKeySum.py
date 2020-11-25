@@ -11,17 +11,15 @@ import re
 from presscheck.utils.db import *
 
 word_dict = {}
-strip_clean_sentence = []
-total_clean_sentence = []
-string_id = []
-
 embedding_dim = 300
 zero_vector = np.zeros(embedding_dim)
 
 def insert_summary():
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
     #fasttext.util.download_model('ko', if_exists='ignore')
     ft = fasttext.load_model('./models/cc.ko.300.bin')
+
+    total_clean_sentence = []
     string_id = []
 
     for content in mongoDB.collected.find({}, {"_id": 1, "content": 1}):
@@ -65,12 +63,14 @@ def insert_summary():
 
 
 def insert_keyword():
-    mongoDB = myMongoDB("mytest")
-
+    mongoDB = myMongoDB("CapstoneTest")
+    
     okt = Okt()
-    min_count = 3  # 단어의 최소 출현 빈도수 (그래프 생성 시)
+    min_count = 1  # 단어의 최소 출현 빈도수 (그래프 생성 시)
     max_length = 10  # 단어의 최대 길이
     string_idx = 0
+    total_clean_sentence = []
+    string_id = []
 
     stop_words = [
         '이', '있', '하', '것', '들', '그', '되', '수', '이', '보', '않', '없', '나', '사람', '주','섯알', '가운데', '보이',
@@ -82,8 +82,23 @@ def insert_keyword():
         '최고', '가장', '중', '양', '대해', '사이', '얼마', '아주', '대비', '셈', '각국', '실거주', '실수요자', '실', '대부분', '섯알',
         '셀', '내년', '유독', '언제', '문득', '늘', '다른', '동안', '덩', '역시', '당시', '최', '변', '살', '이번', '씨', '랄라블',
         '점차', '건수', '번', '쥴', '리', '상대로', '송', '이제', '매년', '곳', '오늘', '듯', '아무', '괜', '하나', '차지', '오히려',
-        '순간', '속', '누군가', '밥주', '스마', '문하', '정유', '주얼', '좀더', '먼저', '디섐보', '일주', '것처', '자신'
+        '순간', '속', '누군가', '밥주', '스마', '문하', '정유', '주얼', '좀더', '먼저', '디섐보', '일주', '것처', '에브리'
+        '이전', '비대', '각종', '임', '누구', '일일', '필', '부', '트럼', '초등학', '이하', '에브리'
     ]
+
+    for content in mongoDB.collected.find({}, {"_id": 1, "content": 1}):
+        cleaned_sentence = []
+        clean_sentence = []
+        string_id.append(list(content.values())[0])
+        string = list(content.values())[1]
+        string = string.replace(u'\xa0', u' ')
+        string = string.replace(u'\n', u' ')
+        string = string.replace(u'\r', u' ')
+        clean_sentence.append(sent_tokenize(string))
+        for i in clean_sentence:
+            for j in i:
+                cleaned_sentence.append(j)
+            total_clean_sentence.append(cleaned_sentence)
 
     for clean_sentence in total_clean_sentence:
         noun_keyword_list = []
@@ -96,7 +111,7 @@ def insert_keyword():
         try:
             keywords, rank, graph = wordrank_extractor.extract(clean_sentence, beta, max_iter)
         except ValueError:
-            mongoDB.collected.update_one({'_id': string_id[string_idx]}, {'$set': {'keyword': ''}})
+            mongoDB.collected.update_one({'_id': string_id[string_idx]}, {'$set': {'keyword': 'keywords'}})
             string_idx += 1
             continue
 
@@ -175,6 +190,6 @@ def summaryLong(sentences, scores):
 
 
 if __name__ == '__main__':
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
     insert_keyword()
     insert_summary()

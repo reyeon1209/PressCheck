@@ -29,6 +29,7 @@ def clean_text(text):
     cleaned = re.sub('[a-zA-Z0-9+-_.]+@[a-zA-Z0-9]+\.(co)+\.(kr)', '', cleaned)
     cleaned = re.sub('[\{\}\[\]\/?,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"▲△▽▼◁◀▷▶]', '', cleaned)
     cleaned = re.sub('[a-zA-Z]', '', cleaned)
+    cleaned = cleaned.replace("사진연합뉴스", "")
     return cleaned
 
 
@@ -49,6 +50,8 @@ def collectJoongang():
                 pagelink = p.link
                 editor = p.author
                 description = ''
+                news_title = p.title
+
 
                 dup = False
                 for article in mongoDB.collected.find({'press': '중앙', 'category': cl[i]}, {'link': 1}):
@@ -81,18 +84,30 @@ def collectJoongang():
                     if '기자' not in k:
                         cleaned_sentence.append(k)
 
+
+
+                uploaded = '\0'
                 try:
                     upload_date = soup.find('div', class_='byline').select("em")[1]
                     uploaded = upload_date.text
-                except AttributeError as err:
+                    uploaded = uploaded[3:]
+                except AttributeError :
+                    uploaded = '\0'
+                except IndexError:
                     uploaded = '\0'
 
+
+                updated = '\0'
                 try:
-                    update_date = soup.find('div', class_='byline').select("em")[1]
+                    update_date = soup.find('div', class_='byline').select("em")[2]
                     updated = update_date.text
+                    updated = updated[4:]
                 except AttributeError as err:
                     updated = '\0'
+                except IndexError:
+                    updated = '\0'
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='article_body')
                     img2 = img1.find('div', class_='image')
@@ -102,7 +117,7 @@ def collectJoongang():
                     img_src = '\0'
 
                 joongang_dic.append(
-                    {'title': p.title, 'link': p.link, 'press': '중앙', 'category': cl[i], 'uploaded': uploaded,
+                    {'title': news_title, 'link': pagelink, 'press': '중앙', 'category': cl[i], 'uploaded': uploaded,
                      'updated': updated, 'editor': editor, 'img_src': img_src, 'content': description,
                      'pre_content': cleaned_sentence, 'keyword': '\0', 'sum_short': '\0', 'sum_mid': '\0',
                      'sum_long': '\0'})
@@ -158,19 +173,34 @@ def collectDonga():
                         cleaned_sentence.append(k)
 
                 try:
-                    upload_date = soup.find('div', class_='title_foot').find('span', class_='date01')
+                    upload_date = soup.find('div', class_='title_foot').find_all(class_='date01')[0]
                     uploaded = upload_date.text
+                    uploaded = uploaded[3:]
                 except AttributeError as err:
                     uploaded = '\0'
+                except IndexError:
+                    uploaded = '\0'
+
 
                 try:
-                    update_date = soup.find('div', class_='title_foot').find('span', class_='date01')
+                    update_date = soup.find('div', class_='title_foot').find_all(class_='date01')[1]
                     updated = update_date.text
+                    updated = updated[3:]
                 except AttributeError as err:
                     updated = '\0'
+                except IndexError:
+                    updated = '\0'
 
-                editor = soup.find('div', class_='title_foot').find('span', class_='report').text
 
+
+                try:
+                    editor = soup.find('div', class_='title_foot')
+                    editor = editor.find('span', class_='report')
+                    editor = editor.text
+                except AttributeError:
+                    editor='\0'
+
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='article_view')
                     img2 = img1.find('span', class_='thumb')
@@ -238,18 +268,28 @@ def collectKbs():
 
                 try:
                     upload_date = soup.find('p', class_='date')
-                    uploaded = upload_date.text[:26]
+                    uploaded = upload_date.text[6:27]
                 except AttributeError as err:
                     uploaded = '\0'
+                except IndexError:
+                    uploaded = '\0'
+
+
 
                 try:
-                    updated = upload_date.text[29:]
+                    updated = upload_date.text[36:]
                 except AttributeError as err:
                     updated = '\0'
+                except IndexError:
+                    updated = '\0'
+
+
+
 
                 # kbs는 작성자 항목이 없습니다!
                 editor = '\0'
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='photo no-print')
                     img2 = img1.find('img')
@@ -296,59 +336,72 @@ def collectSbs1():
                 break
         if dup is True:
             continue
+        request = requests.get(p)
+        html = request.content
+        soup = BeautifulSoup(html, 'html.parser')
+        news_title = soup.find(id='vmNewsTitle')
+        description=''
+        news_article = soup.find('div', class_='text_area')
+        for tag in news_article:
+            if tag.string is None:
+                continue
+            description += tag.string
+        description = clean_text(description)
+        if( len(description)<15 ):
+            continue
 
-    request = requests.get(p)
-    html = request.content
-    soup = BeautifulSoup(html, 'html.parser')
-    news_title = soup.find(id='vmNewsTitle')
-    news_article = soup.find('div', class_='text_area')
-    description = news_article.text
-    description = clean_text(description)
+        cleaned_sentence = []
 
-    cleaned_sentence = []
+        string = description
+        string = string.replace(u'\xa0', u' ')
+        string = string.replace('\n', '')
+        string = string.replace('\r', '')
+        string = string.replace('\t', '')
+        clean_sentence = sent_tokenize(string)
 
-    string = description
-    string = string.replace(u'\xa0', u' ')
-    string = string.replace('\n', '')
-    string = string.replace('\r', '')
-    string = string.replace('\t', '')
-    clean_sentence = sent_tokenize(string)
+        for k in clean_sentence:
+            if '기자' not in k:
+                cleaned_sentence.append(k)
 
-    for k in clean_sentence:
-        if '기자' not in k:
-            cleaned_sentence.append(k)
+        try:
+            upload_date = soup.find('span', class_='date').find_all('span')[0]
+            uploaded = upload_date.text
+        except AttributeError as err:
+            uploaded = '\0'
+        except IndexError:
+            uploaded = '\0'
 
-    try:
-        upload_date = soup.find('span', class_='date').find_all('span')[0]
-        uploaded = upload_date.text
-    except AttributeError as err:
-        uploaded = '\0'
 
-    try:
-        update_date = soup.find('span', class_='date').find_all('span')[0]
-        updated = update_date.text
-    except AttributeError as err:
-        updated = '\0'
+        try:
+            update_date = soup.find('span', class_='date').find_all('span')[1]
+            updated = update_date.text
+            if(len(updated)<=4): updated='\0'
+        except AttributeError as err:
+            updated = '\0'
+        except IndexError:
+            updated = '\0'
 
-    editor = '\0'
-    editor = soup.find('a', class_='name')
-    if editor is None:
+
         editor = '\0'
-    else:
-        editor = editor.text
+        editor = soup.find('a', class_='name')
+        if editor is None:
+            editor = '\0'
+        else:
+            editor = editor.text
 
-    img_src = '\0'
-    img = soup.find('img', class_='mainimg')
-    if img != None:
-        img_src = img.get('src')[2:]
-        img_src = 'http://' + img_src
 
-    sbs_dic.append({'title': news_title.text, 'link': p, 'press': 'sbs', 'category': '전체', 'uploaded': uploaded,
+        img_src = '\0'
+        img = soup.find('img', class_='mainimg')
+        if img != None:
+            img_src = img.get('src')[2:]
+            img_src = 'http://' + img_src
+
+        sbs_dic.append({'title': news_title.text, 'link': p, 'press': 'sbs', 'category': '전체', 'uploaded': uploaded,
                     'updated': updated, 'editor': editor, 'img_src': img_src, 'content': description,
                     'pre_content': cleaned_sentence, 'keyword': '\0', 'sum_short': '\0', 'sum_mid': '\0',
                     'sum_long': '\0'})
-    mongoDB.collected.insert_one(sbs_dic[j])
-    j += 1
+        mongoDB.collected.insert_one(sbs_dic[j])
+        j += 1
 
 
 def collectSbs2():
@@ -370,7 +423,7 @@ def collectSbs2():
 
                 dup = False
                 for article in mongoDB.collected.find({'press': 'sbs', 'category': cl[i]}, {'link': 1}):
-                    if p == list(article.values())[1]:
+                    if pagelink == list(article.values())[1]:
                         dup = True
                         break
                     if dup is True:
@@ -384,6 +437,14 @@ def collectSbs2():
 
                 description = news_article.text
                 description = clean_text(description)
+
+                news_article = soup.find('div', class_='text_area')
+                for tag in news_article:
+                    if tag.string is None:
+                        continue
+                    description += tag.string
+                description = clean_text(description)
+
 
                 cleaned_sentence = []
 
@@ -404,13 +465,20 @@ def collectSbs2():
                     uploaded = upload_date2.text
                 except AttributeError as err:
                     uploaded = '\0'
+                except IndexError:
+                    updated = '\0'
+
 
                 try:
                     update_date1 = soup.find('span', class_='date')
-                    update_date2 = update_date1.find_all('span')[0]
+                    update_date2 = update_date1.find_all('span')[1]
                     updated = update_date2.text
+                    if(len(updated) <=4): updated='\0'
                 except AttributeError as err:
                     updated = '\0'
+                except IndexError:
+                    updated = '\0'
+
 
                 editor = soup.find('a', class_='name')
                 if editor != None:
@@ -418,6 +486,7 @@ def collectSbs2():
                 else:
                     editor = '\0'
 
+                img_src = '\0'
                 img = soup.find('img', class_='mainimg')
                 if img != None:
                     img_src = img.get('src')[2:]
@@ -490,16 +559,25 @@ def collectKmib():
                     uploaded = upload_date.text
                 except AttributeError as err:
                     uploaded = '\0'
+                except IndexError:
+                    uploaded = '\0'
+
+
+
 
                 try:
-                    update_date = soup.find('div', class_='date').find_all('span', class_="t11")[0]
+                    update_date = soup.find('div', class_='date').find_all('span', class_="t11")[1]
                     updated = update_date.text
                 except AttributeError as err:
                     updated = '\0'
+                except IndexError:
+                    updated = '\0'
+
 
                 editor = '\0'
                 # 국민일보 기자이름 예외처리
 
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='nws_arti')
                     img2 = img1.find('img')
@@ -517,7 +595,7 @@ def collectKmib():
             i += 1
 
 
-def collectYonhap(mongoDB):
+def collectYonhap():
     yonhap_dic = []
 
     i = 0
@@ -566,18 +644,24 @@ def collectYonhap(mongoDB):
                 upload_date = soup.find('ul', class_='info')
                 if upload_date != None:
                     uploaded = upload_date.text
+                    uploaded = uploaded[5:]
                 else:
                     uploaded = '\0'
+
+
 
                 update_date = soup.find('ul', class_='info')
                 if update_date != None:
                     updated = update_date.text
+                    updated = updated[5:]
                 else:
                     updated = '\0'
+
 
                 # 연합뉴스 기자 이름 없음
                 editor = '\0'
 
+                img_src = '\0'
                 img = soup.find('span', class_='img')
                 if img != None:
                     img_src = img.get('src')
@@ -641,28 +725,31 @@ def collectHani():
                     if '기자' not in k:
                         cleaned_sentence.append(k)
 
-                news_date = soup.find('p', class_='date-time')
-                if news_date is not None:
-                    uploaded = re.findall("\d+", news_date.text)[:5]
-                    if uploaded is not None:
-                        uploaded = uploaded[:5]
-                        uploaded = "".join(uploaded)
-                    else:
-                        uploaded = '\0'
-
-                    updated = re.findall("\d+", news_date.text)
-                    if updated is not None:
-                        updated = updated[5:]
-                        updated = "".join(updated)
-                    else:
-                        updated = '\0'
-                else:
+                try:
+                    upload_date = soup.find('p', class_='date-time').find_all('span')[0]
+                    uploaded = upload_date.text
+                    uploaded = uploaded[4:22]
+                except AttributeError as err:
                     uploaded = '\0'
+                except IndexError:
+                    uploaded = '\0'
+
+
+                try:
+                    update_date = soup.find('p', class_='date-time').find_all('span')[0]
+                    updated = update_date.text
+                    updated = updated[4:22]
+                except AttributeError as err:
                     updated = '\0'
+                except IndexError:
+                    updated = '\0'
+
 
                 # 한겨레 editor보류
                 editor = '\0'
 
+
+                img_src = '\0'
                 try:
                     img1 = soup.find('div', class_='image')
                     img2 = img1.find('img')
@@ -743,7 +830,7 @@ if __name__ == '__main__':
     ]
 
     # # connect pymongo & setting db and collection
-    mongoDB = myMongoDB("mytest")
+    mongoDB = myMongoDB("CapstoneTest")
 
     # download tokenized file & collecting news data
     nltk.download('punkt')

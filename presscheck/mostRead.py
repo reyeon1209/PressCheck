@@ -115,3 +115,5 @@ def getMostRead():
 
 if __name__ == '__main__':
     getMostRead()
+    mongoDB = myMongoDB("CapstoneTest")
+

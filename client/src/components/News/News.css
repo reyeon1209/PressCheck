@@ -88,11 +88,15 @@ input{
     margin-left: 5%;
     padding: 0.5%;
     margin-bottom: 1%;
+    cursor: pointer;
 }
 
 .news-thumbnail {
     display: inline-block;
     max-width: 13%;
+    width: 150px;
+    height: 115px;
+    object-fit: contain;
     vertical-align: top;
 }
 
@@ -106,4 +110,9 @@ input{
 .news-keyword {
     display: inline-block;
     color: #4db2ec;
+}
+
+.newslist-press > img {
+    width: 7%;
+    margin-bottom: 1%;
 }
