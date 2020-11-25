@@ -18,10 +18,12 @@ string_id = []
 embedding_dim = 300
 zero_vector = np.zeros(embedding_dim)
 
-
 def insert_summary():
     mongoDB = myMongoDB("CapstoneTest")
-    ft = fasttext.load_model('./models/cc.ko.300.bin')
+    #fasttext.util.download_model('ko', if_exists='ignore')
+    ft = fasttext.load_model('cc.ko.300.bin')
+    global total_clean_sentence 
+    total_clean_sentence = []
     string_id = []
 
     for content in mongoDB.collected.find({}, {"_id": 1, "content": 1}):
@@ -68,11 +70,10 @@ def insert_keyword():
     mongoDB = myMongoDB("CapstoneTest")
 
     okt = Okt()
-    min_count = 1  # 단어의 최소 출현 빈도수 (그래프 생성 시)
+    min_count = 3  # 단어의 최소 출현 빈도수 (그래프 생성 시)
     max_length = 10  # 단어의 최대 길이
     string_idx = 0
-    total_clean_sentence = []
-    string_id = []
+
     stop_words = [
         '이', '있', '하', '것', '들', '그', '되', '수', '이', '보', '않', '없', '나', '사람', '주','섯알', '가운데', '보이',
         '아니', '등', '같', '우리', '때', '년', '가', '한', '지', '대하', '오', '말', '일', '김재', '종', '매사', '스스로', '하자',
@@ -83,7 +84,7 @@ def insert_keyword():
         '최고', '가장', '중', '양', '대해', '사이', '얼마', '아주', '대비', '셈', '각국', '실거주', '실수요자', '실', '대부분', '섯알',
         '셀', '내년', '유독', '언제', '문득', '늘', '다른', '동안', '덩', '역시', '당시', '최', '변', '살', '이번', '씨', '랄라블',
         '점차', '건수', '번', '쥴', '리', '상대로', '송', '이제', '매년', '곳', '오늘', '듯', '아무', '괜', '하나', '차지', '오히려',
-        '순간', '속', '누군가', '밥주', '스마', '문하', '정유', '주얼', '좀더', '먼저', '디섐보', '일주', '것처', '자신'
+        '순간', '속', '누군가', '밥주', '스마', '문하', '정유', '주얼', '좀더', '먼저', '디섐보', '일주', '것처'
     ]
 
     for clean_sentence in total_clean_sentence:
@@ -173,9 +174,3 @@ def summaryLong(sentences, scores):
     top_scores = sorted(((scores[i], s) for i, s in enumerate(sentences)), reverse=True)
     top_3_sentences = [sentence for score, sentence in top_scores[:3]]
     return " ".join(top_3_sentences)
-
-
-if __name__ == '__main__':
-    mongoDB = myMongoDB("CapstoneTest")
-    insert_keyword()
-    # insert_summary()
