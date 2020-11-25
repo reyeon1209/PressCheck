@@ -10,9 +10,8 @@ def headline():
         random_headline = []
         random_link = []
         for content in collection.find({"category": cl[idx]}):
-            headline_link = []
-            headline_link.append(content['title'])
-            headline_link.append(content['link'])
+            print(content)
+            headline_link = [content['title'], content['link']]
             total_headline.append(headline_link)
             
         r = random.sample(total_headline, 3)
@@ -41,17 +40,17 @@ def todays_keyword():
 
 
 def timedict1():
-    timedict = {'title': '6시~12시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '6시~12시', 'keyword': ['', '', '', '', ''], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
 
 def timedict2():
-    timedict = {'title': '12시~18시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '12시~18시', 'keyword': ['', '', '', '', ''], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
 
 def timedict3():
-    timedict = {'title': '18시~24시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '18시~24시', 'keyword': ['', '', '', '', ''], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
 # 6시간 단위
@@ -163,4 +162,3 @@ if __name__ == '__main__':
     headline()
     todays_keyword()
     keyword_series(1)
-    
