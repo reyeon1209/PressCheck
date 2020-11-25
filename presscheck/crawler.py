@@ -214,7 +214,7 @@ def collectDonga():
                      'updated': updated, 'editor': editor, 'img_src': img_src, 'content': description,
                      'pre_content': cleaned_sentence, 'keyword': '\0', 'sum_short': '\0', 'sum_mid': '\0',
                      'sum_long': '\0'})
-                #mongoDB.collected.insert_one(donga_dic[j])
+                mongoDB.collected.insert_one(donga_dic[j])
                 j += 1
             i += 1
 
@@ -401,7 +401,7 @@ def collectSbs1():
                     'pre_content': cleaned_sentence, 'keyword': '\0', 'sum_short': '\0', 'sum_mid': '\0',
                     'sum_long': '\0'})
         mongoDB.collected.insert_one(sbs_dic[j])
-    j += 1
+        j += 1
 
 
 def collectSbs2():
@@ -647,7 +647,7 @@ def collectYonhap():
                     uploaded = uploaded[5:]
                 else:
                     uploaded = '\0'
-                print(uploaded)
+
 
 
                 update_date = soup.find('ul', class_='info')
@@ -656,7 +656,7 @@ def collectYonhap():
                     updated = updated[5:]
                 else:
                     updated = '\0'
-                print(updated)
+
 
                 # 연합뉴스 기자 이름 없음
                 editor = '\0'
@@ -733,7 +733,7 @@ def collectHani():
                     uploaded = '\0'
                 except IndexError:
                     uploaded = '\0'
-                print(uploaded)
+
 
                 try:
                     update_date = soup.find('p', class_='date-time').find_all('span')[0]
@@ -743,7 +743,7 @@ def collectHani():
                     updated = '\0'
                 except IndexError:
                     updated = '\0'
-                print(updated)
+
 
                 # 한겨레 editor보류
                 editor = '\0'

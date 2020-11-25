@@ -101,6 +101,7 @@ def insertMostRead(rank):
 
 
 def getMostRead():
+    mongoDB.mostRead.delete_many({})
     insertMostRead(rerank(makeDic()))
 
 
