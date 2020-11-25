@@ -106,12 +106,13 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
         real_res = []
         for each_val in res:
             if each_val['similarity'] > 0:
-                print(each_val['similarity'], each_val['similarity']//1)
                 if not each_val['similarity'] // 1 in chk_similar:
                     chk_similar.append(each_val['similarity'] // 1)
                     real_res.append(each_val)
-        real_res = sorted(res, key=lambda x: x['ranking'])
-        print(real_res)
+
+        real_res = sorted(real_res, key=lambda x: x['ranking'])
+        for idx, each_val in enumerate(real_res):
+            each_val['ranking'] = idx
         return real_res
 
     ids = [myid for myid, mycontent in targets]
@@ -123,7 +124,7 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
     return res
 
 
-if __name__ == '__main__':
+def getSimilarity():
     # connect pymongo
     mongoDB = myMongoDB("CapstoneTest")
 
@@ -140,5 +141,8 @@ if __name__ == '__main__':
         target, target_title, target_press, target_keyword \
             = setting_targets(mongoDB.collected, standard_press, standard_category)
         res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
-        break
-        # mongoDB.similarity.insert_many(res)
+        mongoDB.similarity.insert_many(res)
+
+
+if __name__ == '__main__':
+    getSimilarity()

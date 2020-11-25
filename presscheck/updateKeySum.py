@@ -18,9 +18,9 @@ string_id = []
 embedding_dim = 300
 zero_vector = np.zeros(embedding_dim)
 
+
 def insert_summary():
     mongoDB = myMongoDB("CapstoneTest")
-    #fasttext.util.download_model('ko', if_exists='ignore')
     ft = fasttext.load_model('./models/cc.ko.300.bin')
     string_id = []
 
@@ -177,4 +177,4 @@ def summaryLong(sentences, scores):
 if __name__ == '__main__':
     mongoDB = myMongoDB("CapstoneTest")
     insert_keyword()
-    insert_summary()
+    # insert_summary()
