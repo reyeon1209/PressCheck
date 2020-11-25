@@ -75,7 +75,7 @@ sentencepiece==0.1.91
 six==1.15.0
 sklearn==0.0
 soupsieve==2.0.1
-tbb==2019.0
+tbb==2019.0ZZI
 tbb4py==2019.0
 tensorboard==2.4.0
 tensorboard-plugin-wit==1.7.0

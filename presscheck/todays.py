@@ -6,7 +6,6 @@ from presscheck.utils.db import *
 # 하루단위
 def headline():
     for idx in range(len(cl)):
-        headline = []
         total_headline = []
         random_headline = []
         random_link = []
@@ -15,9 +14,9 @@ def headline():
             headline_link.append(content['title'])
             headline_link.append(content['link'])
             total_headline.append(headline_link)
-            
+
         r = random.sample(total_headline, 3)
- 
+
         random_headline.append(r[0][0])
         random_headline.append(r[1][0])
         random_headline.append(r[2][0])
@@ -25,36 +24,37 @@ def headline():
         random_link.append(r[1][1])
         random_link.append(r[2][1])
 
-        todays.insert_one({"category": cl[idx], 'link' : random_link , 'keyword' : '\0', 'timeKeywords' : '\0', 'headline' : random_headline })
+        todays.insert_one({"category": cl[idx], 'link': random_link, 'keyword': '\0', 'timeKeywords': '\0',
+                           'headline': random_headline})
 
 
 # 하루단위
 def todays_keyword():
     for idx in range(len(cl)):
         frequency_keyword = []
-        frequency_dictionary = {}
         for content in collection.find({"category": cl[idx]}):
             for i in content['keyword']:
                 frequency_keyword.append(i)
         cnt = Counter(frequency_keyword[3:])
         frequency_dictionary = cnt.most_common(7)
         # print(frequency_dictionary[4:])
-        #todays.update_one({'category' : cl[idx] }, {'$set' : {'keyword' : frequency_dictionary[4:] }})
+        todays.update_one({'category': cl[idx]}, {'$set': {'keyword': frequency_dictionary[4:]}})
 
 
 def timedict1():
-    timedict = {'title': '6시~12시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '6시~12시', 'keyword': ['', '', '', '', ''], 'keywordFreq': ['', '', '', '', '']}
     return timedict
 
 
 def timedict2():
-    timedict = {'title': '12시~18시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '12시~18시', 'keyword': ['', '', '', '', ''], 'keywordFreq': ['', '', '', '', '']}
     return timedict
 
 
 def timedict3():
-    timedict = {'title': '18시~24시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
+    timedict = {'title': '18시~24시', 'keyword': ['', '', '', '', ''], 'keywordFreq': ['', '', '', '', '']}
     return timedict
+
 
 # 6시간 단위
 def keyword_series():
@@ -78,7 +78,7 @@ def keyword_series():
         today_keyword_cnt = []
         keyword_cnt = Counter(all_frequency_keyword[:]).most_common(9)
         today_keyword_cnt.append(keyword_cnt[4:])
-        #print(today_keyword_cnt)
+        # print(today_keyword_cnt)
         total_keyword_cnt = []
         total_cnt = Counter(all_frequency_keyword[:]).most_common(30)
         total_keyword_cnt.append(total_cnt[4:])
@@ -88,7 +88,7 @@ def keyword_series():
         keyword_number = []
         for i in today_keyword_cnt:
             for j in i:
-                
+
                 keyword_list = []
                 for k in total_keyword_cnt:
                     flag = 0
@@ -99,23 +99,23 @@ def keyword_series():
                     if flag == 0:
                         keyword_list.append(0)
                 keyword_dict[j[0]] = keyword_list
-                
+
             keyword = []
         for key in keyword_dict.keys():
             keyword.append(key)
         for val in keyword_dict.values():
             keyword_number.append(val[0])
 
-        if mongo_cnt == 1:    
-            keyword1 = keyword 
-            keyword_number1 = keyword_number 
-        if mongo_cnt == 2:       
+        if mongo_cnt == 1:
+            keyword1 = keyword
+            keyword_number1 = keyword_number
+        if mongo_cnt == 2:
             keyword2 = keyword
             keyword_number2 = keyword_number
-        if mongo_cnt == 3:   
+        if mongo_cnt == 3:
             keyword3 = keyword
             keyword_number3 = keyword_number
-        if mongo_cnt == 4:   
+        if mongo_cnt == 4:
             keyword4 = keyword
             keyword_number4 = keyword_number
 
@@ -149,7 +149,7 @@ def keyword_series():
             timeKeywords.append(timedict)
             timedict = {'title': '12시~18시', 'keyword': keyword3, 'keywordFreq': keyword_number3}
             timeKeywords.append(timedict)
-            timedict =  {'title': '18시~24시', 'keyword': keyword4, 'keywordFreq': keyword_number4}
+            timedict = {'title': '18시~24시', 'keyword': keyword4, 'keywordFreq': keyword_number4}
             timeKeywords.append(timedict)
         print(timeKeywords)
         mongoDB.todays.update_one({"category": cl[idx]}, {'$set': {'timeKeywords': timeKeywords}})

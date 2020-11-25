@@ -19,7 +19,8 @@ def load_all_objectId(collection):
 
 
 def setting_standard(collection, standard_id):
-    origin_news_data = collection.find({'_id': ObjectId(standard_id)}, {'_id', 'pre_content', 'press', 'category', 'keyword'})
+    origin_news_data = collection.find({'_id': ObjectId(standard_id)},
+                                       {'_id', 'pre_content', 'press', 'category', 'keyword'})
     for elem in origin_news_data:
         myid = elem['_id']
         pre_content = elem['pre_content']
@@ -30,7 +31,8 @@ def setting_standard(collection, standard_id):
 
 
 def setting_targets(collection, press, category):
-    targets_news_data = collection.find({'press': {'$ne': press}, 'category' : category},{'press': 1, "title":1, 'pre_content': 1, 'keyword': 1})
+    targets_news_data = collection.find({'press': {'$ne': press}, 'category': category},
+                                        {'press': 1, "title": 1, 'pre_content': 1, 'keyword': 1})
     targets = []
     targets_title = []
     targets_press = []
@@ -72,7 +74,7 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
 
         res = {}
         for i in range(1, len(input_ids)):
-            similar_val = round(cos_sim(input_ids[0], input_ids[i]) * 100, 2)
+            similar_val = round(cos_sim(input_ids[0], input_ids[i]) * 100, 1)
             res.update({ids[i]: {'similarity': similar_val}})
         return res
 
@@ -99,7 +101,18 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
             r1 = {'origin_id': origin_id, 'target_id': ids[i]}
             r2 = json_data[ids[i]]
             res.append({**r1, **r2})
-        return [x for x in res if x['similarity'] > 0]
+
+        chk_similar = []
+        real_res = []
+        for each_val in res:
+            if each_val['similarity'] > 0:
+                print(each_val['similarity'], each_val['similarity']//1)
+                if not each_val['similarity'] // 1 in chk_similar:
+                    chk_similar.append(each_val['similarity'] // 1)
+                    real_res.append(each_val)
+        real_res = sorted(res, key=lambda x: x['ranking'])
+        print(real_res)
+        return real_res
 
     ids = [myid for myid, mycontent in targets]
     res = setting_similarity(standard, targets)
@@ -114,7 +127,7 @@ if __name__ == '__main__':
     # connect pymongo
     mongoDB = myMongoDB("CapstoneTest")
 
-    ## delete docs in similarityTest collection
+    # delete docs in similarityTest collection
     mongoDB.similarity.delete_many({})
 
     # load all objectId (article)
@@ -122,7 +135,10 @@ if __name__ == '__main__':
 
     # setting standard, target article & check similarity
     for objId in list_objectId:
-        standard, standard_id, standard_press, standard_category, standard_keyword = setting_standard(mongoDB.collected , objId)
-        target, target_title, target_press, target_keyword = setting_targets(mongoDB.collected , standard_press, standard_category)
+        standard, standard_id, standard_press, standard_category, standard_keyword \
+            = setting_standard(mongoDB.collected, objId)
+        target, target_title, target_press, target_keyword \
+            = setting_targets(mongoDB.collected, standard_press, standard_category)
         res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
-        mongoDB.similarity.insert_many(res)
+        break
+        # mongoDB.similarity.insert_many(res)
