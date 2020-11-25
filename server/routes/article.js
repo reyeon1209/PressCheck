@@ -25,6 +25,15 @@ router.post('/link', (req, res) => {
         });
 });
 
+router.post('/url', (req, res) => {
+    var url = req.body.url;
+    Article.find({ link: url })
+        .exec((err, news) => {
+            if (err)  return  res.status(400).send(err);
+            res.json(news);
+        });
+});
+
 router.post('/analyze', (req, res) => {
     var _id = req.body.id;
 

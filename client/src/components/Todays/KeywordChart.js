@@ -5,9 +5,17 @@ import './Todays.css';
 
 
 class KeywordChart extends Component {
+    static defaultProps = {
+        keyword: ['키워드1', '키워드2', '키워드3', '키워드4', '키워드5'],
+        keywordFreq: [0, 0, 0, 0, 0]
+    }
+
     render() {
+        const { keyword, keywordFreq } = this.props.data;
+        console.log(keyword);
+        console.log(keywordFreq);
         const data = {
-            labels: ['0시', '6시', '12시', '18시', '24시'],
+            labels: keyword,
             datasets: [
                 {
                     label: false,
@@ -28,7 +36,7 @@ class KeywordChart extends Component {
                     pointHoverBorderWidth: 2,
                     pointRadius: 1,
                     pointHitRadius: 10,
-                    data: [0, 10, 30, 20, 0],
+                    data: keywordFreq
                 }
             ]
         }

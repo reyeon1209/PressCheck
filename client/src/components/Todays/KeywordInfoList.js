@@ -15,7 +15,6 @@ class KeywordInfoList extends Component {
 
         const today = new Date();
         const date = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
-        console.log(date);
 
         return (
             <div className='keyword-align'>
