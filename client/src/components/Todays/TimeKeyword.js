@@ -39,21 +39,24 @@ class TimeKeyword extends Component {
         const keyword3 = this.props.data[3]['keyword'];
         const keywordList3 = keyword3.map((kw) => {return (<div className="timeKeyword-content">#{kw}</div>)})
 
+        const currentHour = new Date().getHours();
+        console.log(currentHour);
+
         return (
             <div>
-                <div className='timeKeyword-table' onClick={() => this.handler(0)}>
+                <div className='timeKeyword-table' onClick={() => this.handler(0)} style={{ visibility: currentHour >= 0 ? "" : "hidden" }}>
                     <div className='timeKeyword-title'>{title0}</div>
                     {keywordList0}
                 </div>
-                <div className='timeKeyword-table' onClick={() => this.handler(1)}>
+                <div className='timeKeyword-table' onClick={() => this.handler(1)} style={{ visibility: currentHour >= 6 ? "" : "hidden" }}>
                     <div className='timeKeyword-title'>{title1}</div>
                     {keywordList1}
                 </div>
-                <div className='timeKeyword-table' onClick={() => this.handler(2)}>
+                <div className='timeKeyword-table' onClick={() => this.handler(2)} style={{ visibility: currentHour >= 12 ? "" : "hidden" }}>
                     <div className='timeKeyword-title'>{title2}</div>
                     {keywordList2}
                 </div>
-                <div className='timeKeyword-table' onClick={() => this.handler(3)}>
+                <div className='timeKeyword-table' onClick={() => this.handler(3)} style={{ visibility: currentHour >= 18 ? "" : "hidden" }}>
                     <div className='timeKeyword-title'>{title3}</div>
                     {keywordList3}
                 </div>
