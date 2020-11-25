@@ -1,3 +1,5 @@
 node_modules/
 __pycache__/
 .idea/
+presscheck/models/cc.ko.300.bin
+cc.ko.300.bin.gz
