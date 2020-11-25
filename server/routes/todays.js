@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
 router.post('/category', (req, res) => {
     var tab = req.body.category;
-    Todays.find({ category: tab})
+    Todays.find({ category: tab })
         .exec((err, todays) => {
             if (err)    return  res.status(400).send(err);
             res.status(200).json(todays);

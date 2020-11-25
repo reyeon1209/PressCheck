@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 import SummaryIcon from '../../assets/images/summary.png';
 
@@ -8,9 +9,19 @@ class SummaryList extends Component {
         data: []
     }
 
+    newsClickHandler = async (url) => {
+        const variable = { url: url }
+        const data = await Axios.post('http://localhost:1818/article/url', variable);
+        const _id = data.data[0]._id;
+        
+        window.location.href = '../news/analyze/detail?id=' + _id;
+    }
+
     render() {
+        var link = [];
+        link = this.props.link;
         var headline = [];
-        headline = this.props.data;
+        headline = this.props.headline;
 
         const today = new Date();
         const date = today.getFullYear() + "-" + (today.getMonth()+1) + "-" + today.getDate();
@@ -27,9 +38,9 @@ class SummaryList extends Component {
                     </div>
                 </div>
                 <div className='summary-right'>
-                    <div className='summary-text'>{headline[0]}</div>
-                    <div className='summary-text'>{headline[1]}</div>
-                    <div className='summary-text'>{headline[2]}</div>
+                    <div className='summary-text' onClick={() => this.newsClickHandler(link[0])}>{headline[0]}</div>
+                    <div className='summary-text' onClick={() => this.newsClickHandler(link[1])}>{headline[1]}</div>
+                    <div className='summary-text' onClick={() => this.newsClickHandler(link[2])}>{headline[2]}</div>
                 </div>
             </div>
         );
