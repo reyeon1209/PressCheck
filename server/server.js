@@ -34,6 +34,7 @@ app.use('/article', require('./routes/article'));
 app.use('/mostRead', require('./routes/mostRead'));
 app.use('/similarity', require('./routes/similarity'));
 app.use('/todays', require('./routes/todays'));
+app.use('/mailer', require('./routes/mailer'));
 
 
 app.listen(port, () => {
