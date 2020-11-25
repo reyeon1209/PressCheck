@@ -6,14 +6,11 @@ from presscheck.utils.db import *
 # 하루단위
 def headline():
     for idx in range(len(cl)):
-        headline = []
         total_headline = []
         random_headline = []
         random_link = []
         for content in collection.find({"category": cl[idx]}):
-            headline_link = []
-            headline_link.append(content['title'])
-            headline_link.append(content['link'])
+            headline_link = [content['title'], content['link']]
             total_headline.append(headline_link)
             
         r = random.sample(total_headline, 3)
@@ -25,21 +22,20 @@ def headline():
         random_link.append(r[1][1])
         random_link.append(r[2][1])
 
-        todays.insert_one({"category": cl[idx], 'link' : random_link , 'keyword' : '\0', 'timeKeywords' : '\0', 'headline' : random_headline })
+        todays.insert_one({"category": cl[idx], 'link': random_link,
+                           'keyword': '\0', 'timeKeywords': '\0', 'headline': random_headline})
 
 
 # 하루단위
 def todays_keyword():
     for idx in range(len(cl)):
         frequency_keyword = []
-        frequency_dictionary = {}
         for content in collection.find({"category": cl[idx]}):
             for i in content['keyword']:
                 frequency_keyword.append(i)
         cnt = Counter(frequency_keyword[3:])
         frequency_dictionary = cnt.most_common(7)
-        # print(frequency_dictionary[4:])
-        #todays.update_one({'category' : cl[idx] }, {'$set' : {'keyword' : frequency_dictionary[4:] }})
+        todays.update_one({'category': cl[idx]}, {'$set': {'keyword': frequency_dictionary[4:]}})
 
 
 def timedict1():
@@ -57,9 +53,7 @@ def timedict3():
     return timedict
 
 # 6시간 단위
-def keyword_series():
-    global mongo_cnt
-    mongo_cnt += 1
+def keyword_series(mongo_cnt):
     keyword1 = []
     keyword_number1 = []
     keyword2 = []
@@ -74,11 +68,12 @@ def keyword_series():
         for content in collection.find({"category": cl[idx]}):
             for i in content['keyword']:
                 all_frequency_keyword.append(i)
+        print(all_frequency_keyword)
 
         today_keyword_cnt = []
         keyword_cnt = Counter(all_frequency_keyword[:]).most_common(9)
         today_keyword_cnt.append(keyword_cnt[4:])
-        #print(today_keyword_cnt)
+
         total_keyword_cnt = []
         total_cnt = Counter(all_frequency_keyword[:]).most_common(30)
         total_keyword_cnt.append(total_cnt[4:])
@@ -163,4 +158,6 @@ if __name__ == '__main__':
     cl = ['전체', '정치', '사회', '경제', '국제', '스포츠', '문화']
 
     timeKeywords = []
-    mongo_cnt = 0
+    todays_keyword()
+    keyword_series(1)
+    headline()

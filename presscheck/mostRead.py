@@ -51,14 +51,18 @@ def headline_vec():
 
 # DB의 모든 뉴스 제목들 벡터화
 def db_vec():
-    db_head = []  # DB비교용 (제목,제목벡터화,링크,이미지소스) 리스트
+    db_head = []  # DB비교용 (제목,제목벡터화값,고유id,이미지소스,카테고리,언론사,링크) 리스트
     for x in mongoDB.collected.find():
         v2 = text2vec(x['title'])
-        db_head.append([x['title'], v2, x['_id'], x['img_src'], x['category'], x['press']])
+        db_head.append([x['title'], v2, x['_id'], x['img_src'], x['category'], x['press'], x['link']])
     return db_head
 
 
-# 각 제목들을 cosine유사도 비교후 유사도가 0.90가 넘는 기사에 대한 (title,vector,id,img_src,category)리스트를 반환
+# 각 제목들을 cosine유사도 비교후 유사도가 0.90가 넘는 기사에 반환
+# 다음헤드라인뉴스[( 제목,제목벡터값,순위 )]
+# DB헤드라인뉴스[ (제목,제목벡터화값,고유id,이미지소스,카테고리,언론사,링크) ]
+# MostRead[ (제목,고유id,이미지소스,랭크,카테고리,언론사,링크) ]
+# unique [(제목,고유id,이미지소스,랭크 ,카테고리,언론사,링크 )]
 def candidate_article():
     headline = headline_vec()
     db_head = db_vec()
@@ -68,19 +72,23 @@ def candidate_article():
             cosine = get_cosine(headline[i][1], db_head[j][1])
             if cosine >= 0.9:
                 MostRead.append([db_head[j][0], db_head[j][2], db_head[j][3],
-                                 headline[i][2], db_head[j][4], db_head[j][5], cosine])
+                                 headline[i][2], db_head[j][4], db_head[j][5], db_head[j][6]])
     i = 0
     j = 0
-    temp = []
+
+    temp = []  # 링크저장용
+    unique = []  # 최종랭크기사
     for i in range(0, len(MostRead)):
-        if i not in temp:
-            temp.append(MostRead[i])
-    return temp
+        if MostRead[i][6] not in temp:
+            temp.append(MostRead[i][6])
+            unique.append([MostRead[i][0], MostRead[i][1], MostRead[i][2], MostRead[i][3], MostRead[i][4],
+                           MostRead[i][5], MostRead[i][6]])
+    return unique
 
 
 def makeDic():
     MostRead = candidate_article()
-    dic_key = ['title', 'link', 'img_src', 'rank', 'category', 'press']
+    dic_key = ['title', 'link', 'img_src', 'rank', 'category', 'press', 'url']
     rank = []  # top5리스트
     for i in range(0, len(MostRead)):
         rank.append(dict(zip(dic_key, MostRead[i])))
