@@ -45,7 +45,7 @@ def setting_targets(collection, press, category):
     return targets, targets_title, targets_press, targets_keyword
 
 
-def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyword):
+def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyword, target_title, target_press):
     def setting_similarity(standard, targets):
         # combine separated sentences to the only one sentence & setting encoding form
         def setting_encoding_form(separated_sentences_list):
@@ -109,10 +109,6 @@ def calc_similarity(origin_id, standard, targets, standard_keyword, targets_keyw
                 if not each_val['similarity'] // 1 in chk_similar:
                     chk_similar.append(each_val['similarity'] // 1)
                     real_res.append(each_val)
-
-        real_res = sorted(real_res, key=lambda x: x['ranking'])
-        for idx, each_val in enumerate(real_res):
-            each_val['ranking'] = idx
         return real_res
 
     ids = [myid for myid, mycontent in targets]
@@ -140,7 +136,7 @@ def getSimilarity():
             = setting_standard(mongoDB.collected, objId)
         target, target_title, target_press, target_keyword \
             = setting_targets(mongoDB.collected, standard_press, standard_category)
-        res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword)
+        res = calc_similarity(standard_id, standard, target, standard_keyword, target_keyword, target_title, target_press)
         mongoDB.similarity.insert_many(res)
 
 
