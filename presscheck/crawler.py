@@ -30,6 +30,7 @@ def clean_text(text):
     cleaned = re.sub('[\{\}\[\]\/?,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"▲△▽▼◁◀▷▶]', '', cleaned)
     cleaned = re.sub('[a-zA-Z]', '', cleaned)
     cleaned = cleaned.replace("사진연합뉴스", "")
+    cleaned = cleaned.replace("기사 내용", "")
     return cleaned
 
 
