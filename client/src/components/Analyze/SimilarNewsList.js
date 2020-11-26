@@ -9,15 +9,19 @@ class SimilarNewsList extends Component {
     }
 
     render() {
+        var ind = 0;
         const list = (this.props.target_info).map((info, i) => {
-            return (<SimilarNewsInfo origin_id={info.origin_id}
-                                    target_id={info.target_id}
-                                    similarity={info.similarity}
-                                    ranking={i+1}
-                                    diffKeyword={info.diffKeyword}
-                                    press={info.press}
-                                    title={info.title}       
-                    />);
+            if (info.similarity > 25) {
+                ind++;
+                return (<SimilarNewsInfo origin_id={info.origin_id}
+                                        target_id={info.target_id}
+                                        similarity={info.similarity}
+                                        ranking={ind}
+                                        diffKeyword={info.diffKeyword}
+                                        press={info.press}
+                                        title={info.title}       
+                        />);
+                }
         });
 
         return (

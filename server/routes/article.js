@@ -49,10 +49,6 @@ router.post('/table', (req, res) => {
     var category = req.body.category;
     var press = req.body.press;
     
-    console.log(req.body);
-    console.log(press);
-    console.log(category);
-    
     Article.find({ press: press, category: category })
         .exec((err, articles) => {
             if (err) return res.status(400).send(err);

@@ -110,7 +110,7 @@ class Todays extends Component {
                     <div className="today-margin">
                         <div className="today-title mid-margin">시간별 주요 키워드 추이</div>
                         <div>
-                            <KeywordChart data={timeKeywords[this.state.activeTime]} />
+                            <KeywordChart data={timeKeywords[3]} />
                             <div className="chart-right">
                                 <TimeKeyword data={timeKeywords} func={this.timeClickHandler} />
                             </div>
