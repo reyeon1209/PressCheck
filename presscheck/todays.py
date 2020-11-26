@@ -136,8 +136,8 @@ def keyword_series(mongo_cnt):
             timeKeywords.append(timedict)
             timedict = {'title': '6시~12시', 'keyword': keyword2, 'keywordFreq': keyword_number2}
             timeKeywords.append(timedict)
-            timeKeywords.append(timedict2)
-            timeKeywords.append(timedict3)
+            timeKeywords.append(timedict2())
+            timeKeywords.append(timedict3())
         if mongo_cnt == 3:
             timedict = {'title': '0시~6시', 'keyword': keyword1, 'keywordFreq': keyword_number1}
             timeKeywords.append(timedict)
@@ -145,8 +145,7 @@ def keyword_series(mongo_cnt):
             timeKeywords.append(timedict)
             timedict = {'title': '12시~18시', 'keyword': keyword3, 'keywordFreq': keyword_number3}
             timeKeywords.append(timedict)
-            timeKeywords.append(timedict2)
-            timeKeywords.append(timedict3)
+            timeKeywords.append(timedict3())
         if mongo_cnt == 4:
             timedict = {'title': '0시~6시', 'keyword': keyword1, 'keywordFreq': keyword_number1}
             timeKeywords.append(timedict)
@@ -156,9 +155,8 @@ def keyword_series(mongo_cnt):
             timeKeywords.append(timedict)
             timedict =  {'title': '18시~24시', 'keyword': keyword4, 'keywordFreq': keyword_number4}
             timeKeywords.append(timedict)
-     
-        mongoDB.todays.update_one({"category": cl[idx]}, {'$set': {'timeKeywords': timeKeywords}})
 
+        mongoDB.todays.update_one({"category": cl[idx]}, {'$set': {'timeKeywords': timeKeywords}})
 
 
 if __name__ == '__main__':
