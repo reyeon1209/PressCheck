@@ -45,44 +45,19 @@ router.post('/analyze', (req, res) => {
 
 });
 
-router.get('/searchAddr', (req, res) => {
-    /*http.get({url: 'http://localhost:1818/mostRead/getLink'})
-    .then(response => {
-        res.status(200).json(response)
-    })*/
-    let target_links_list;
-
-    axios.get('http://localhost:1818/mostRead/getLink')
-        .then(function (response) {
-            // target_links = Object.keys(response.data);
-            // console.log(response.data);
-            let target_links = [];
-            target_links = response.data.map(ind => {
-                return ind['link'];
-            })
-            console.log(target_links);
-
-        })
-        .catch(function(err) {
-            console.log(err);
-        })
-})
-
-router.post('/press', (req, res) => {
+router.post('/table', (req, res) => {
+    var category = req.body.category;
     var press = req.body.press;
-    switch (press) {
-        case 'hankyoreh': press = '한겨레'; break;
-        case 'jungang': press = '중앙'; break;
-        case 'donga': press = '동아'; break;
-        case 'kukmin': press = '국민'; break;
-        case 'yeonhap': press = '연합'; break;
-    }
     
-    Article.find({ press: press })
+    console.log(req.body);
+    console.log(press);
+    console.log(category);
+    
+    Article.find({ press: press, category: category })
         .exec((err, articles) => {
             if (err) return res.status(400).send(err);
             res.status(200).json(articles);
         })
-})
+});
 
 module.exports = router;

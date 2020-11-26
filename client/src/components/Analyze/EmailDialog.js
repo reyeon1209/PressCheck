@@ -1,4 +1,5 @@
-import React , { Component }from 'react'
+import React , { Component } from 'react';
+import Axios from 'axios';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -27,13 +28,15 @@ class EmailDialog extends Component {
 
     handleFormSubmit(e) {
         e.preventDefault();
-        
-        console.log(this.state.Email);
 
-        this.setState({
-            Email: '',
-            open: false
-        })
+        const variable = { email: this.state.Email }
+        Axios.post('http://localhost:1818/mailer', variable)
+            .then(response => { 
+                this.setState({
+                    Email: '',
+                    open: false
+                })
+            });
     }
 
     handleValueChange(e) {
