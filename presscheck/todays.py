@@ -44,7 +44,6 @@ def timedict1():
     timedict = {'title': '6시~12시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
-
 def timedict2():
     timedict = {'title': '12시~18시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
@@ -54,24 +53,33 @@ def timedict3():
     timedict = {'title': '18시~24시', 'keyword': [0, 0, 0, 0, 0], 'keywordFreq': [0, 0, 0, 0, 0]}
     return timedict
 
+keyword1 = []
+keyword_number1 = []
+keyword2 = []
+keyword_number2 = []
+keyword3 = []
+keyword_number3 = []
+keyword4 = []
+keyword_number4 = []
+
 # 6시간 단위
 def keyword_series(mongo_cnt):
-    keyword1 = []
-    keyword_number1 = []
-    keyword2 = []
-    keyword_number2 = []
-    keyword3 = []
-    keyword_number3 = []
-    keyword4 = []
-    keyword_number4 = []
+    global keyword1 
+    global keyword_number1     
+    global keyword2    
+    global keyword_number2   
+    global keyword3    
+    global keyword_number3    
+    global keyword4   
+    global keyword_number4 
+  
 
     for idx in range(len(cl)):
         all_frequency_keyword = []
         for content in collection.find({"category": cl[idx]}):
             for i in content['keyword']:
                 all_frequency_keyword.append(i)
-        print(all_frequency_keyword)
-
+        
         today_keyword_cnt = []
         keyword_cnt = Counter(all_frequency_keyword[:]).most_common(9)
         today_keyword_cnt.append(keyword_cnt[4:])
@@ -148,8 +156,9 @@ def keyword_series(mongo_cnt):
             timeKeywords.append(timedict)
             timedict =  {'title': '18시~24시', 'keyword': keyword4, 'keywordFreq': keyword_number4}
             timeKeywords.append(timedict)
-        print(timeKeywords)
+     
         mongoDB.todays.update_one({"category": cl[idx]}, {'$set': {'timeKeywords': timeKeywords}})
+
 
 
 if __name__ == '__main__':
