@@ -38,98 +38,28 @@ class News extends Component {
             ],
             table: [
                 {
-                    isAll: true,
-                    isPolitics: false,
-                    isSociety: false,
-                    isEconomy: false,
-                    isInternation: false,
-                    isSports: false,
-                    isCulture: false,
-                    currentPress: 'jungang',
+                    currentCategory: '전체',
+                    currentPress: 'jungang'
                 }
             ]
         };
 
-        this.categoryAllClickHandler = this.categoryAllClickHandler.bind(this);
-        this.categoryPoliticsClickHandler = this.categoryPoliticsClickHandler.bind(this);
-        this.categorySocietyClickHandler = this.categorySocietyClickHandler.bind(this);
-        this.categoryEconomyClickHandler = this.categoryEconomyClickHandler.bind(this);
-        this.categoryInternationClickHandler = this.categoryInternationClickHandler.bind(this);
-        this.categorySportsClickHandler = this.categorySportsClickHandler.bind(this);
-        this.categoryCultureClickHandler = this.categoryCultureClickHandler.bind(this);
-        this.pressClickHandler = this.pressClickHandler.bind(this);
+        this.tableClickHandler = this.tableClickHandler.bind(this);
     }
 
-    categoryAllClickHandler = async () => {
-        const data = await Axios.get('http://localhost:1818/article');
-
-        this.setState(initialState => ({
-            information: data.data,
-            isAll: true,
-            isPolitics: false,
-            isSociety: false,
-            isEconomy: false,
-            isInternation: false,
-            isSports: false,
-            isCulture: false
-        }));
-    }
-
-    pressClickHandler = async (press) => {
-        const variable = { press: press }
-        const data = await Axios.post('http://localhost:1818/article/press', variable);
+    tableClickHandler = async (category, press) => {
+        const variable = { category: category, press: press }
+        const data = await Axios.post('http://localhost:1818/article/table', variable);
 
         this.setState({
             information: data.data,
+            currentCategory: category,
             currentPress: press
         });
     }
 
-    categoryPoliticsClickHandler = async () => {
-        this.setState(initialState => ({
-            isAll: false,
-            isPolitics: !initialState.isPolitics
-        }));
-    }
-
-    categorySocietyClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isSociety: !initialState.isSociety
-        }));
-    }
-
-    categoryEconomyClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isEconomy: !initialState.isEconomy
-        }));
-    }
-
-    categoryInternationClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isInternation: !initialState.isInternation
-        }));
-    }
-
-    categorySportsClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isSports: !initialState.isSports
-        }));
-    }
-
-    categoryCultureClickHandler() {
-        this.setState(initialState => ({
-            isAll: false,
-            isCulture: !initialState.isCulture
-        }));
-    }
-
     componentDidMount() {
-        this.categoryAllClickHandler();
-        this.pressClickHandler('jungang');
+        this.tableClickHandler('전체', '중앙');
     }
 
     render() {
@@ -141,32 +71,32 @@ class News extends Component {
                         <th className="table-content-title">카테고리</th>
                         <th className="table-content-content">
                             <input type="checkbox"
-                                checked={this.state.isAll}
-                                onChange={this.categoryAllClickHandler}
+                                checked={this.state.currentCategory == '전체' ? true : false}
+                                onChange={() => this.tableClickHandler('전체', this.state.currentPress)}
                             /> 전체
                             <input type="checkbox"
-                                checked={this.state.isPolitics}
-                                onChange={this.categoryPoliticsClickHandler}
+                                checked={this.state.currentCategory == '정치' ? true : false}
+                                onChange={() => this.tableClickHandler('정치', this.state.currentPress)}
                             /> 정치
                             <input type="checkbox"
-                                checked={this.state.isSociety}
-                                onChange={this.categorySocietyClickHandler}
+                                checked={this.state.currentCategory == '사회' ? true : false}
+                                onChange={() => this.tableClickHandler('사회', this.state.currentPress)}
                             /> 사회
                             <input type="checkbox"
-                                checked={this.state.isEconomy}
-                                onChange={this.categoryEconomyClickHandler}
+                                checked={this.state.currentCategory == '경제' ? true : false}
+                                onChange={() => this.tableClickHandler('경제', this.state.currentPress)}
                             /> 경제
                             <input type="checkbox"
-                                checked={this.state.isInternation}
-                                onChange={this.categoryInternationClickHandler}
+                                checked={this.state.currentCategory == '국제' ? true : false}
+                                onChange={() => this.tableClickHandler('국제', this.state.currentPress)}
                             /> 국제
                             <input type="checkbox"
-                                checked={this.state.isSports}
-                                onChange={this.categorySportsClickHandler}
+                                checked={this.state.currentCategory == '스포츠' ? true : false}
+                                onChange={() => this.tableClickHandler('스포츠', this.state.currentPress)}
                             /> 스포츠
                             <input type="checkbox"
-                                checked={this.state.isCulture}
-                                onChange={this.categoryCultureClickHandler}
+                                checked={this.state.currentCategory == '문화' ? true : false}
+                                onChange={() => this.tableClickHandler('문화', this.state.currentPress)}
                             /> 문화
                         </th>
                     </tr>
@@ -174,13 +104,13 @@ class News extends Component {
                         <th className="table-content-title">언론사</th>
                         <th className="table-content-content">
                             <div className='button-press'>
-                                <button><img src={this.state.currentPress == 'jungang' ? JungangClick : Jungang} alt="jungang" onClick={() => this.pressClickHandler("jungang")} value="jungang"/></button>
-                                <button><img src={this.state.currentPress == 'hankyoreh' ? HankyorehClick : Hankyoreh} alt="hankyoreh" onClick={() => this.pressClickHandler("hankyoreh")} value="hankyoreh"/></button>
-                                <button><img src={this.state.currentPress == 'donga' ? DongaClick : Donga} alt="donga" onClick={() => this.pressClickHandler("donga")} value="donga"/></button>
-                                <button><img src={this.state.currentPress == 'kbs' ? KBSClick : KBS} alt="kbs" onClick={() => this.pressClickHandler("kbs")} value="kbs" /></button>
-                                <button><img src={this.state.currentPress == 'sbs' ? SBSClick : SBS} alt="sbs" onClick={() => this.pressClickHandler("sbs")} value="sbs" /></button>
-                                <button><img src={this.state.currentPress == 'kukmin' ? KukminClick : Kukmin} alt="kukmin" onClick={() => this.pressClickHandler("kukmin")} value="kukmin" /></button>
-                                <button><img src={this.state.currentPress == 'yeonhap' ? YeonhapClick : Yeonhap} alt="yeonhap" onClick={() => this.pressClickHandler("yeonhap")} value="yeonhap" /></button>
+                                <button><img src={this.state.currentPress == '중앙' ? JungangClick : Jungang} alt="jungang" onClick={() => this.tableClickHandler(this.state.currentCategory, '중앙')} value="jungang"/></button>
+                                <button><img src={this.state.currentPress == '한겨레' ? HankyorehClick : Hankyoreh} alt="hankyoreh" onClick={() => this.tableClickHandler(this.state.currentCategory, '한겨레')} value="hankyoreh"/></button>
+                                <button><img src={this.state.currentPress == '동아' ? DongaClick : Donga} alt="donga" onClick={() => this.tableClickHandler(this.state.currentCategory, '동아')} value="donga"/></button>
+                                <button><img src={this.state.currentPress == 'kbs' ? KBSClick : KBS} alt="kbs" onClick={() => this.tableClickHandler(this.state.currentCategory, 'kbs')} value="kbs" /></button>
+                                <button><img src={this.state.currentPress == 'sbs' ? SBSClick : SBS} alt="sbs" onClick={() => this.tableClickHandler(this.state.currentCategory, 'sbs')} value="sbs" /></button>
+                                <button><img src={this.state.currentPress == '국민' ? KukminClick : Kukmin} alt="kukmin" onClick={() => this.tableClickHandler(this.state.currentCategory, '국민')} value="kukmin" /></button>
+                                <button><img src={this.state.currentPress == '연합' ? YeonhapClick : Yeonhap} alt="yeonhap" onClick={() => this.tableClickHandler(this.state.currentCategory, '연합')} value="yeonhap" /></button>
                             </div>
                         </th>
                     </tr>
