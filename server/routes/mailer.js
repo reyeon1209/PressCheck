@@ -11,7 +11,7 @@ router.post("/", (req, res) => {
         port: 465,
         auth: {
             user: 'test1smtp5858@gmail.com',  // gmail 계정 아이디를 입력
-            pass: 'test5858!'                 // gmail 계정의 비밀번호를 입력
+            pass: ''                 // gmail 계정의 비밀번호를 입력
         }   
     });
 
