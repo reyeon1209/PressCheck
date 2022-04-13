@@ -81,10 +81,10 @@
 - [**@reyeon1209**](https://github.com/reyeon1209)   
 - <reyeon5368@naver.com>   
 
-**김경남**
+** 김루비 **
 
-- [**@kimkyeongnam**](https://github.com/kimkyeongnam)   
-- <devokkn@gmail.com>
+- [**@ruby-kim**](https://github.com/ruby-kim)   
+- <dev.rubykim@gmail.com>
 
 **한기인**
 
