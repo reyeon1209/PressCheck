@@ -81,7 +81,7 @@
 - [**@reyeon1209**](https://github.com/reyeon1209)   
 - <reyeon5368@naver.com>   
 
-** 김루비 **
+**김루비**
 
 - [**@ruby-kim**](https://github.com/ruby-kim)   
 - <dev.rubykim@gmail.com>
