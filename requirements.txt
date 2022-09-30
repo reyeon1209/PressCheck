@@ -30,7 +30,7 @@ idna==2.10
 importlib-metadata==3.1.0
 intel-openmp==2019.0
 jieba==0.42.1
-joblib==0.17.0
+joblib==1.2.0
 JPype1==1.1.2
 Keras-Applications==1.0.8
 Keras-Preprocessing==1.1.2
